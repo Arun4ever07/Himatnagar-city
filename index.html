@@ -6,7 +6,7 @@
 
   <meta
     name="description"
-    content="Discover Himatnagar — history, culture, places, news, and city information."
+    content="Discover Himatnagar — culture, places, history, creators, and city information."
   />
 
   <title>Himatnagar | City Guide</title>
@@ -49,7 +49,8 @@
       overflow: hidden;
     }
 
-    img {
+    img,
+    video {
       display: block;
       max-width: 100%;
     }
@@ -98,9 +99,7 @@
       line-height: 1.75;
     }
 
-    /* =========================
-       Navigation
-    ========================= */
+    /* Navigation */
 
     .navbar {
       position: sticky;
@@ -123,16 +122,15 @@
       font-family: var(--serif);
       font-size: 1.35rem;
       font-weight: bold;
-      letter-spacing: 0.2px;
       white-space: nowrap;
     }
 
     .nav-links {
       display: flex;
-      gap: 18px;
+      gap: 17px;
       align-items: center;
       color: #e8edf0;
-      font-size: 0.8rem;
+      font-size: 0.79rem;
       font-weight: bold;
     }
 
@@ -157,9 +155,7 @@
       font-size: 1.25rem;
     }
 
-    /* =========================
-       Banner
-    ========================= */
+    /* Banner */
 
     .hero {
       position: relative;
@@ -170,14 +166,12 @@
       position: relative;
       overflow: visible;
       background: var(--navy);
+      --banner-image: url("https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1800&q=85");
     }
 
-    /*
-      Desktop:
-      Full original image is visible.
-      No image stretching.
-    */
     .hero-image {
+      position: relative;
+      z-index: 1;
       width: 100%;
       height: auto;
       max-width: 100%;
@@ -188,9 +182,8 @@
     .hero-overlay {
       position: absolute;
       inset: 0;
-      z-index: 1;
+      z-index: 2;
       pointer-events: none;
-
       background:
         linear-gradient(
           90deg,
@@ -204,7 +197,7 @@
     .hero-content {
       position: absolute;
       inset: 0;
-      z-index: 2;
+      z-index: 3;
       display: flex;
       align-items: center;
       pointer-events: none;
@@ -246,7 +239,7 @@
       line-height: 1.65;
     }
 
-    /* City logo */
+    /* Logo */
 
     .city-logo-wrap {
       position: absolute;
@@ -273,9 +266,7 @@
       background: #ece7dc;
     }
 
-    /* =========================
-       Buttons Under Banner
-    ========================= */
+    /* Buttons */
 
     .action-strip {
       padding: 19px 0 18px;
@@ -327,9 +318,7 @@
       transform: translateY(-2px);
     }
 
-    /* =========================
-       About
-    ========================= */
+    /* About */
 
     .overview {
       padding: 52px 0 70px;
@@ -390,9 +379,7 @@
       line-height: 1.65;
     }
 
-    /* =========================
-       Statistics
-    ========================= */
+    /* Statistics */
 
     .stats-section {
       padding: 0 0 72px;
@@ -430,9 +417,7 @@
       font-weight: bold;
     }
 
-    /* =========================
-       News
-    ========================= */
+    /* News */
 
     .news-section {
       border-top: 1px solid var(--border);
@@ -475,9 +460,7 @@
       line-height: 1.7;
     }
 
-    /* =========================
-       History
-    ========================= */
+    /* History */
 
     .history-grid {
       display: grid;
@@ -543,9 +526,7 @@
       line-height: 1.7;
     }
 
-    /* =========================
-       Government Services
-    ========================= */
+    /* Services */
 
     .services-section {
       border-top: 1px solid var(--border);
@@ -589,9 +570,7 @@
       line-height: 1.65;
     }
 
-    /* =========================
-       Highlights
-    ========================= */
+    /* Highlights */
 
     .highlights-grid {
       display: grid;
@@ -637,22 +616,10 @@
       white-space: pre-line;
     }
 
-    .empty-message {
-      grid-column: 1 / -1;
-      padding: 35px 20px;
-      color: var(--muted);
-      border: 1px dashed var(--border-dark);
-      background: rgba(255, 253, 248, 0.65);
-      text-align: center;
-      line-height: 1.6;
-    }
-
-    /* =========================
-       Creators
-    ========================= */
+    /* Creators */
 
     .creators-section {
-      border-top: 1px solid var(--border);
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
       background: var(--navy);
     }
 
@@ -665,44 +632,104 @@
     }
 
     .creators-section .section-heading p {
-      color: #cfdae1;
+      color: #d2dfe6;
+    }
+
+    .creators-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
     }
 
     .creator-card {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      padding: 25px;
-      color: white;
+      overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.07);
     }
 
-    .creator-avatar {
-      display: grid;
-      flex-shrink: 0;
-      width: 74px;
-      height: 74px;
-      place-items: center;
+    .creator-media {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      background: #102a3c;
+    }
+
+    .creator-video {
+      width: 100%;
+      height: 230px;
+      background: #0c1d2a;
+      object-fit: cover;
+    }
+
+    .creator-content {
+      padding: 20px;
+    }
+
+    .creator-type {
+      display: inline-block;
+      margin-bottom: 9px;
+      color: #ffbc84;
+      font-size: 0.72rem;
+      font-weight: bold;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .creator-content h3 {
+      margin: 0 0 5px;
       color: white;
-      border: 3px solid #f1a66c;
-      border-radius: 50%;
-      background: var(--primary);
       font-family: var(--serif);
       font-size: 1.35rem;
+    }
+
+    .creator-name {
+      display: block;
+      margin-bottom: 10px;
+      color: #f1c398;
+      font-size: 0.86rem;
       font-weight: bold;
     }
 
-    .creator-card h3 {
-      margin: 0 0 7px;
-      color: white;
-      font-family: var(--serif);
-      font-size: 1.4rem;
+    .creator-content p {
+      margin: 0;
+      color: #d2dfe6;
+      font-size: 0.9rem;
+      line-height: 1.65;
+      white-space: pre-line;
     }
 
-    .creator-card p {
-      margin: 0;
-      color: #d4e0e7;
+    .source-link {
+      display: inline-flex;
+      margin-top: 16px;
+      padding-bottom: 3px;
+      color: white;
+      border-bottom: 1px solid #f1a66c;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    .source-link:hover {
+      color: #ffd2ad;
+    }
+
+    /* Empty states */
+
+    .empty-message {
+      grid-column: 1 / -1;
+      padding: 35px 20px;
+      color: var(--muted);
+      border: 1px dashed var(--border-dark);
+      background: rgba(255, 253, 248, 0.65);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .creator-empty-message {
+      grid-column: 1 / -1;
+      padding: 34px 20px;
+      color: #d2dfe6;
+      border: 1px dashed rgba(255, 255, 255, 0.35);
+      text-align: center;
       line-height: 1.7;
     }
 
@@ -733,14 +760,12 @@
       font-size: 1rem;
     }
 
-    /* =========================
-       Tablet
-    ========================= */
+    /* Tablet */
 
     @media (max-width: 980px) {
       .nav-links {
-        gap: 13px;
-        font-size: 0.75rem;
+        gap: 12px;
+        font-size: 0.74rem;
       }
 
       .hero-text {
@@ -766,15 +791,21 @@
       .services-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+
+      .creators-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
-    /* =========================
-       Mobile
-    ========================= */
+    /* Mobile */
 
     @media (max-width: 720px) {
       body.menu-open .mobile-menu {
         display: block;
+      }
+
+      .container {
+        width: min(100% - 28px, 1140px);
       }
 
       .nav-content {
@@ -810,14 +841,40 @@
       }
 
       /*
-        Mobile banner is tall and professional.
-        cover fills the whole mobile banner.
-        The image will not become a thin strip.
+        Mobile Banner Fix:
+
+        The complete collage is shown with contain.
+        A soft enlarged version of the same image fills
+        behind it, so there is no empty or ugly gap.
       */
+      .banner-visual {
+        height: 250px;
+        background-image: var(--banner-image);
+        background-position: center;
+        background-size: cover;
+      }
+
+      .banner-visual::before {
+        position: absolute;
+        inset: -16px;
+        z-index: 0;
+        content: "";
+
+        background-image: var(--banner-image);
+        background-position: center;
+        background-size: cover;
+
+        filter: blur(10px);
+        opacity: 0.55;
+        transform: scale(1.08);
+      }
+
       .hero-image {
+        position: relative;
+        z-index: 1;
         width: 100%;
-        height: 255px;
-        object-fit: cover;
+        height: 250px;
+        object-fit: contain;
         object-position: center;
       }
 
@@ -826,8 +883,8 @@
           linear-gradient(
             0deg,
             rgba(16, 38, 54, 0.94) 0%,
-            rgba(16, 38, 54, 0.72) 38%,
-            rgba(16, 38, 54, 0.12) 100%
+            rgba(16, 38, 54, 0.64) 36%,
+            rgba(16, 38, 54, 0.08) 100%
           );
       }
 
@@ -838,7 +895,7 @@
       .hero-text {
         width: 100%;
         margin-left: 0;
-        padding: 24px 0 23px;
+        padding: 22px 0 22px;
       }
 
       .city-label {
@@ -847,14 +904,14 @@
       }
 
       .hero h1 {
-        margin: 9px 0 7px;
-        font-size: 2.45rem;
+        margin: 8px 0 7px;
+        font-size: 2.4rem;
         letter-spacing: -1px;
       }
 
       .hero-description {
-        max-width: 520px;
-        font-size: 0.9rem;
+        max-width: 510px;
+        font-size: 0.89rem;
         line-height: 1.55;
       }
 
@@ -889,10 +946,6 @@
         padding-top: 38px;
       }
 
-      .section-heading {
-        margin-bottom: 23px;
-      }
-
       .about-main,
       .quote-box {
         padding: 22px;
@@ -904,13 +957,14 @@
 
       .news-grid,
       .services-grid,
-      .highlights-grid {
+      .highlights-grid,
+      .creators-grid {
         grid-template-columns: 1fr;
       }
 
-      .creator-card {
-        align-items: flex-start;
-        flex-direction: column;
+      .creator-media,
+      .creator-video {
+        height: 245px;
       }
 
       .footer-content {
@@ -924,8 +978,9 @@
     }
 
     @media (max-width: 390px) {
+      .banner-visual,
       .hero-image {
-        height: 235px;
+        height: 225px;
       }
 
       .hero-buttons {
@@ -939,6 +994,10 @@
 
       .button {
         flex: 1;
+      }
+
+      .hero h1 {
+        font-size: 2.15rem;
       }
     }
   </style>
@@ -986,9 +1045,9 @@
     </div>
   </nav>
 
-  <!-- Hero Banner -->
+  <!-- Banner -->
   <header class="hero" id="home">
-    <div class="banner-visual">
+    <div id="bannerVisual" class="banner-visual">
       <img
         id="heroImage"
         class="hero-image"
@@ -1017,14 +1076,14 @@
         <img
           id="cityLogo"
           class="city-logo"
-          src="https://placehold.co/400x400/b45a1a/ffffff?text=HN"
+          src="https://placehold.co/400x400/b65b1b/ffffff?text=HN"
           alt="Himatnagar city logo"
         />
       </div>
     </div>
   </header>
 
-  <!-- Banner Buttons -->
+  <!-- Buttons -->
   <section class="action-strip">
     <div class="container">
       <div class="hero-buttons">
@@ -1111,42 +1170,36 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
           <h2>Himatnagar News</h2>
 
           <p>
-            Use this area for local announcements, city events, community
-            updates, celebrations, road notices, and important public messages.
+            Use this section for local announcements, community updates,
+            cultural events, city notices, and important information.
           </p>
         </div>
 
         <div class="news-grid">
           <article class="news-card">
-            <span class="news-date">City Update</span>
-
-            <h3>Community announcements</h3>
-
+            <span class="news-date">Community</span>
+            <h3>Local announcements</h3>
             <p>
-              Add notices about local activities, public meetings, cultural
-              events, and important updates for residents.
+              Add information about local activities, meetings, celebrations,
+              and community-focused programs.
             </p>
           </article>
 
           <article class="news-card">
             <span class="news-date">Events</span>
-
-            <h3>Festivals and celebrations</h3>
-
+            <h3>Festivals and programs</h3>
             <p>
-              Share information about upcoming city events, school programs,
-              exhibitions, fairs, and community celebrations.
+              Share upcoming events, fairs, exhibitions, educational programs,
+              and cultural celebrations.
             </p>
           </article>
 
           <article class="news-card">
-            <span class="news-date">Information</span>
-
-            <h3>Public notices</h3>
-
+            <span class="news-date">Notice</span>
+            <h3>Public information</h3>
             <p>
-              Create a useful section for official links, public notices,
-              citizen information, and important contact details.
+              Add verified public information, useful links, official notices,
+              and city-related updates.
             </p>
           </article>
         </div>
@@ -1162,8 +1215,8 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
           <h2>History of Himatnagar</h2>
 
           <p>
-            This section can grow into a timeline of local history, heritage
-            places, important personalities, and memories of Himatnagar.
+            Build this area into a rich timeline of local heritage, memorable
+            places, traditions, and important stories.
           </p>
         </div>
 
@@ -1172,9 +1225,8 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
             <h3>Tell the city story</h3>
 
             <p>
-              Every city has stories that deserve to be preserved. Add trusted
-              local history, photographs, landmarks, traditions, and important
-              moments through your future admin panel updates.
+              Preserve the stories of Himatnagar through photographs, local
+              memories, historic places, traditions, and positive future ideas.
             </p>
           </div>
 
@@ -1183,8 +1235,8 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
               <h3>Heritage and culture</h3>
 
               <p>
-                Add information about the traditions, communities, historic
-                structures, and cultural identity of Himatnagar.
+                Add trusted information about the culture, heritage, traditions,
+                communities, and identity of Himatnagar.
               </p>
             </article>
 
@@ -1192,8 +1244,8 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
               <h3>Growth and development</h3>
 
               <p>
-                Share how the city has developed through education, transport,
-                businesses, public services, and local opportunities.
+                Share stories of growth through education, transport, businesses,
+                technology, public spaces, and city opportunities.
               </p>
             </article>
 
@@ -1201,8 +1253,8 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
               <h3>Future vision</h3>
 
               <p>
-                Build a positive future-focused section showing ideas for a
-                cleaner, more connected, and more welcoming Himatnagar.
+                Create a positive vision for a cleaner, stronger, more connected,
+                and welcoming Himatnagar.
               </p>
             </article>
           </div>
@@ -1219,54 +1271,45 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
           <h2>Government Services</h2>
 
           <p>
-            Add verified links, directories, forms, service information, and
-            official contact details here. Do not publish unverified emergency
-            numbers or personal information.
+            Add verified official links, service guidance, forms, public
+            information, and citizen-support details in your future admin panel.
           </p>
         </div>
 
         <div class="services-grid">
           <article class="service-card">
             <span class="service-number">01</span>
-
             <h3>Citizen Services</h3>
-
             <p>
-              Add information for municipal services, documents, local offices,
-              certificates, and citizen support.
+              Add municipal information, documents, certificates, public
+              offices, and citizen support details.
             </p>
           </article>
 
           <article class="service-card">
             <span class="service-number">02</span>
-
             <h3>Education</h3>
-
             <p>
-              Add school, college, library, scholarship, training, and youth
-              opportunity information.
+              Add useful school, college, library, scholarship, training, and
+              youth opportunity information.
             </p>
           </article>
 
           <article class="service-card">
             <span class="service-number">03</span>
-
             <h3>Health and Support</h3>
-
             <p>
-              Add verified health resources, hospital links, awareness programs,
-              and public support information.
+              Add verified health resources, public-awareness programs, and
+              useful support information.
             </p>
           </article>
 
           <article class="service-card">
             <span class="service-number">04</span>
-
             <h3>Travel and Transport</h3>
-
             <p>
-              Add travel guidance, railway, bus, road, parking, and visitor
-              information for Himatnagar.
+              Add visitor guidance, travel routes, parking, railway, bus, and
+              transport information.
             </p>
           </article>
         </div>
@@ -1282,8 +1325,8 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
           <h2>City Highlights</h2>
 
           <p>
-            Important places, services, culture, memories, and stories from
-            Himatnagar. These cards are controlled through Firebase Admin.
+            Places, food, events, culture, services, and stories managed through
+            your Firebase Admin Panel.
           </p>
         </div>
 
@@ -1302,25 +1345,19 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
         <div class="section-heading">
           <span class="eyebrow">Built With Pride</span>
 
-          <h2>Creators</h2>
+          <h2>Himatnagar Creators</h2>
 
           <p>
-            A city platform grows when local people share ideas, photographs,
-            history, useful information, and pride for their hometown.
+            A space to proudly promote local creators, photographers,
+            influencers, artists, videographers, businesses, and community talent.
           </p>
         </div>
 
-        <div class="creator-card">
-          <div class="creator-avatar">HN</div>
-
-          <div>
-            <h3>Himatnagar City Project</h3>
-
-            <p>
-              Created with care for Himatnagar. This website can become a place
-              to share city culture, tourism, public information, local
-              creativity, memories, and community updates.
-            </p>
+        <div class="creators-grid" id="creatorsGrid">
+          <div class="creator-empty-message">
+            No creator profiles have been added yet.<br />
+            Use the updated Admin Panel to add photos, GIFs, MP4 videos,
+            source links, descriptions, and creator details.
           </div>
         </div>
       </div>
@@ -1341,7 +1378,6 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
     </div>
   </footer>
 
-  <!-- Firebase Realtime Database -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 
@@ -1355,8 +1391,7 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
       apiKey: "AIzaSyAlJ8KhAoWLz5snMA_QQs_t6PRd8l1Km1s",
 
       /*
-        Do not change Firebase IDs.
-        These values connect to your current Firebase project.
+        Do not change these Firebase project values.
       */
       authDomain: "himmatnagar-city.firebaseapp.com",
       projectId: "himmatnagar-city",
@@ -1376,6 +1411,14 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
     const websiteRef = ref(database, "website");
     const highlightsRef = ref(database, "highlights");
 
+    /*
+      New creators database location.
+
+      Your future admin panel will save creator cards here:
+      /creators/{creatorId}
+    */
+    const creatorsRef = ref(database, "creators");
+
     const defaultData = {
       cityName: "Himatnagar",
 
@@ -1383,7 +1426,7 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
         "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1800&q=85",
 
       logoUrl:
-        "https://placehold.co/400x400/b45a1a/ffffff?text=HN",
+        "https://placehold.co/400x400/b65b1b/ffffff?text=HN",
 
       heroText:
         "Welcome to Himatnagar — a city of heritage, community, opportunity, and pride.",
@@ -1436,12 +1479,29 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
 
     function setHeroBanner(imageUrl, cityName) {
       const heroImage = document.getElementById("heroImage");
+      const bannerVisual = document.getElementById("bannerVisual");
 
-      heroImage.src = imageUrl || defaultData.bannerUrl;
+      const safeUrl = imageUrl || defaultData.bannerUrl;
+
+      heroImage.src = safeUrl;
       heroImage.alt = `${cityName || "Himatnagar"} city banner`;
+
+      /*
+        This same banner image is used as the mobile background.
+        It fills the full mobile banner behind the complete collage.
+      */
+      bannerVisual.style.setProperty(
+        "--banner-image",
+        `url("${safeUrl}")`
+      );
 
       heroImage.onerror = function () {
         this.src = defaultData.bannerUrl;
+
+        bannerVisual.style.setProperty(
+          "--banner-image",
+          `url("${defaultData.bannerUrl}")`
+        );
       };
     }
 
@@ -1515,6 +1575,112 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
         .join("");
     }
 
+    function isVideo(creator) {
+      const mediaUrl = String(creator.mediaUrl || "").toLowerCase();
+
+      return (
+        creator.mediaType === "video" ||
+        mediaUrl.includes(".mp4") ||
+        mediaUrl.includes(".webm") ||
+        mediaUrl.includes(".mov")
+      );
+    }
+
+    function renderCreators(creators) {
+      const creatorsGrid = document.getElementById("creatorsGrid");
+
+      if (!creators.length) {
+        creatorsGrid.innerHTML = `
+          <div class="creator-empty-message">
+            No creator profiles have been added yet.<br />
+            Use the updated Admin Panel to add photos, GIFs, MP4 videos,
+            source links, descriptions, and creator details.
+          </div>
+        `;
+
+        return;
+      }
+
+      creatorsGrid.innerHTML = creators
+        .map((creator) => {
+          const title = creator.title || "Local Creator";
+          const creatorName = creator.creatorName || "Himatnagar Creator";
+          const description =
+            creator.description ||
+            "This local creator is proudly featured on the Himatnagar City website.";
+
+          const mediaUrl = creator.mediaUrl || "";
+          const sourceUrl = creator.sourceUrl || "";
+          const mediaType = creator.mediaType || "photo";
+
+          let mediaHTML = `
+            <div
+              class="creator-media"
+              style="display: grid; place-items: center; color: #d2dfe6; padding: 20px; text-align: center;"
+            >
+              Creator media will appear here
+            </div>
+          `;
+
+          if (mediaUrl && isVideo(creator)) {
+            mediaHTML = `
+              <video
+                class="creator-video"
+                controls
+                preload="metadata"
+                playsinline
+              >
+                <source src="${escapeHTML(mediaUrl)}" type="video/mp4" />
+                Your browser does not support video playback.
+              </video>
+            `;
+          } else if (mediaUrl) {
+            mediaHTML = `
+              <img
+                class="creator-media"
+                src="${escapeHTML(mediaUrl)}"
+                alt="${escapeHTML(title)}"
+                onerror="this.style.display='none';"
+              />
+            `;
+          }
+
+          const sourceButton = sourceUrl
+            ? `
+              <a
+                class="source-link"
+                href="${escapeHTML(sourceUrl)}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View source / profile ↗
+              </a>
+            `
+            : "";
+
+          return `
+            <article class="creator-card">
+              ${mediaHTML}
+
+              <div class="creator-content">
+                <span class="creator-type">${escapeHTML(mediaType)}</span>
+
+                <h3>${escapeHTML(title)}</h3>
+
+                <span class="creator-name">
+                  By ${escapeHTML(creatorName)}
+                </span>
+
+                <p>${escapeHTML(description)}</p>
+
+                ${sourceButton}
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+    }
+
     function renderWebsite(data) {
       const websiteData = {
         ...defaultData,
@@ -1540,6 +1706,8 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
       renderStats(websiteData.stats);
     }
 
+    /* Website information */
+
     onValue(
       websiteRef,
       (snapshot) => {
@@ -1550,6 +1718,8 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
         renderWebsite(defaultData);
       }
     );
+
+    /* City highlight cards */
 
     onValue(
       highlightsRef,
@@ -1571,6 +1741,45 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
       }
     );
 
+    /*
+      Creator profiles / media cards
+
+      Required future Firebase format:
+
+      creators: {
+        creatorId: {
+          creatorName: "Creator name",
+          title: "Photographer / Influencer / Artist",
+          description: "About the person or media",
+          mediaUrl: "https://example.com/video.mp4",
+          mediaType: "video",
+          sourceUrl: "https://instagram.com/username",
+          position: 123456789
+        }
+      }
+    */
+    onValue(
+      creatorsRef,
+      (snapshot) => {
+        const creatorsData = snapshot.val() || {};
+
+        const creators = Object.entries(creatorsData)
+          .map(([id, value]) => ({
+            id,
+            ...value
+          }))
+          .sort((a, b) => (b.position || 0) - (a.position || 0));
+
+        renderCreators(creators);
+      },
+      (error) => {
+        console.error("Could not load creators:", error);
+        renderCreators([]);
+      }
+    );
+
+    /* Mobile menu */
+
     const menuButton = document.getElementById("menuButton");
     const mobileMenu = document.getElementById("mobileMenu");
 
@@ -1578,7 +1787,6 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
       const isOpen = document.body.classList.toggle("menu-open");
 
       menuButton.setAttribute("aria-expanded", isOpen);
-
       menuButton.textContent = isOpen ? "✕" : "☰";
     });
 
