@@ -3,52 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <meta
     name="description"
-    content="Secure admin panel for Himmatnagar City website."
+    content="Private Himatnagar City Firebase Admin Panel."
   />
-  <title>Himmatnagar City | Admin Panel</title>
+
+  <title>Himatnagar City | Admin Panel</title>
 
   <style>
     :root {
-      --primary: #f47c20;
-      --primary-dark: #cb570b;
-      --primary-light: #fff0e3;
-      --dark: #102235;
-      --dark-soft: #1b405c;
-      --text: #293d4b;
-      --muted: #6a7d89;
-      --background: #edf3f7;
-      --white: #ffffff;
-      --border: #dce6ec;
-      --success: #087443;
-      --success-bg: #dff8ea;
-      --error: #bd3030;
-      --error-bg: #ffe7e7;
-      --warning: #976000;
-      --warning-bg: #fff2cd;
-      --radius: 18px;
-      --shadow: 0 18px 45px rgba(16, 34, 53, 0.1);
+      --primary: #b65b1b;
+      --primary-dark: #873f0e;
+      --navy: #18364c;
+      --navy-light: #28536f;
+      --text: #2f393e;
+      --muted: #68767d;
+      --bg: #f2f4f5;
+      --paper: #ffffff;
+      --soft: #f8fafb;
+      --border: #d9e0e4;
+      --danger: #b92f2f;
+      --danger-bg: #ffe9e9;
+      --success: #087543;
+      --success-bg: #def8e9;
+      --warning: #8a5900;
+      --warning-bg: #fff2ce;
+      --shadow: 0 10px 25px rgba(24, 54, 76, 0.09);
+      --radius: 15px;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Arial, Helvetica, sans-serif;
     }
 
     * {
       box-sizing: border-box;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
       margin: 0;
       color: var(--text);
-      background: var(--background);
-      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      font-family: var(--sans);
     }
 
     button,
     input,
-    textarea {
+    textarea,
+    select {
       font: inherit;
     }
 
@@ -61,7 +62,8 @@
       opacity: 0.65;
     }
 
-    img {
+    img,
+    video {
       display: block;
       max-width: 100%;
     }
@@ -77,18 +79,18 @@
 
     /* Loading */
 
-    .loading-page {
+    .loading-screen {
       display: grid;
       min-height: 100vh;
       place-items: center;
-      background: var(--dark);
+      background: var(--navy);
     }
 
     .loader {
       width: 42px;
       height: 42px;
-      border: 4px solid rgba(255, 255, 255, 0.2);
-      border-top-color: var(--primary);
+      border: 4px solid rgba(255, 255, 255, 0.22);
+      border-top-color: #f1a66c;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
@@ -107,142 +109,114 @@
       place-items: center;
       padding: 24px;
       background:
-        radial-gradient(circle at top right, rgba(244, 124, 32, 0.45), transparent 30%),
-        linear-gradient(135deg, #102235 0%, #193e59 100%);
+        radial-gradient(circle at top right, rgba(182, 91, 27, 0.5), transparent 30%),
+        linear-gradient(135deg, #18364c, #28536f);
     }
 
     .login-card {
-      width: min(460px, 100%);
-      padding: 34px;
+      width: min(450px, 100%);
+      padding: 32px;
       color: white;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 24px;
-      background: rgba(10, 31, 48, 0.9);
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.32);
-      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.17);
+      border-radius: 20px;
+      background: rgba(15, 39, 55, 0.91);
+      box-shadow: 0 22px 65px rgba(0, 0, 0, 0.3);
     }
 
-    .login-logo {
+    .login-icon {
       display: grid;
-      width: 58px;
-      height: 58px;
-      margin-bottom: 19px;
+      width: 56px;
+      height: 56px;
+      margin-bottom: 18px;
       place-items: center;
-      color: white;
-      border-radius: 17px;
+      border-radius: 16px;
       background: var(--primary);
-      font-size: 1.25rem;
-      font-weight: 900;
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: bold;
     }
 
     .login-card h1 {
       margin: 0;
+      font-family: var(--serif);
       font-size: 2rem;
     }
 
     .login-card > p {
-      margin: 10px 0 26px;
-      color: #c9d8e4;
+      margin: 10px 0 25px;
+      color: #cad8e2;
       line-height: 1.65;
     }
 
     .login-card label {
-      color: #edf5fb;
+      color: #edf4f8;
     }
 
     .login-card input {
       color: white;
-      border-color: rgba(255, 255, 255, 0.22);
+      border-color: rgba(255, 255, 255, 0.23);
       background: rgba(255, 255, 255, 0.08);
     }
 
     .login-card input::placeholder {
-      color: #afbfca;
-    }
-
-    .login-card input:focus {
-      border-color: #ffb478;
-      box-shadow: 0 0 0 4px rgba(244, 124, 32, 0.15);
-    }
-
-    .login-footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      align-items: center;
-      margin-top: 18px;
-    }
-
-    .login-footer button {
-      padding: 0;
-      color: #ffd4b2;
-      border: 0;
-      background: transparent;
-      font-size: 0.86rem;
-      font-weight: 800;
-    }
-
-    .login-footer button:hover {
-      color: white;
-      text-decoration: underline;
+      color: #aabdc9;
     }
 
     /* Header */
 
     .app-header {
       color: white;
-      background:
-        radial-gradient(circle at 92% 5%, rgba(244, 124, 32, 0.45), transparent 23%),
-        var(--dark);
+      border-bottom: 3px solid var(--primary);
+      background: var(--navy);
     }
 
     .topbar {
       display: flex;
-      min-height: 78px;
+      min-height: 75px;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 18px;
     }
 
-    .site-brand {
+    .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 11px;
     }
 
-    .brand-icon {
+    .brand-mark {
       display: grid;
-      width: 41px;
-      height: 41px;
+      width: 42px;
+      height: 42px;
       place-items: center;
-      color: white;
-      border-radius: 12px;
+      border-radius: 11px;
       background: var(--primary);
-      font-size: 0.95rem;
-      font-weight: 900;
+      font-family: var(--serif);
+      font-weight: bold;
     }
 
-    .site-brand h1 {
+    .brand h1 {
       margin: 0;
-      font-size: 1.05rem;
+      font-family: var(--serif);
+      font-size: 1.17rem;
     }
 
-    .site-brand p {
+    .brand p {
       margin: 3px 0 0;
-      color: #acc0ce;
-      font-size: 0.78rem;
+      color: #b8cbd6;
+      font-size: 0.76rem;
     }
 
-    .topbar-actions {
+    .header-actions {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
     .admin-email {
-      max-width: 220px;
+      max-width: 230px;
       overflow: hidden;
-      color: #c8d8e2;
+      color: #cbd8df;
       font-size: 0.8rem;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -252,16 +226,15 @@
 
     .button {
       display: inline-flex;
-      min-height: 43px;
+      min-height: 41px;
       align-items: center;
       justify-content: center;
-      padding: 0 15px;
-      border: 0;
-      border-radius: 11px;
-      font-size: 0.88rem;
-      font-weight: 800;
-      text-decoration: none;
-      transition: transform 0.18s ease, background 0.18s ease;
+      padding: 0 14px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      font-size: 0.84rem;
+      font-weight: bold;
+      transition: 0.2s ease;
     }
 
     .button:hover {
@@ -270,16 +243,27 @@
 
     .button-primary {
       color: white;
+      border-color: var(--primary);
       background: var(--primary);
     }
 
     .button-primary:hover {
-      background: #dc6810;
+      background: #ce6d27;
+    }
+
+    .button-light {
+      color: var(--navy);
+      border-color: #d8e1e6;
+      background: #edf2f5;
+    }
+
+    .button-light:hover {
+      background: #dce6eb;
     }
 
     .button-outline {
       color: white;
-      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-color: rgba(255, 255, 255, 0.35);
       background: transparent;
     }
 
@@ -287,45 +271,89 @@
       background: rgba(255, 255, 255, 0.1);
     }
 
-    .button-light {
-      color: #38515f;
-      background: #e8f0f5;
-    }
-
-    .button-light:hover {
-      background: #d7e4eb;
-    }
-
     .button-danger {
-      color: var(--error);
-      background: var(--error-bg);
+      color: var(--danger);
+      border-color: #ffcaca;
+      background: var(--danger-bg);
     }
 
     .button-danger:hover {
       color: white;
-      background: var(--error);
+      background: var(--danger);
     }
 
     .button-small {
-      min-height: 36px;
-      padding: 0 12px;
-      font-size: 0.8rem;
+      min-height: 35px;
+      padding: 0 11px;
+      font-size: 0.76rem;
     }
 
     /* Main */
 
     .admin-main {
-      padding: 32px 0 65px;
+      padding: 30px 0 70px;
+    }
+
+    .dashboard-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 25px;
+    }
+
+    .dashboard-title h2 {
+      margin: 0;
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: clamp(1.9rem, 4vw, 2.55rem);
+    }
+
+    .dashboard-title p {
+      margin: 9px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .connection-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #9aa9b2;
+    }
+
+    .status-dot.success {
+      background: #16a261;
+      box-shadow: 0 0 0 4px rgba(22, 162, 97, 0.13);
+    }
+
+    .status-dot.saving {
+      background: #e79831;
+      box-shadow: 0 0 0 4px rgba(231, 152, 49, 0.13);
+    }
+
+    .status-dot.error {
+      background: var(--danger);
+      box-shadow: 0 0 0 4px rgba(185, 47, 47, 0.12);
     }
 
     .notice {
       display: none;
-      margin-bottom: 21px;
-      padding: 15px 17px;
-      border-radius: 13px;
-      font-size: 0.92rem;
-      font-weight: 700;
-      line-height: 1.45;
+      margin-bottom: 20px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: bold;
+      line-height: 1.5;
     }
 
     .notice.show {
@@ -334,216 +362,163 @@
 
     .notice.success {
       color: var(--success);
-      border: 1px solid #bce9d0;
+      border: 1px solid #b9ead0;
       background: var(--success-bg);
     }
 
     .notice.error {
-      color: #971d1d;
-      border: 1px solid #ffc5c5;
-      background: var(--error-bg);
+      color: #971b1b;
+      border: 1px solid #ffc6c6;
+      background: var(--danger-bg);
     }
 
     .notice.warning {
       color: var(--warning);
-      border: 1px solid #efcf7b;
+      border: 1px solid #f1d486;
       background: var(--warning-bg);
-    }
-
-    .dashboard-intro {
-      display: flex;
-      justify-content: space-between;
-      gap: 25px;
-      align-items: end;
-      margin-bottom: 27px;
-    }
-
-    .dashboard-intro h2 {
-      margin: 0;
-      color: var(--dark);
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      letter-spacing: -1px;
-    }
-
-    .dashboard-intro p {
-      max-width: 700px;
-      margin: 10px 0 0;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-
-    .database-status {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--muted);
-      font-size: 0.82rem;
-      white-space: nowrap;
-    }
-
-    .status-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #9babb6;
-    }
-
-    .status-dot.connected {
-      background: #1aa363;
-      box-shadow: 0 0 0 4px rgba(26, 163, 99, 0.13);
-    }
-
-    .status-dot.saving {
-      background: #f59b35;
-      box-shadow: 0 0 0 4px rgba(245, 155, 53, 0.15);
-    }
-
-    .status-dot.error {
-      background: var(--error);
-      box-shadow: 0 0 0 4px rgba(201, 53, 53, 0.12);
     }
 
     .admin-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 22px;
+      gap: 21px;
     }
 
     .panel {
-      padding: 26px;
+      padding: 25px;
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      background: var(--white);
+      background: var(--paper);
       box-shadow: var(--shadow);
     }
 
-    .panel.full-width {
+    .panel.full {
       grid-column: 1 / -1;
     }
 
-    .panel-heading {
+    .panel-header {
       display: flex;
-      gap: 13px;
+      gap: 12px;
       align-items: flex-start;
-      margin-bottom: 23px;
+      margin-bottom: 21px;
     }
 
     .panel-number {
       display: grid;
       flex-shrink: 0;
-      width: 33px;
-      height: 33px;
+      width: 31px;
+      height: 31px;
       place-items: center;
       color: white;
-      border-radius: 10px;
+      border-radius: 9px;
       background: var(--primary);
-      font-size: 0.84rem;
-      font-weight: 900;
+      font-size: 0.78rem;
+      font-weight: bold;
     }
 
-    .panel-heading h3 {
+    .panel-header h3 {
       margin: 1px 0 4px;
-      color: var(--dark);
-      font-size: 1.2rem;
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: 1.26rem;
     }
 
-    .panel-heading p {
+    .panel-header p {
       margin: 0;
       color: var(--muted);
-      font-size: 0.88rem;
+      font-size: 0.84rem;
       line-height: 1.5;
     }
 
     .form-group {
-      margin-bottom: 17px;
+      margin-bottom: 16px;
     }
 
     label {
       display: block;
-      margin-bottom: 8px;
-      color: #344c5c;
-      font-size: 0.87rem;
-      font-weight: 800;
+      margin-bottom: 7px;
+      color: #364e5d;
+      font-size: 0.84rem;
+      font-weight: bold;
     }
 
     input,
-    textarea {
+    textarea,
+    select {
       width: 100%;
-      padding: 12px 13px;
+      padding: 11px 12px;
       color: var(--text);
-      border: 1px solid #ccd9e1;
-      border-radius: 10px;
+      border: 1px solid #ced9df;
+      border-radius: 9px;
       outline: none;
       background: #fbfdfe;
-      transition: border-color 0.18s ease, box-shadow 0.18s ease;
     }
 
     input:focus,
-    textarea:focus {
+    textarea:focus,
+    select:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(244, 124, 32, 0.13);
+      box-shadow: 0 0 0 4px rgba(182, 91, 27, 0.12);
     }
 
     textarea {
-      min-height: 118px;
+      min-height: 110px;
       resize: vertical;
       line-height: 1.55;
     }
 
-    .help-text {
+    .help {
       display: block;
       margin-top: 6px;
       color: var(--muted);
-      font-size: 0.77rem;
+      font-size: 0.75rem;
       line-height: 1.45;
     }
 
-    /* Image controls */
-
-    .image-control {
+    .file-row {
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 10px;
-    }
-
-    .file-label {
-      display: inline-flex;
-      min-height: 44px;
-      align-items: center;
-      justify-content: center;
-      padding: 0 13px;
-      color: var(--primary-dark);
-      border: 1px solid #ffd5b6;
-      border-radius: 10px;
-      background: var(--primary-light);
-      font-size: 0.84rem;
-      font-weight: 800;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .file-label:hover {
-      background: #ffe2cb;
+      gap: 9px;
     }
 
     .file-input {
       display: none;
     }
 
-    .upload-progress {
+    .file-button {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 12px;
+      color: var(--primary-dark);
+      border: 1px solid #ffd2af;
+      border-radius: 9px;
+      background: #fff0e3;
+      font-size: 0.8rem;
+      font-weight: bold;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .file-button:hover {
+      background: #ffe1ca;
+    }
+
+    .progress {
       display: none;
       height: 7px;
       margin-top: 10px;
       overflow: hidden;
-      border-radius: 999px;
-      background: #e2eaef;
+      border-radius: 99px;
+      background: #e5edf1;
     }
 
-    .upload-progress.show {
+    .progress.show {
       display: block;
     }
 
-    .upload-progress-bar {
+    .progress-bar {
       width: 0%;
       height: 100%;
       border-radius: inherit;
@@ -551,338 +526,324 @@
       transition: width 0.2s ease;
     }
 
-    .image-preview {
+    .preview {
       display: none;
       width: 100%;
-      height: 180px;
-      margin-top: 12px;
+      height: 155px;
+      margin-top: 11px;
       overflow: hidden;
       border: 1px solid var(--border);
-      border-radius: 12px;
-      background: #e8eef2;
+      border-radius: 10px;
+      background: #edf2f4;
     }
 
-    .image-preview.show {
+    .preview.show {
       display: block;
     }
 
-    .image-preview img {
+    .preview img,
+    .preview video {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-    }
-
-    .logo-preview img {
       object-fit: contain;
-      padding: 13px;
     }
 
-    /* Statistics */
-
-    .stats-grid {
+    .stats-editor {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+      gap: 13px;
     }
 
-    .stat-editor {
-      padding: 14px;
+    .stat-box {
+      padding: 13px;
       border: 1px solid var(--border);
-      border-radius: 13px;
-      background: #f8fbfd;
+      border-radius: 11px;
+      background: var(--soft);
     }
 
-    .stat-editor label {
-      font-size: 0.76rem;
-    }
-
-    .stat-editor input {
+    .stat-box input {
       margin-bottom: 10px;
       padding: 10px;
-      font-size: 0.88rem;
+      font-size: 0.84rem;
     }
 
-    .stat-editor input:last-child {
+    .stat-box input:last-child {
       margin-bottom: 0;
     }
 
-    /* Highlights */
-
-    .highlight-form {
-      padding: 20px;
+    .manager-form {
+      padding: 19px;
       border: 1px solid var(--border);
-      border-radius: 15px;
-      background: #f8fbfd;
+      border-radius: 12px;
+      background: var(--soft);
     }
 
-    .highlight-input-grid {
+    .two-columns {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 15px;
+      gap: 14px;
     }
 
-    .highlight-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 17px;
-    }
-
-    .highlights-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      align-items: center;
-      margin: 27px 0 15px;
-    }
-
-    .highlights-header h4 {
-      margin: 0;
-      color: var(--dark);
-      font-size: 1.06rem;
-    }
-
-    .highlight-count {
-      padding: 6px 10px;
-      color: var(--primary-dark);
-      border-radius: 999px;
-      background: var(--primary-light);
-      font-size: 0.78rem;
-      font-weight: 800;
-    }
-
-    .highlights-list {
+    .three-columns {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      gap: 14px;
     }
 
-    .highlight-card {
+    .manager-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 15px;
+    }
+
+    .manager-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0 13px;
+    }
+
+    .manager-title h4 {
+      margin: 0;
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: 1.08rem;
+    }
+
+    .counter {
+      padding: 5px 9px;
+      color: var(--primary-dark);
+      border-radius: 99px;
+      background: #fff0e3;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .item-card {
       overflow: hidden;
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 11px;
       background: white;
     }
 
-    .highlight-card-image {
+    .item-media {
       width: 100%;
-      height: 155px;
+      height: 140px;
       object-fit: cover;
-      background: #e7eef3;
+      background: #e9eef1;
     }
 
-    .highlight-card-content {
-      padding: 15px;
+    .item-video {
+      width: 100%;
+      height: 140px;
+      background: #122536;
+      object-fit: cover;
     }
 
-    .highlight-card-content h5 {
+    .item-content {
+      padding: 14px;
+    }
+
+    .item-type {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--primary-dark);
+      font-size: 0.71rem;
+      font-weight: bold;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+    }
+
+    .item-content h5 {
       margin: 0 0 7px;
-      color: var(--dark);
-      font-size: 1rem;
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: 1.08rem;
     }
 
-    .highlight-card-content p {
+    .item-content p {
       display: -webkit-box;
-      min-height: 38px;
-      margin: 0 0 14px;
+      margin: 0 0 12px;
       overflow: hidden;
       color: var(--muted);
-      font-size: 0.83rem;
-      line-height: 1.5;
+      font-size: 0.82rem;
+      line-height: 1.55;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
     }
 
-    .card-actions {
+    .item-actions {
       display: flex;
-      gap: 8px;
+      gap: 7px;
     }
 
-    .card-actions button {
+    .item-actions button {
       flex: 1;
     }
 
-    .empty-state {
+    .empty {
       grid-column: 1 / -1;
-      padding: 32px 20px;
+      padding: 28px 18px;
       color: var(--muted);
-      border: 2px dashed #d2dee5;
-      border-radius: 14px;
+      border: 1px dashed #bbc8d0;
+      border-radius: 10px;
       text-align: center;
       line-height: 1.6;
     }
 
-    .bottom-actions {
+    .save-area {
       display: flex;
       justify-content: space-between;
-      gap: 17px;
+      gap: 18px;
       align-items: center;
-      margin-top: 26px;
-      padding-top: 25px;
+      margin-top: 25px;
+      padding-top: 24px;
       border-top: 1px solid var(--border);
     }
 
-    .bottom-actions p {
-      max-width: 650px;
+    .save-area p {
+      max-width: 680px;
       margin: 0;
       color: var(--muted);
       font-size: 0.84rem;
-      line-height: 1.55;
+      line-height: 1.6;
     }
 
-    .bottom-action-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    /* Unauthorized screen */
+    /* Access denied */
 
     .denied-page {
       display: grid;
       min-height: 100vh;
       place-items: center;
       padding: 24px;
-      background: var(--background);
+      background: var(--bg);
     }
 
     .denied-card {
-      width: min(560px, 100%);
-      padding: 34px;
+      width: min(520px, 100%);
+      padding: 32px;
       border: 1px solid #ffd0d0;
-      border-radius: 22px;
+      border-radius: 18px;
       text-align: center;
       background: white;
       box-shadow: var(--shadow);
     }
 
-    .denied-icon {
-      display: grid;
-      width: 58px;
-      height: 58px;
-      margin: 0 auto 16px;
-      place-items: center;
-      color: white;
-      border-radius: 18px;
-      background: var(--error);
-      font-size: 1.5rem;
-      font-weight: 900;
-    }
-
     .denied-card h2 {
       margin: 0;
-      color: var(--dark);
+      color: var(--navy);
+      font-family: var(--serif);
     }
 
     .denied-card p {
-      margin: 12px 0;
       color: var(--muted);
       line-height: 1.65;
     }
 
     .uid-box {
-      margin: 18px 0;
+      margin: 16px 0;
       padding: 12px;
       overflow-wrap: anywhere;
       color: #526571;
       border: 1px solid var(--border);
-      border-radius: 10px;
       background: #f5f8fa;
       font-family: monospace;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 980px) {
       .admin-grid {
         grid-template-columns: 1fr;
       }
 
-      .panel.full-width {
+      .panel.full {
         grid-column: auto;
       }
 
-      .stats-grid {
+      .stats-editor {
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .highlights-list {
+      .items-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 650px) {
       .container {
         width: min(100% - 24px, 1180px);
       }
 
       .topbar {
-        min-height: auto;
-        padding: 16px 0;
         align-items: flex-start;
         flex-direction: column;
+        padding: 15px 0;
       }
 
-      .topbar-actions {
+      .header-actions {
         width: 100%;
         justify-content: space-between;
       }
 
       .admin-email {
-        max-width: 140px;
+        max-width: 150px;
       }
 
-      .dashboard-intro {
+      .dashboard-title {
         display: block;
       }
 
-      .database-status {
+      .connection-status {
         margin-top: 13px;
       }
 
       .panel {
-        padding: 20px;
+        padding: 19px;
       }
 
-      .image-control,
-      .highlight-input-grid,
-      .stats-grid,
-      .highlights-list {
+      .file-row,
+      .two-columns,
+      .three-columns,
+      .items-grid {
         grid-template-columns: 1fr;
       }
 
-      .bottom-actions {
+      .save-area {
         align-items: stretch;
         flex-direction: column;
       }
 
-      .bottom-action-buttons {
-        display: grid;
-        grid-template-columns: 1fr;
-      }
-
-      .login-card {
-        padding: 26px;
+      .save-area .button {
+        width: 100%;
       }
     }
   </style>
 </head>
 
 <body>
-  <!-- Loading screen -->
-  <section id="loadingScreen" class="loading-page">
+  <!-- Loading -->
+  <section id="loadingScreen" class="loading-screen">
     <div class="loader"></div>
   </section>
 
-  <!-- Login screen -->
+  <!-- Login -->
   <section id="loginScreen" class="login-page hidden">
     <div class="login-card">
-      <div class="login-logo">HN</div>
+      <div class="login-icon">HN</div>
 
       <h1>Private Admin Panel</h1>
 
       <p>
-        Log in with your Firebase Authentication admin email and password to
-        manage the Himmatnagar City website.
+        Log in with your Firebase Authentication admin account to manage the
+        Himatnagar City website.
       </p>
 
       <form id="loginForm">
@@ -910,46 +871,32 @@
           />
         </div>
 
-        <button
-          id="loginButton"
-          class="button button-primary"
-          type="submit"
-          style="width: 100%;"
-        >
+        <button id="loginButton" class="button button-primary" type="submit" style="width: 100%;">
           Sign in securely
         </button>
-      </form>
 
-      <div class="login-footer">
-        <button id="forgotPasswordButton" type="button">
+        <button
+          id="forgotPasswordButton"
+          class="button button-outline"
+          type="button"
+          style="width: 100%; margin-top: 10px;"
+        >
           Forgot password?
         </button>
-
-        <span style="color: #9db2c0; font-size: 0.76rem;">
-          Himmatnagar City
-        </span>
-      </div>
+      </form>
     </div>
   </section>
 
-  <!-- Access denied screen -->
+  <!-- Access Denied -->
   <section id="deniedScreen" class="denied-page hidden">
     <div class="denied-card">
-      <div class="denied-icon">!</div>
-
       <h2>Admin access denied</h2>
 
       <p>
-        You are logged in, but this Firebase account is not the approved
-        Himmatnagar City administrator.
+        This Firebase account is not the authorized Himatnagar City admin user.
       </p>
 
-      <p>
-        The account UID must exactly match the Admin UID used in your code and
-        Firebase Rules.
-      </p>
-
-      <div id="deniedUid" class="uid-box">Checking UID...</div>
+      <div id="deniedUid" class="uid-box"></div>
 
       <button id="deniedLogoutButton" class="button button-danger" type="button">
         Sign out
@@ -957,20 +904,20 @@
     </div>
   </section>
 
-  <!-- Main admin panel -->
+  <!-- Main Dashboard -->
   <div id="appScreen" class="hidden">
     <header class="app-header">
       <div class="container topbar">
-        <div class="site-brand">
-          <div class="brand-icon">HN</div>
+        <div class="brand">
+          <div class="brand-mark">HN</div>
 
           <div>
-            <h1>Himmatnagar City Admin</h1>
-            <p>Secure Firebase Realtime Database management panel</p>
+            <h1>Himatnagar City Admin</h1>
+            <p>Firebase Realtime Database Content Manager</p>
           </div>
         </div>
 
-        <div class="topbar-actions">
+        <div class="header-actions">
           <span id="adminEmail" class="admin-email"></span>
 
           <a class="button button-outline button-small" href="index.html" target="_blank">
@@ -987,64 +934,55 @@
     <main class="container admin-main">
       <div id="notice" class="notice"></div>
 
-      <section class="dashboard-intro">
+      <section class="dashboard-title">
         <div>
-          <h2>Manage your city website</h2>
+          <h2>Manage Himatnagar</h2>
 
           <p>
-            Update Himmatnagar’s banner, logo, city information, images, GIFs,
-            statistics, and city highlights from one private dashboard.
+            Update city information, banner, logo, highlights, creators,
+            photos, GIFs, videos, source links, news, history, and public services.
           </p>
         </div>
 
-        <div class="database-status">
+        <div class="connection-status">
           <span id="statusDot" class="status-dot"></span>
           <span id="statusText">Connecting to Firebase...</span>
         </div>
       </section>
 
       <div class="admin-grid">
-        <!-- City identity -->
+        <!-- City Identity -->
         <section class="panel">
-          <div class="panel-heading">
+          <div class="panel-header">
             <div class="panel-number">1</div>
 
             <div>
               <h3>City identity</h3>
-              <p>Manage the public city name, logo, long banner, and welcome text.</p>
+              <p>Manage the public name, banner, logo, and welcome message.</p>
             </div>
           </div>
 
           <div class="form-group">
             <label for="cityName">City name</label>
-
-            <input
-              id="cityName"
-              type="text"
-              placeholder="Example: Himmatnagar"
-            />
+            <input id="cityName" type="text" value="Himatnagar" />
           </div>
 
           <div class="form-group">
             <label for="heroText">Banner introduction</label>
-
-            <textarea
-              id="heroText"
-              placeholder="Write a welcoming message about Himmatnagar."
-            ></textarea>
+            <textarea id="heroText"></textarea>
           </div>
 
           <div class="form-group">
-            <label for="bannerUrl">Banner image or GIF direct link</label>
+            <label for="bannerUrl">Banner direct image or GIF URL</label>
 
-            <div class="image-control">
+            <div class="file-row">
               <input
                 id="bannerUrl"
                 type="url"
-                placeholder="https://example.com/banner.jpg or banner.gif"
+                placeholder="https://example.com/himatnagar-banner.jpg"
               />
 
-              <label class="file-label" for="bannerFile">
+              <label for="bannerFile" class="file-button">
                 Upload banner
               </label>
 
@@ -1056,30 +994,30 @@
               />
             </div>
 
-            <span class="help-text">
-              You can paste a direct image/GIF URL or upload JPG, PNG, WebP, and GIF files.
+            <span class="help">
+              Recommended banner ratio: 1920 × 500 pixels. You can use a direct URL, photo, or GIF.
             </span>
 
-            <div id="bannerProgress" class="upload-progress">
-              <div id="bannerProgressBar" class="upload-progress-bar"></div>
+            <div id="bannerProgress" class="progress">
+              <div id="bannerProgressBar" class="progress-bar"></div>
             </div>
 
-            <div id="bannerPreviewBox" class="image-preview">
+            <div id="bannerPreviewBox" class="preview">
               <img id="bannerPreview" alt="Banner preview" />
             </div>
           </div>
 
           <div class="form-group">
-            <label for="logoUrl">Himmatnagar logo image or GIF direct link</label>
+            <label for="logoUrl">City logo direct URL</label>
 
-            <div class="image-control">
+            <div class="file-row">
               <input
                 id="logoUrl"
                 type="url"
-                placeholder="https://example.com/himmatnagar-logo.png"
+                placeholder="https://example.com/himatnagar-logo.png"
               />
 
-              <label class="file-label" for="logoFile">
+              <label for="logoFile" class="file-button">
                 Upload logo
               </label>
 
@@ -1091,227 +1029,334 @@
               />
             </div>
 
-            <span class="help-text">
-              This is the circular profile/logo image displayed over the banner.
-            </span>
-
-            <div id="logoProgress" class="upload-progress">
-              <div id="logoProgressBar" class="upload-progress-bar"></div>
+            <div id="logoProgress" class="progress">
+              <div id="logoProgressBar" class="progress-bar"></div>
             </div>
 
-            <div id="logoPreviewBox" class="image-preview logo-preview">
+            <div id="logoPreviewBox" class="preview">
               <img id="logoPreview" alt="Logo preview" />
             </div>
           </div>
         </section>
 
-        <!-- City information -->
+        <!-- City About -->
         <section class="panel">
-          <div class="panel-heading">
+          <div class="panel-header">
             <div class="panel-number">2</div>
 
             <div>
-              <h3>City information</h3>
-              <p>Write the story, culture, history, pride, and vision of Himmatnagar.</p>
+              <h3>About Himatnagar</h3>
+              <p>Manage the city introduction, detailed information, and quote.</p>
             </div>
           </div>
 
           <div class="form-group">
             <label for="aboutHeading">About section heading</label>
-
-            <input
-              id="aboutHeading"
-              type="text"
-              placeholder="Example: About Himmatnagar"
-            />
+            <input id="aboutHeading" type="text" />
           </div>
 
           <div class="form-group">
-            <label for="aboutIntro">Short about introduction</label>
-
-            <textarea
-              id="aboutIntro"
-              placeholder="Write a short introduction below the About heading."
-            ></textarea>
+            <label for="aboutIntro">Short introduction</label>
+            <textarea id="aboutIntro"></textarea>
           </div>
 
           <div class="form-group">
-            <label for="infoTitle">Main city information title</label>
-
-            <input
-              id="infoTitle"
-              type="text"
-              placeholder="Example: A city with a story"
-            />
+            <label for="infoTitle">Main information title</label>
+            <input id="infoTitle" type="text" />
           </div>
 
           <div class="form-group">
             <label for="cityInformation">Detailed city information</label>
-
-            <textarea
-              id="cityInformation"
-              placeholder="Write about history, culture, famous places, food, people, education, markets, growth, and future vision."
-            ></textarea>
+            <textarea id="cityInformation"></textarea>
           </div>
 
           <div class="form-group">
-            <label for="cityQuote">City quote or message</label>
-
-            <textarea
-              id="cityQuote"
-              placeholder="Write a proud message for Himmatnagar."
-            ></textarea>
+            <label for="cityQuote">City quote</label>
+            <textarea id="cityQuote"></textarea>
           </div>
         </section>
 
         <!-- Statistics -->
-        <section class="panel full-width">
-          <div class="panel-heading">
+        <section class="panel full">
+          <div class="panel-header">
             <div class="panel-number">3</div>
 
             <div>
-              <h3>City statistics and quick facts</h3>
-              <p>Add four useful city facts, achievements, numbers, or pride messages.</p>
+              <h3>City quick facts</h3>
+              <p>Add four city facts, milestones, achievements, or proud messages.</p>
             </div>
           </div>
 
-          <div class="stats-grid">
-            <div class="stat-editor">
-              <label for="statNumber1">Stat 1 number</label>
-              <input id="statNumber1" type="text" placeholder="Example: 100+" />
-
-              <label for="statLabel1">Stat 1 label</label>
-              <input id="statLabel1" type="text" placeholder="Example: Years of heritage" />
+          <div class="stats-editor">
+            <div class="stat-box">
+              <label for="statNumber1">Number 1</label>
+              <input id="statNumber1" type="text" />
+              <label for="statLabel1">Label 1</label>
+              <input id="statLabel1" type="text" />
             </div>
 
-            <div class="stat-editor">
-              <label for="statNumber2">Stat 2 number</label>
-              <input id="statNumber2" type="text" placeholder="Example: 01" />
-
-              <label for="statLabel2">Stat 2 label</label>
-              <input id="statLabel2" type="text" placeholder="Example: City website" />
+            <div class="stat-box">
+              <label for="statNumber2">Number 2</label>
+              <input id="statNumber2" type="text" />
+              <label for="statLabel2">Label 2</label>
+              <input id="statLabel2" type="text" />
             </div>
 
-            <div class="stat-editor">
-              <label for="statNumber3">Stat 3 number</label>
-              <input id="statNumber3" type="text" placeholder="Example: ∞" />
-
-              <label for="statLabel3">Stat 3 label</label>
-              <input id="statLabel3" type="text" placeholder="Example: Stories to tell" />
+            <div class="stat-box">
+              <label for="statNumber3">Number 3</label>
+              <input id="statNumber3" type="text" />
+              <label for="statLabel3">Label 3</label>
+              <input id="statLabel3" type="text" />
             </div>
 
-            <div class="stat-editor">
-              <label for="statNumber4">Stat 4 number</label>
-              <input id="statNumber4" type="text" placeholder="Example: 2026" />
-
-              <label for="statLabel4">Stat 4 label</label>
-              <input id="statLabel4" type="text" placeholder="Example: Our vision" />
+            <div class="stat-box">
+              <label for="statNumber4">Number 4</label>
+              <input id="statNumber4" type="text" />
+              <label for="statLabel4">Label 4</label>
+              <input id="statLabel4" type="text" />
             </div>
           </div>
         </section>
 
         <!-- Highlights -->
-        <section class="panel full-width">
-          <div class="panel-heading">
+        <section class="panel full">
+          <div class="panel-header">
             <div class="panel-number">4</div>
 
             <div>
               <h3>City highlights</h3>
-              <p>
-                Add city cards for landmarks, temples, food, tourism, events,
-                services, markets, businesses, history, and culture.
-              </p>
+              <p>Add places, food, tourism, culture, services, events, landmarks, and local stories.</p>
             </div>
           </div>
 
-          <div class="highlight-form">
-            <input id="editingHighlightId" type="hidden" />
+          <div class="manager-form">
+            <input id="highlightEditId" type="hidden" />
 
-            <div class="highlight-input-grid">
+            <div class="two-columns">
               <div class="form-group">
                 <label for="highlightTitle">Highlight title</label>
-
-                <input
-                  id="highlightTitle"
-                  type="text"
-                  placeholder="Example: Famous places in Himmatnagar"
-                />
+                <input id="highlightTitle" type="text" placeholder="Example: Famous places in Himatnagar" />
               </div>
 
               <div class="form-group">
-                <label for="highlightImageUrl">Image or GIF direct link</label>
+                <label for="highlightImageUrl">Image or GIF direct URL</label>
 
-                <div class="image-control">
-                  <input
-                    id="highlightImageUrl"
-                    type="url"
-                    placeholder="https://example.com/place.jpg"
-                  />
+                <div class="file-row">
+                  <input id="highlightImageUrl" type="url" placeholder="https://example.com/photo.jpg" />
 
-                  <label class="file-label" for="highlightImageFile">
+                  <label for="highlightFile" class="file-button">
                     Upload image
                   </label>
 
                   <input
-                    id="highlightImageFile"
+                    id="highlightFile"
                     class="file-input"
                     type="file"
                     accept="image/png,image/jpeg,image/webp,image/gif"
                   />
                 </div>
 
-                <div id="highlightProgress" class="upload-progress">
-                  <div id="highlightProgressBar" class="upload-progress-bar"></div>
+                <div id="highlightProgress" class="progress">
+                  <div id="highlightProgressBar" class="progress-bar"></div>
                 </div>
               </div>
             </div>
 
-            <div class="form-group" style="margin-bottom: 0;">
-              <label for="highlightDescription">Highlight description</label>
-
-              <textarea
-                id="highlightDescription"
-                placeholder="Write a clear and useful description for visitors."
-              ></textarea>
+            <div class="form-group">
+              <label for="highlightDescription">Description</label>
+              <textarea id="highlightDescription" placeholder="Write details about this city highlight."></textarea>
             </div>
 
-            <div class="highlight-buttons">
+            <div class="manager-actions">
               <button id="saveHighlightButton" class="button button-primary" type="button">
                 Add city highlight
               </button>
 
-              <button id="cancelEditButton" class="button button-light hidden" type="button">
+              <button id="cancelHighlightButton" class="button button-light hidden" type="button">
                 Cancel editing
               </button>
             </div>
           </div>
 
-          <div class="highlights-header">
-            <h4>Your published highlights</h4>
-            <span id="highlightCount" class="highlight-count">0 highlights</span>
+          <div class="manager-title">
+            <h4>Published City Highlights</h4>
+            <span id="highlightCount" class="counter">0 highlights</span>
           </div>
 
-          <div id="highlightsList" class="highlights-list">
-            <div class="empty-state">Loading highlights from Firebase...</div>
-          </div>
+          <div id="highlightsList" class="items-grid"></div>
         </section>
-      </div>
 
-      <div class="bottom-actions">
-        <p>
-          Save the main website form after changing city information, banner,
-          logo, and statistics. Add or edit city cards using the highlight form.
-        </p>
+        <!-- Creators -->
+        <section class="panel full">
+          <div class="panel-header">
+            <div class="panel-number">5</div>
 
-        <div class="bottom-action-buttons">
-          <button id="resetFormButton" class="button button-danger" type="button">
-            Reset form text
-          </button>
+            <div>
+              <h3>Creators and Influencers</h3>
+              <p>Promote creators using high-quality photos, GIFs, MP4 videos, source links, and descriptions.</p>
+            </div>
+          </div>
 
-          <button id="saveWebsiteButton" class="button button-primary" type="button">
+          <div class="manager-form">
+            <input id="creatorEditId" type="hidden" />
+
+            <div class="three-columns">
+              <div class="form-group">
+                <label for="creatorName">Creator name</label>
+                <input id="creatorName" type="text" placeholder="Example: Arun Patel" />
+              </div>
+
+              <div class="form-group">
+                <label for="creatorTitle">Creator category/title</label>
+                <input id="creatorTitle" type="text" placeholder="Example: Photographer and Influencer" />
+              </div>
+
+              <div class="form-group">
+                <label for="creatorMediaType">Media type</label>
+
+                <select id="creatorMediaType">
+                  <option value="photo">Photo</option>
+                  <option value="gif">GIF</option>
+                  <option value="video">MP4 / Video</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="two-columns">
+              <div class="form-group">
+                <label for="creatorMediaUrl">Direct photo, GIF, or MP4 URL</label>
+
+                <input
+                  id="creatorMediaUrl"
+                  type="url"
+                  placeholder="https://example.com/video.mp4"
+                />
+
+                <span class="help">
+                  Direct MP4, GIF, JPG, PNG, WebP, or public Storage URL supported.
+                </span>
+              </div>
+
+              <div class="form-group">
+                <label for="creatorSourceUrl">Creator source/profile URL</label>
+
+                <input
+                  id="creatorSourceUrl"
+                  type="url"
+                  placeholder="Instagram, YouTube, website, portfolio, or source link"
+                />
+
+                <span class="help">
+                  Example: Instagram profile, YouTube channel, creator website, or portfolio.
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="creatorFile">Upload photo, GIF, or MP4 video</label>
+
+              <label for="creatorFile" class="file-button">
+                Choose media file
+              </label>
+
+              <input
+                id="creatorFile"
+                class="file-input"
+                type="file"
+                accept="image/png,image/jpeg,image/webp,image/gif,video/mp4,video/webm,video/quicktime"
+              />
+
+              <span class="help">
+                Uploads go to Firebase Storage. Maximum supported size in these rules is 100 MB.
+              </span>
+
+              <div id="creatorProgress" class="progress">
+                <div id="creatorProgressBar" class="progress-bar"></div>
+              </div>
+
+              <div id="creatorPreviewBox" class="preview">
+                <div id="creatorPreviewArea"></div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="creatorDescription">About creator or media</label>
+
+              <textarea
+                id="creatorDescription"
+                placeholder="Write about the creator, their work, their Himatnagar connection, and why visitors should follow them."
+              ></textarea>
+            </div>
+
+            <div class="manager-actions">
+              <button id="saveCreatorButton" class="button button-primary" type="button">
+                Add creator profile
+              </button>
+
+              <button id="cancelCreatorButton" class="button button-light hidden" type="button">
+                Cancel editing
+              </button>
+            </div>
+          </div>
+
+          <div class="manager-title">
+            <h4>Published Creator Profiles</h4>
+            <span id="creatorCount" class="counter">0 creators</span>
+          </div>
+
+          <div id="creatorsList" class="items-grid"></div>
+        </section>
+
+        <!-- Future Content Sections -->
+        <section class="panel">
+          <div class="panel-header">
+            <div class="panel-number">6</div>
+
+            <div>
+              <h3>News, History and Services</h3>
+              <p>These database paths are ready for the next index update.</p>
+            </div>
+          </div>
+
+          <p style="margin: 0; color: #68767d; line-height: 1.75;">
+            Your updated public website currently reads:
+            <strong>website</strong>, <strong>highlights</strong>, and
+            <strong>creators</strong>. The Realtime Database Rules above also
+            prepare secure locations for <strong>news</strong>,
+            <strong>history</strong>, and <strong>services</strong>.
+          </p>
+
+          <p style="margin: 15px 0 0; color: #68767d; line-height: 1.75;">
+            When you want, I can update both the public index page and this
+            admin panel with full News Manager, History Timeline Manager, and
+            Government Services Manager controls.
+          </p>
+        </section>
+
+        <!-- Main Save -->
+        <section class="panel">
+          <div class="panel-header">
+            <div class="panel-number">7</div>
+
+            <div>
+              <h3>Save main city website</h3>
+              <p>Save city name, banner, logo, city information, quote, and statistics.</p>
+            </div>
+          </div>
+
+          <button id="saveWebsiteButton" class="button button-primary" type="button" style="width: 100%;">
             Save all website content
           </button>
-        </div>
+
+          <button
+            id="resetWebsiteButton"
+            class="button button-danger"
+            type="button"
+            style="width: 100%; margin-top: 10px;"
+          >
+            Reset form to default text
+          </button>
+        </section>
       </div>
     </main>
   </div>
@@ -1344,7 +1389,7 @@
       getDownloadURL
     } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
 
-    /* Firebase project configuration */
+    /* Firebase configuration */
 
     const firebaseConfig = {
       apiKey: "AIzaSyAlJ8KhAoWLz5snMA_QQs_t6PRd8l1Km1s",
@@ -1357,11 +1402,9 @@
       measurementId: "G-V81H2TSGVF"
     };
 
-    /* Your private Firebase Authentication Admin UID */
+    /* Your private Firebase admin UID */
 
     const ADMIN_UID = "etw6ueQBOCfzsJulYD5ShRNTodA2";
-
-    /* Firebase initialization */
 
     const app = initializeApp(firebaseConfig);
 
@@ -1371,59 +1414,39 @@
 
     const websiteRef = ref(database, "website");
     const highlightsRef = ref(database, "highlights");
+    const creatorsRef = ref(database, "creators");
 
     let currentUser = null;
     let highlightsCache = [];
+    let creatorsCache = [];
     let listenersStarted = false;
 
-    const defaultWebsiteData = {
-      cityName: "Himmatnagar",
+    const defaultData = {
+      cityName: "Himatnagar",
+      bannerUrl: "",
+      logoUrl: "",
       heroText:
-        "Welcome to Himmatnagar — a city of heritage, community, opportunity, and pride.",
-      bannerUrl:
-        "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1800&q=85",
-      logoUrl:
-        "https://placehold.co/400x400/f47c20/ffffff?text=HN",
-      aboutHeading: "About Himmatnagar",
+        "Welcome to Himatnagar — a city of heritage, community, opportunity, and pride.",
+      aboutHeading: "About Himatnagar",
       aboutIntro:
         "Learn about the people, character, heritage, and spirit that make our city special.",
       infoTitle: "A city with a story",
       cityInformation:
-        "Himmatnagar is a place where tradition and progress come together. Add its history, culture, food, important places, education, and future vision here.",
+        "Himatnagar is a place where tradition and progress come together. Add city history, culture, food, important places, schools, businesses, and future vision.",
       cityQuote:
         "Every city becomes memorable because of the people who proudly tell its story.",
       stats: [
-        {
-          number: "01",
-          label: "City Website"
-        },
-        {
-          number: "∞",
-          label: "Possibilities"
-        },
-        {
-          number: "100%",
-          label: "Made With Pride"
-        },
-        {
-          number: "2026",
-          label: "Our Vision"
-        }
+        { number: "01", label: "City Website" },
+        { number: "∞", label: "Possibilities" },
+        { number: "100%", label: "Made With Pride" },
+        { number: "2026", label: "Our Vision" }
       ]
     };
-
-    /* Screen elements */
 
     const loadingScreen = document.getElementById("loadingScreen");
     const loginScreen = document.getElementById("loginScreen");
     const deniedScreen = document.getElementById("deniedScreen");
     const appScreen = document.getElementById("appScreen");
-
-    const notice = document.getElementById("notice");
-    const statusDot = document.getElementById("statusDot");
-    const statusText = document.getElementById("statusText");
-
-    /* General helper functions */
 
     function showScreen(screen) {
       loadingScreen.classList.add("hidden");
@@ -1434,12 +1457,14 @@
       screen.classList.remove("hidden");
     }
 
-    function setDatabaseStatus(text, type = "connected") {
-      statusText.textContent = text;
-      statusDot.className = `status-dot ${type}`;
+    function setStatus(text, type = "success") {
+      document.getElementById("statusText").textContent = text;
+      document.getElementById("statusDot").className = `status-dot ${type}`;
     }
 
     function showNotice(message, type = "success") {
+      const notice = document.getElementById("notice");
+
       notice.textContent = message;
       notice.className = `notice show ${type}`;
 
@@ -1451,12 +1476,12 @@
       }, 5000);
     }
 
-    function setInputValue(id, value) {
-      document.getElementById(id).value = value || "";
+    function getValue(id) {
+      return document.getElementById(id).value.trim();
     }
 
-    function getInputValue(id) {
-      return document.getElementById(id).value.trim();
+    function setValue(id, value) {
+      document.getElementById(id).value = value || "";
     }
 
     function escapeHTML(value) {
@@ -1476,83 +1501,161 @@
       return fileName.replace(/[^a-zA-Z0-9._-]/g, "-").toLowerCase();
     }
 
-    function friendlyFirebaseError(error) {
-      const code = error?.code || "";
-
+    function friendlyError(error) {
       const messages = {
         "auth/invalid-credential": "Incorrect email or password.",
         "auth/invalid-email": "Please enter a valid email address.",
-        "auth/user-not-found": "No Firebase user exists with this email.",
-        "auth/wrong-password": "Incorrect password.",
-        "auth/too-many-requests":
-          "Too many login attempts. Please wait before trying again.",
-        "auth/network-request-failed":
-          "Network error. Check your internet connection.",
-        "PERMISSION_DENIED":
-          "Permission denied. Check Realtime Database Rules and your Admin UID.",
-        "storage/unauthorized":
-          "Image upload denied. Check Firebase Storage Rules and your Admin UID.",
-        "storage/canceled":
-          "The upload was cancelled.",
-        "storage/unknown":
-          "Image upload failed. Please try again."
+        "auth/too-many-requests": "Too many attempts. Please wait and try again.",
+        "auth/network-request-failed": "Network error. Check your internet connection.",
+        "PERMISSION_DENIED": "Permission denied. Check Firebase Rules and Admin UID.",
+        "storage/unauthorized": "Upload denied. Check Firebase Storage Rules.",
+        "storage/canceled": "The upload was cancelled.",
+        "storage/unknown": "Media upload failed."
       };
 
-      return messages[code] || error?.message || "Something went wrong. Please try again.";
+      return messages[error?.code] || error?.message || "Something went wrong.";
     }
 
-    function updatePreview(inputId, previewBoxId, previewImageId) {
-      const imageUrl = getInputValue(inputId);
-      const previewBox = document.getElementById(previewBoxId);
-      const previewImage = document.getElementById(previewImageId);
+    function updateImagePreview(inputId, boxId, imageId) {
+      const url = getValue(inputId);
+      const box = document.getElementById(boxId);
+      const image = document.getElementById(imageId);
 
-      if (!imageUrl) {
-        previewBox.classList.remove("show");
-        previewImage.removeAttribute("src");
+      if (!url) {
+        box.classList.remove("show");
         return;
       }
 
-      previewImage.src = imageUrl;
-      previewBox.classList.add("show");
+      image.src = url;
+      box.classList.add("show");
 
-      previewImage.onerror = () => {
-        previewBox.classList.remove("show");
+      image.onerror = () => {
+        box.classList.remove("show");
       };
     }
 
-    /* Login system */
+    function updateCreatorPreview() {
+      const url = getValue("creatorMediaUrl");
+      const type = getValue("creatorMediaType");
+      const box = document.getElementById("creatorPreviewBox");
+      const area = document.getElementById("creatorPreviewArea");
+
+      if (!url) {
+        box.classList.remove("show");
+        area.innerHTML = "";
+        return;
+      }
+
+      box.classList.add("show");
+
+      if (type === "video") {
+        area.innerHTML = `
+          <video controls preload="metadata" style="width: 100%; height: 155px; object-fit: contain;">
+            <source src="${escapeHTML(url)}" type="video/mp4" />
+          </video>
+        `;
+      } else {
+        area.innerHTML = `
+          <img
+            src="${escapeHTML(url)}"
+            alt="Creator media preview"
+            style="width: 100%; height: 155px; object-fit: contain;"
+          />
+        `;
+      }
+    }
+
+    async function uploadMedia(file, folder, progressId, progressBarId) {
+      if (!file) {
+        return null;
+      }
+
+      const isImage = file.type.startsWith("image/");
+      const isVideo = file.type.startsWith("video/");
+
+      if (!isImage && !isVideo) {
+        throw new Error("Please select an image, GIF, or video file.");
+      }
+
+      if (file.size > 100 * 1024 * 1024) {
+        throw new Error("Media must be smaller than 100 MB.");
+      }
+
+      const progress = document.getElementById(progressId);
+      const progressBar = document.getElementById(progressBarId);
+
+      progress.classList.add("show");
+      progressBar.style.width = "0%";
+
+      const path =
+        `city-assets/${currentUser.uid}/${folder}/` +
+        `${Date.now()}-${cleanFileName(file.name)}`;
+
+      const uploadRef = storageRef(storage, path);
+
+      const uploadTask = uploadBytesResumable(uploadRef, file, {
+        contentType: file.type
+      });
+
+      return new Promise((resolve, reject) => {
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const percent =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+            progressBar.style.width = `${percent}%`;
+          },
+          (error) => {
+            progress.classList.remove("show");
+            reject(error);
+          },
+          async () => {
+            try {
+              const url = await getDownloadURL(uploadTask.snapshot.ref);
+
+              setTimeout(() => {
+                progress.classList.remove("show");
+                progressBar.style.width = "0%";
+              }, 700);
+
+              resolve(url);
+            } catch (error) {
+              progress.classList.remove("show");
+              reject(error);
+            }
+          }
+        );
+      });
+    }
+
+    /* Authentication */
 
     document.getElementById("loginForm").addEventListener("submit", async (event) => {
       event.preventDefault();
 
-      const email = getInputValue("loginEmail");
+      const email = getValue("loginEmail");
       const password = document.getElementById("loginPassword").value;
-      const loginButton = document.getElementById("loginButton");
-
-      if (!email || !password) {
-        alert("Please enter your admin email and password.");
-        return;
-      }
+      const button = document.getElementById("loginButton");
 
       try {
-        loginButton.disabled = true;
-        loginButton.textContent = "Signing in...";
+        button.disabled = true;
+        button.textContent = "Signing in...";
 
         await signInWithEmailAndPassword(auth, email, password);
       } catch (error) {
-        alert(friendlyFirebaseError(error));
+        alert(friendlyError(error));
       } finally {
-        loginButton.disabled = false;
-        loginButton.textContent = "Sign in securely";
+        button.disabled = false;
+        button.textContent = "Sign in securely";
       }
     });
 
     document.getElementById("forgotPasswordButton").addEventListener("click", async () => {
-      const email = getInputValue("loginEmail");
+      const email = getValue("loginEmail");
 
       if (!email) {
-        alert("Enter your admin email first, then click Forgot password.");
-        document.getElementById("loginEmail").focus();
+        alert("Enter your admin email first.");
         return;
       }
 
@@ -1560,17 +1663,12 @@
         await sendPasswordResetEmail(auth, email);
         alert("Password reset email sent. Check inbox and spam folder.");
       } catch (error) {
-        alert(friendlyFirebaseError(error));
+        alert(friendlyError(error));
       }
     });
 
-    document.getElementById("logoutButton").addEventListener("click", async () => {
-      await signOut(auth);
-    });
-
-    document.getElementById("deniedLogoutButton").addEventListener("click", async () => {
-      await signOut(auth);
-    });
+    document.getElementById("logoutButton").addEventListener("click", () => signOut(auth));
+    document.getElementById("deniedLogoutButton").addEventListener("click", () => signOut(auth));
 
     onAuthStateChanged(auth, (user) => {
       currentUser = user;
@@ -1587,70 +1685,65 @@
       }
 
       document.getElementById("adminEmail").textContent =
-        user.email || "Authorized Admin";
+        user.email || "Authorized admin";
 
       showScreen(appScreen);
-      setDatabaseStatus("Connected to Firebase", "connected");
+      setStatus("Connected to Firebase", "success");
 
-      startRealtimeListeners();
+      startListeners();
     });
 
-    /* Website data */
+    /* Main website data */
 
     function fillWebsiteForm(data) {
       const websiteData = {
-        ...defaultWebsiteData,
+        ...defaultData,
         ...(data || {})
       };
 
-      setInputValue("cityName", websiteData.cityName);
-      setInputValue("heroText", websiteData.heroText);
-      setInputValue("bannerUrl", websiteData.bannerUrl);
-      setInputValue("logoUrl", websiteData.logoUrl);
-      setInputValue("aboutHeading", websiteData.aboutHeading);
-      setInputValue("aboutIntro", websiteData.aboutIntro);
-      setInputValue("infoTitle", websiteData.infoTitle);
-      setInputValue("cityInformation", websiteData.cityInformation);
-      setInputValue("cityQuote", websiteData.cityQuote);
+      setValue("cityName", websiteData.cityName);
+      setValue("heroText", websiteData.heroText);
+      setValue("bannerUrl", websiteData.bannerUrl);
+      setValue("logoUrl", websiteData.logoUrl);
+      setValue("aboutHeading", websiteData.aboutHeading);
+      setValue("aboutIntro", websiteData.aboutIntro);
+      setValue("infoTitle", websiteData.infoTitle);
+      setValue("cityInformation", websiteData.cityInformation);
+      setValue("cityQuote", websiteData.cityQuote);
 
       const stats = Array.isArray(websiteData.stats)
         ? websiteData.stats
-        : defaultWebsiteData.stats;
+        : defaultData.stats;
 
       for (let i = 0; i < 4; i++) {
-        const stat = stats[i] || {
-          number: "",
-          label: ""
-        };
-
-        setInputValue(`statNumber${i + 1}`, stat.number);
-        setInputValue(`statLabel${i + 1}`, stat.label);
+        setValue(`statNumber${i + 1}`, stats[i]?.number || "");
+        setValue(`statLabel${i + 1}`, stats[i]?.label || "");
       }
 
-      updatePreview("bannerUrl", "bannerPreviewBox", "bannerPreview");
-      updatePreview("logoUrl", "logoPreviewBox", "logoPreview");
+      updateImagePreview("bannerUrl", "bannerPreviewBox", "bannerPreview");
+      updateImagePreview("logoUrl", "logoPreviewBox", "logoPreview");
     }
 
-    function collectWebsiteData() {
+    function getWebsiteData() {
       const stats = [];
 
       for (let i = 1; i <= 4; i++) {
         stats.push({
-          number: getInputValue(`statNumber${i}`),
-          label: getInputValue(`statLabel${i}`)
+          number: getValue(`statNumber${i}`),
+          label: getValue(`statLabel${i}`)
         });
       }
 
       return {
-        cityName: getInputValue("cityName") || "Himmatnagar",
-        heroText: getInputValue("heroText"),
-        bannerUrl: getInputValue("bannerUrl"),
-        logoUrl: getInputValue("logoUrl"),
-        aboutHeading: getInputValue("aboutHeading"),
-        aboutIntro: getInputValue("aboutIntro"),
-        infoTitle: getInputValue("infoTitle"),
-        cityInformation: getInputValue("cityInformation"),
-        cityQuote: getInputValue("cityQuote"),
+        cityName: getValue("cityName") || "Himatnagar",
+        heroText: getValue("heroText"),
+        bannerUrl: getValue("bannerUrl"),
+        logoUrl: getValue("logoUrl"),
+        aboutHeading: getValue("aboutHeading"),
+        aboutIntro: getValue("aboutIntro"),
+        infoTitle: getValue("infoTitle"),
+        cityInformation: getValue("cityInformation"),
+        cityQuote: getValue("cityQuote"),
         stats: stats,
         updatedAt: Date.now(),
         updatedBy: currentUser.uid
@@ -1663,278 +1756,340 @@
       try {
         button.disabled = true;
         button.textContent = "Saving...";
-        setDatabaseStatus("Saving website content...", "saving");
+        setStatus("Saving city website...", "saving");
 
-        await set(websiteRef, collectWebsiteData());
+        await set(websiteRef, getWebsiteData());
 
-        setDatabaseStatus("Website content saved", "connected");
-
-        showNotice(
-          "Website content saved successfully in Firebase Realtime Database.",
-          "success"
-        );
+        setStatus("Website content saved", "success");
+        showNotice("Himatnagar website content saved successfully.", "success");
       } catch (error) {
-        setDatabaseStatus("Save failed", "error");
-        showNotice(friendlyFirebaseError(error), "error");
+        setStatus("Save failed", "error");
+        showNotice(friendlyError(error), "error");
       } finally {
         button.disabled = false;
         button.textContent = "Save all website content";
       }
     });
 
-    document.getElementById("resetFormButton").addEventListener("click", () => {
-      const accepted = confirm(
-        "Reset this form to demo content? Firebase will not change until you click Save all website content."
+    document.getElementById("resetWebsiteButton").addEventListener("click", () => {
+      const confirmed = confirm(
+        "Reset the form to default text? Firebase data will not change until you press Save all website content."
       );
 
-      if (!accepted) {
-        return;
+      if (confirmed) {
+        fillWebsiteForm(defaultData);
+        showNotice(
+          "Form reset. Press Save all website content if you want to overwrite online data.",
+          "warning"
+        );
       }
-
-      fillWebsiteForm(defaultWebsiteData);
-
-      showNotice(
-        "The form has been reset. Press Save all website content if you want to replace your online data.",
-        "warning"
-      );
     });
 
-    /* Firebase Storage upload function */
-
-    async function uploadImage(file, folder, progressBoxId, progressBarId) {
-      if (!file) {
-        return null;
-      }
-
-      if (!file.type.startsWith("image/")) {
-        throw new Error("Please choose a JPG, PNG, WebP, or GIF image.");
-      }
-
-      if (file.size > 10 * 1024 * 1024) {
-        throw new Error("Image size must be less than 10 MB.");
-      }
-
-      const progressBox = document.getElementById(progressBoxId);
-      const progressBar = document.getElementById(progressBarId);
-
-      progressBox.classList.add("show");
-      progressBar.style.width = "0%";
-
-      const filePath =
-        `city-assets/${currentUser.uid}/${folder}/` +
-        `${Date.now()}-${cleanFileName(file.name)}`;
-
-      const fileReference = storageRef(storage, filePath);
-
-      const uploadTask = uploadBytesResumable(fileReference, file, {
-        contentType: file.type
-      });
-
-      return new Promise((resolve, reject) => {
-        uploadTask.on(
-          "state_changed",
-
-          (snapshot) => {
-            const percentage =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
-            progressBar.style.width = `${percentage}%`;
-          },
-
-          (error) => {
-            progressBox.classList.remove("show");
-            reject(error);
-          },
-
-          async () => {
-            try {
-              const imageUrl = await getDownloadURL(uploadTask.snapshot.ref);
-
-              setTimeout(() => {
-                progressBox.classList.remove("show");
-                progressBar.style.width = "0%";
-              }, 700);
-
-              resolve(imageUrl);
-            } catch (error) {
-              progressBox.classList.remove("show");
-              reject(error);
-            }
-          }
-        );
-      });
-    }
-
-    /* Banner image upload */
+    /* Banner and logo uploads */
 
     document.getElementById("bannerFile").addEventListener("change", async (event) => {
       const file = event.target.files[0];
 
-      if (!file) {
-        return;
-      }
+      if (!file) return;
 
       try {
-        setDatabaseStatus("Uploading banner...", "saving");
+        setStatus("Uploading banner...", "saving");
 
-        const imageUrl = await uploadImage(
+        const url = await uploadMedia(
           file,
           "banners",
           "bannerProgress",
           "bannerProgressBar"
         );
 
-        setInputValue("bannerUrl", imageUrl);
-        updatePreview("bannerUrl", "bannerPreviewBox", "bannerPreview");
+        setValue("bannerUrl", url);
+        updateImagePreview("bannerUrl", "bannerPreviewBox", "bannerPreview");
 
-        setDatabaseStatus("Banner uploaded", "connected");
+        setStatus("Banner uploaded", "success");
 
         showNotice(
-          "Banner uploaded. Click Save all website content to publish the banner.",
+          "Banner uploaded. Press Save all website content to publish it.",
           "success"
         );
       } catch (error) {
-        setDatabaseStatus("Banner upload failed", "error");
-        showNotice(friendlyFirebaseError(error), "error");
+        setStatus("Upload failed", "error");
+        showNotice(friendlyError(error), "error");
       } finally {
         event.target.value = "";
       }
     });
 
-    /* Logo image upload */
-
     document.getElementById("logoFile").addEventListener("change", async (event) => {
       const file = event.target.files[0];
 
-      if (!file) {
-        return;
-      }
+      if (!file) return;
 
       try {
-        setDatabaseStatus("Uploading logo...", "saving");
+        setStatus("Uploading logo...", "saving");
 
-        const imageUrl = await uploadImage(
+        const url = await uploadMedia(
           file,
           "logos",
           "logoProgress",
           "logoProgressBar"
         );
 
-        setInputValue("logoUrl", imageUrl);
-        updatePreview("logoUrl", "logoPreviewBox", "logoPreview");
+        setValue("logoUrl", url);
+        updateImagePreview("logoUrl", "logoPreviewBox", "logoPreview");
 
-        setDatabaseStatus("Logo uploaded", "connected");
+        setStatus("Logo uploaded", "success");
 
         showNotice(
-          "Logo uploaded. Click Save all website content to publish the logo.",
+          "Logo uploaded. Press Save all website content to publish it.",
           "success"
         );
       } catch (error) {
-        setDatabaseStatus("Logo upload failed", "error");
-        showNotice(friendlyFirebaseError(error), "error");
-      } finally {
-        event.target.value = "";
-      }
-    });
-
-    /* Highlight image upload */
-
-    document.getElementById("highlightImageFile").addEventListener("change", async (event) => {
-      const file = event.target.files[0];
-
-      if (!file) {
-        return;
-      }
-
-      try {
-        setDatabaseStatus("Uploading highlight image...", "saving");
-
-        const imageUrl = await uploadImage(
-          file,
-          "highlights",
-          "highlightProgress",
-          "highlightProgressBar"
-        );
-
-        setInputValue("highlightImageUrl", imageUrl);
-
-        setDatabaseStatus("Highlight image uploaded", "connected");
-
-        showNotice(
-          "Highlight image uploaded. Now click Add city highlight or Update city highlight.",
-          "success"
-        );
-      } catch (error) {
-        setDatabaseStatus("Image upload failed", "error");
-        showNotice(friendlyFirebaseError(error), "error");
+        setStatus("Upload failed", "error");
+        showNotice(friendlyError(error), "error");
       } finally {
         event.target.value = "";
       }
     });
 
     document.getElementById("bannerUrl").addEventListener("input", () => {
-      updatePreview("bannerUrl", "bannerPreviewBox", "bannerPreview");
+      updateImagePreview("bannerUrl", "bannerPreviewBox", "bannerPreview");
     });
 
     document.getElementById("logoUrl").addEventListener("input", () => {
-      updatePreview("logoUrl", "logoPreviewBox", "logoPreview");
+      updateImagePreview("logoUrl", "logoPreviewBox", "logoPreview");
     });
 
-    /* City highlights */
+    /* City Highlights */
 
     function renderHighlights() {
-      const highlightsList = document.getElementById("highlightsList");
-      const highlightCount = document.getElementById("highlightCount");
-
-      highlightCount.textContent = `${highlightsCache.length} ${
-        highlightsCache.length === 1 ? "highlight" : "highlights"
-      }`;
+      const list = document.getElementById("highlightsList");
+      document.getElementById("highlightCount").textContent =
+        `${highlightsCache.length} highlights`;
 
       if (!highlightsCache.length) {
-        highlightsList.innerHTML = `
-          <div class="empty-state">
-            No city highlights have been added yet.<br />
-            Add landmarks, tourism places, food, events, services, or local stories above.
+        list.innerHTML = `
+          <div class="empty">
+            No city highlights added yet.<br />
+            Add food places, landmarks, events, services, tourism spots, or local stories above.
           </div>
         `;
-
         return;
       }
 
-      highlightsList.innerHTML = highlightsCache
-        .map((highlight) => {
-          const imageUrl =
-            highlight.imageUrl ||
-            "https://placehold.co/800x500/e6edf3/183751?text=Himmatnagar";
+      list.innerHTML = highlightsCache
+        .map((item) => `
+          <article class="item-card">
+            <img
+              class="item-media"
+              src="${escapeHTML(item.imageUrl || "https://placehold.co/700x450/e9eef1/18364c?text=Himatnagar")}"
+              alt="${escapeHTML(item.title || "Himatnagar highlight")}"
+            />
+
+            <div class="item-content">
+              <span class="item-type">City Highlight</span>
+              <h5>${escapeHTML(item.title || "Untitled highlight")}</h5>
+              <p>${escapeHTML(item.description || "")}</p>
+
+              <div class="item-actions">
+                <button class="button button-light button-small" data-edit-highlight="${item.id}">
+                  Edit
+                </button>
+
+                <button class="button button-danger button-small" data-delete-highlight="${item.id}">
+                  Delete
+                </button>
+              </div>
+            </div>
+          </article>
+        `)
+        .join("");
+
+      document.querySelectorAll("[data-edit-highlight]").forEach((button) => {
+        button.addEventListener("click", () => editHighlight(button.dataset.editHighlight));
+      });
+
+      document.querySelectorAll("[data-delete-highlight]").forEach((button) => {
+        button.addEventListener("click", () => deleteHighlight(button.dataset.deleteHighlight));
+      });
+    }
+
+    function clearHighlightForm() {
+      setValue("highlightEditId", "");
+      setValue("highlightTitle", "");
+      setValue("highlightImageUrl", "");
+      setValue("highlightDescription", "");
+
+      document.getElementById("highlightFile").value = "";
+      document.getElementById("saveHighlightButton").textContent = "Add city highlight";
+      document.getElementById("cancelHighlightButton").classList.add("hidden");
+    }
+
+    function editHighlight(id) {
+      const item = highlightsCache.find((highlight) => highlight.id === id);
+
+      if (!item) return;
+
+      setValue("highlightEditId", item.id);
+      setValue("highlightTitle", item.title);
+      setValue("highlightImageUrl", item.imageUrl);
+      setValue("highlightDescription", item.description);
+
+      document.getElementById("saveHighlightButton").textContent = "Update city highlight";
+      document.getElementById("cancelHighlightButton").classList.remove("hidden");
+
+      window.scrollTo({
+        top: document.getElementById("highlightTitle").getBoundingClientRect().top + window.scrollY - 120,
+        behavior: "smooth"
+      });
+    }
+
+    async function saveHighlight() {
+      const id = getValue("highlightEditId");
+      const title = getValue("highlightTitle");
+
+      if (!title) {
+        showNotice("Please enter a city highlight title.", "error");
+        return;
+      }
+
+      const data = {
+        title: title,
+        imageUrl: getValue("highlightImageUrl"),
+        description: getValue("highlightDescription"),
+        updatedAt: Date.now(),
+        updatedBy: currentUser.uid
+      };
+
+      try {
+        if (id) {
+          await update(ref(database, `highlights/${id}`), data);
+          showNotice("City highlight updated successfully.", "success");
+        } else {
+          const itemRef = push(highlightsRef);
+
+          await set(itemRef, {
+            ...data,
+            createdAt: Date.now(),
+            createdBy: currentUser.uid,
+            position: Date.now()
+          });
+
+          showNotice("City highlight added successfully.", "success");
+        }
+
+        clearHighlightForm();
+      } catch (error) {
+        showNotice(friendlyError(error), "error");
+      }
+    }
+
+    async function deleteHighlight(id) {
+      const item = highlightsCache.find((highlight) => highlight.id === id);
+
+      if (!confirm(`Delete "${item?.title || "this highlight"}"?`)) return;
+
+      try {
+        await remove(ref(database, `highlights/${id}`));
+        showNotice("City highlight deleted successfully.", "success");
+      } catch (error) {
+        showNotice(friendlyError(error), "error");
+      }
+    }
+
+    document.getElementById("saveHighlightButton").addEventListener("click", saveHighlight);
+    document.getElementById("cancelHighlightButton").addEventListener("click", clearHighlightForm);
+
+    document.getElementById("highlightFile").addEventListener("change", async (event) => {
+      const file = event.target.files[0];
+
+      if (!file) return;
+
+      try {
+        const url = await uploadMedia(
+          file,
+          "highlights",
+          "highlightProgress",
+          "highlightProgressBar"
+        );
+
+        setValue("highlightImageUrl", url);
+
+        showNotice(
+          "Highlight image uploaded. Now click Add city highlight.",
+          "success"
+        );
+      } catch (error) {
+        showNotice(friendlyError(error), "error");
+      } finally {
+        event.target.value = "";
+      }
+    });
+
+    /* Creators */
+
+    function isVideo(item) {
+      const url = String(item.mediaUrl || "").toLowerCase();
+
+      return (
+        item.mediaType === "video" ||
+        url.includes(".mp4") ||
+        url.includes(".webm") ||
+        url.includes(".mov")
+      );
+    }
+
+    function renderCreators() {
+      const list = document.getElementById("creatorsList");
+
+      document.getElementById("creatorCount").textContent =
+        `${creatorsCache.length} creators`;
+
+      if (!creatorsCache.length) {
+        list.innerHTML = `
+          <div class="empty">
+            No creator profiles added yet.<br />
+            Add a local photographer, influencer, artist, YouTuber, videographer, business, or creative person above.
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = creatorsCache
+        .map((item) => {
+          const media = isVideo(item)
+            ? `
+              <video class="item-video" controls preload="metadata">
+                <source src="${escapeHTML(item.mediaUrl)}" type="video/mp4" />
+              </video>
+            `
+            : `
+              <img
+                class="item-media"
+                src="${escapeHTML(item.mediaUrl || "https://placehold.co/700x450/e9eef1/18364c?text=Creator+Media")}"
+                alt="${escapeHTML(item.title || "Creator media")}"
+              />
+            `;
 
           return `
-            <article class="highlight-card">
-              <img
-                class="highlight-card-image"
-                src="${escapeHTML(imageUrl)}"
-                alt="${escapeHTML(highlight.title || "Himmatnagar highlight")}"
-                onerror="this.src='https://placehold.co/800x500/e6edf3/183751?text=Image+Not+Available';"
-              />
+            <article class="item-card">
+              ${media}
 
-              <div class="highlight-card-content">
-                <h5>${escapeHTML(highlight.title || "Untitled highlight")}</h5>
+              <div class="item-content">
+                <span class="item-type">${escapeHTML(item.mediaType || "creator")}</span>
 
-                <p>${escapeHTML(highlight.description || "No description added.")}</p>
+                <h5>${escapeHTML(item.title || "Local Creator")}</h5>
 
-                <div class="card-actions">
-                  <button
-                    type="button"
-                    class="button button-light button-small"
-                    data-edit-id="${highlight.id}"
-                  >
+                <p>
+                  ${escapeHTML(item.creatorName || "Himatnagar Creator")}<br />
+                  ${escapeHTML(item.description || "")}
+                </p>
+
+                <div class="item-actions">
+                  <button class="button button-light button-small" data-edit-creator="${item.id}">
                     Edit
                   </button>
 
-                  <button
-                    type="button"
-                    class="button button-danger button-small"
-                    data-delete-id="${highlight.id}"
-                  >
+                  <button class="button button-danger button-small" data-delete-creator="${item.id}">
                     Delete
                   </button>
                 </div>
@@ -1944,204 +2099,203 @@
         })
         .join("");
 
-      document.querySelectorAll("[data-edit-id]").forEach((button) => {
-        button.addEventListener("click", () => {
-          startEditingHighlight(button.dataset.editId);
-        });
+      document.querySelectorAll("[data-edit-creator]").forEach((button) => {
+        button.addEventListener("click", () => editCreator(button.dataset.editCreator));
       });
 
-      document.querySelectorAll("[data-delete-id]").forEach((button) => {
-        button.addEventListener("click", () => {
-          deleteHighlight(button.dataset.deleteId);
-        });
+      document.querySelectorAll("[data-delete-creator]").forEach((button) => {
+        button.addEventListener("click", () => deleteCreator(button.dataset.deleteCreator));
       });
     }
 
-    function startEditingHighlight(highlightId) {
-      const highlight = highlightsCache.find((item) => item.id === highlightId);
+    function clearCreatorForm() {
+      setValue("creatorEditId", "");
+      setValue("creatorName", "");
+      setValue("creatorTitle", "");
+      setValue("creatorMediaType", "photo");
+      setValue("creatorMediaUrl", "");
+      setValue("creatorSourceUrl", "");
+      setValue("creatorDescription", "");
 
-      if (!highlight) {
+      document.getElementById("creatorFile").value = "";
+      document.getElementById("creatorPreviewBox").classList.remove("show");
+      document.getElementById("creatorPreviewArea").innerHTML = "";
+
+      document.getElementById("saveCreatorButton").textContent = "Add creator profile";
+      document.getElementById("cancelCreatorButton").classList.add("hidden");
+    }
+
+    function editCreator(id) {
+      const item = creatorsCache.find((creator) => creator.id === id);
+
+      if (!item) return;
+
+      setValue("creatorEditId", item.id);
+      setValue("creatorName", item.creatorName);
+      setValue("creatorTitle", item.title);
+      setValue("creatorMediaType", item.mediaType || "photo");
+      setValue("creatorMediaUrl", item.mediaUrl);
+      setValue("creatorSourceUrl", item.sourceUrl);
+      setValue("creatorDescription", item.description);
+
+      updateCreatorPreview();
+
+      document.getElementById("saveCreatorButton").textContent = "Update creator profile";
+      document.getElementById("cancelCreatorButton").classList.remove("hidden");
+
+      window.scrollTo({
+        top: document.getElementById("creatorName").getBoundingClientRect().top + window.scrollY - 120,
+        behavior: "smooth"
+      });
+    }
+
+    async function saveCreator() {
+      const id = getValue("creatorEditId");
+      const creatorName = getValue("creatorName");
+      const title = getValue("creatorTitle");
+
+      if (!creatorName || !title) {
+        showNotice("Please enter creator name and creator title.", "error");
         return;
       }
 
-      setInputValue("editingHighlightId", highlight.id);
-      setInputValue("highlightTitle", highlight.title);
-      setInputValue("highlightImageUrl", highlight.imageUrl);
-      setInputValue("highlightDescription", highlight.description);
-
-      document.getElementById("saveHighlightButton").textContent =
-        "Update city highlight";
-
-      document.getElementById("cancelEditButton").classList.remove("hidden");
-
-      document.querySelector(".highlight-form").scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-      });
-
-      showNotice(
-        `Editing "${highlight.title}". Update the text or image, then click Update city highlight.`,
-        "warning"
-      );
-    }
-
-    function clearHighlightForm() {
-      setInputValue("editingHighlightId", "");
-      setInputValue("highlightTitle", "");
-      setInputValue("highlightImageUrl", "");
-      setInputValue("highlightDescription", "");
-
-      document.getElementById("highlightImageFile").value = "";
-
-      document.getElementById("saveHighlightButton").textContent =
-        "Add city highlight";
-
-      document.getElementById("cancelEditButton").classList.add("hidden");
-    }
-
-    async function saveHighlight() {
-      const title = getInputValue("highlightTitle");
-      const imageUrl = getInputValue("highlightImageUrl");
-      const description = getInputValue("highlightDescription");
-      const editingId = getInputValue("editingHighlightId");
-
-      const saveButton = document.getElementById("saveHighlightButton");
-
-      if (!title) {
-        showNotice("Please enter a title for this city highlight.", "error");
-        document.getElementById("highlightTitle").focus();
-        return;
-      }
-
-      const highlightData = {
+      const data = {
+        creatorName: creatorName,
         title: title,
-        imageUrl: imageUrl,
-        description: description,
+        mediaType: getValue("creatorMediaType") || "photo",
+        mediaUrl: getValue("creatorMediaUrl"),
+        sourceUrl: getValue("creatorSourceUrl"),
+        description: getValue("creatorDescription"),
         updatedAt: Date.now(),
         updatedBy: currentUser.uid
       };
 
       try {
-        saveButton.disabled = true;
-
-        if (editingId) {
-          saveButton.textContent = "Updating highlight...";
-
-          await update(
-            ref(database, `highlights/${editingId}`),
-            highlightData
-          );
-
-          showNotice("City highlight updated successfully.", "success");
+        if (id) {
+          await update(ref(database, `creators/${id}`), data);
+          showNotice("Creator profile updated successfully.", "success");
         } else {
-          saveButton.textContent = "Adding highlight...";
+          const itemRef = push(creatorsRef);
 
-          const newHighlightRef = push(highlightsRef);
-
-          await set(newHighlightRef, {
-            ...highlightData,
+          await set(itemRef, {
+            ...data,
             createdAt: Date.now(),
             createdBy: currentUser.uid,
             position: Date.now()
           });
 
-          showNotice("New city highlight added successfully.", "success");
+          showNotice("Creator profile added successfully.", "success");
         }
 
-        clearHighlightForm();
+        clearCreatorForm();
       } catch (error) {
-        showNotice(friendlyFirebaseError(error), "error");
-      } finally {
-        saveButton.disabled = false;
-
-        if (getInputValue("editingHighlightId")) {
-          saveButton.textContent = "Update city highlight";
-        } else {
-          saveButton.textContent = "Add city highlight";
-        }
+        showNotice(friendlyError(error), "error");
       }
     }
 
-    async function deleteHighlight(highlightId) {
-      const highlight = highlightsCache.find((item) => item.id === highlightId);
+    async function deleteCreator(id) {
+      const item = creatorsCache.find((creator) => creator.id === id);
 
-      const title = highlight?.title || "this highlight";
-
-      const accepted = confirm(
-        `Delete "${title}" from your Himmatnagar City website? This cannot be undone.`
-      );
-
-      if (!accepted) {
-        return;
-      }
+      if (!confirm(`Delete "${item?.title || "this creator"}"?`)) return;
 
       try {
-        await remove(ref(database, `highlights/${highlightId}`));
-
-        if (getInputValue("editingHighlightId") === highlightId) {
-          clearHighlightForm();
-        }
-
-        showNotice("City highlight deleted successfully.", "success");
+        await remove(ref(database, `creators/${id}`));
+        showNotice("Creator profile deleted successfully.", "success");
       } catch (error) {
-        showNotice(friendlyFirebaseError(error), "error");
+        showNotice(friendlyError(error), "error");
       }
     }
 
-    document
-      .getElementById("saveHighlightButton")
-      .addEventListener("click", saveHighlight);
+    document.getElementById("saveCreatorButton").addEventListener("click", saveCreator);
+    document.getElementById("cancelCreatorButton").addEventListener("click", clearCreatorForm);
 
-    document
-      .getElementById("cancelEditButton")
-      .addEventListener("click", clearHighlightForm);
+    document.getElementById("creatorMediaUrl").addEventListener("input", updateCreatorPreview);
+    document.getElementById("creatorMediaType").addEventListener("change", updateCreatorPreview);
 
-    /* Realtime Database listeners */
+    document.getElementById("creatorFile").addEventListener("change", async (event) => {
+      const file = event.target.files[0];
 
-    function startRealtimeListeners() {
-      if (listenersStarted) {
-        return;
+      if (!file) return;
+
+      try {
+        setStatus("Uploading creator media...", "saving");
+
+        const url = await uploadMedia(
+          file,
+          "creators",
+          "creatorProgress",
+          "creatorProgressBar"
+        );
+
+        setValue("creatorMediaUrl", url);
+
+        if (file.type.startsWith("video/")) {
+          setValue("creatorMediaType", "video");
+        } else if (file.type === "image/gif") {
+          setValue("creatorMediaType", "gif");
+        } else {
+          setValue("creatorMediaType", "photo");
+        }
+
+        updateCreatorPreview();
+        setStatus("Creator media uploaded", "success");
+
+        showNotice(
+          "Creator media uploaded. Add creator details and click Add creator profile.",
+          "success"
+        );
+      } catch (error) {
+        setStatus("Upload failed", "error");
+        showNotice(friendlyError(error), "error");
+      } finally {
+        event.target.value = "";
       }
+    });
+
+    /* Firebase real-time listeners */
+
+    function startListeners() {
+      if (listenersStarted) return;
 
       listenersStarted = true;
 
       onValue(
         websiteRef,
         (snapshot) => {
-          const websiteData = snapshot.val();
-
-          if (websiteData) {
-            fillWebsiteForm(websiteData);
-          } else {
-            fillWebsiteForm(defaultWebsiteData);
-          }
-
-          setDatabaseStatus("Realtime Database connected", "connected");
+          fillWebsiteForm(snapshot.val());
+          setStatus("Firebase connected", "success");
         },
         (error) => {
-          setDatabaseStatus("Database connection failed", "error");
-          showNotice(friendlyFirebaseError(error), "error");
+          setStatus("Database error", "error");
+          showNotice(friendlyError(error), "error");
         }
       );
 
-      onValue(
-        highlightsRef,
-        (snapshot) => {
-          const highlightsData = snapshot.val() || {};
+      onValue(highlightsRef, (snapshot) => {
+        const data = snapshot.val() || {};
 
-          highlightsCache = Object.entries(highlightsData)
-            .map(([id, value]) => ({
-              id: id,
-              ...value
-            }))
-            .sort((a, b) => (b.position || 0) - (a.position || 0));
+        highlightsCache = Object.entries(data)
+          .map(([id, value]) => ({
+            id,
+            ...value
+          }))
+          .sort((a, b) => (b.position || 0) - (a.position || 0));
 
-          renderHighlights();
-        },
-        (error) => {
-          showNotice(friendlyFirebaseError(error), "error");
-        }
-      );
+        renderHighlights();
+      });
+
+      onValue(creatorsRef, (snapshot) => {
+        const data = snapshot.val() || {};
+
+        creatorsCache = Object.entries(data)
+          .map(([id, value]) => ({
+            id,
+            ...value
+          }))
+          .sort((a, b) => (b.position || 0) - (a.position || 0));
+
+        renderCreators();
+      });
     }
   </script>
 </body>
