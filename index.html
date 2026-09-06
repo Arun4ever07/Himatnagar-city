@@ -6,10 +6,10 @@
 
   <meta
     name="description"
-    content="Discover Himmatnagar — history, culture, places, and city information."
+    content="Discover Himatnagar — history, culture, places, and city information."
   />
 
-  <title>Himmatnagar | City Guide</title>
+  <title>Himatnagar | City Guide</title>
 
   <style>
     :root {
@@ -59,9 +59,7 @@
       margin: auto;
     }
 
-    /* =========================
-       Navigation
-    ========================= */
+    /* Navigation */
 
     .navbar {
       position: sticky;
@@ -106,28 +104,21 @@
       border-bottom-color: #ffd2ab;
     }
 
-    /* =========================
-       Hero Banner
-    ========================= */
+    /* Banner */
 
     .hero {
       position: relative;
       display: flex;
 
       /*
-        Banner height is responsive.
-        It prevents the banner from becoming too large.
+        Banner height reduced by approximately 30%.
+        Old maximum was around 470px.
+        New maximum is 330px.
       */
-      min-height: clamp(350px, 30vw, 470px);
+      min-height: clamp(245px, 21vw, 330px);
 
       align-items: end;
-
-      /*
-        Important:
-        visible allows the complete logo circle to appear below the banner.
-      */
       overflow: visible;
-
       background: #142c3d;
       color: white;
     }
@@ -137,27 +128,19 @@
       inset: 0;
       z-index: 0;
 
-      /*
-        Banner image is saved dynamically by JavaScript.
-      */
       --banner-image: url("https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1800&q=85");
 
       background-image: var(--banner-image);
 
       /*
-        This removes the empty dark border around your banner.
-        Image fills the complete banner width and height.
+        cover fills the complete banner without stretching.
+        It keeps your uploaded image proportions correct.
       */
-      background-size: 100% 100%;
+      background-size: cover;
       background-repeat: no-repeat;
-      background-position: center;
+      background-position: center center;
     }
 
-    /*
-      Separate dark overlay layer.
-      This is separate from the image, so the overlay covers
-      the full banner perfectly without making extra borders.
-    */
     .hero-background::after {
       position: absolute;
       inset: 0;
@@ -167,7 +150,7 @@
         linear-gradient(
           90deg,
           rgba(22, 39, 53, 0.86) 0%,
-          rgba(22, 39, 53, 0.67) 43%,
+          rgba(22, 39, 53, 0.66) 42%,
           rgba(22, 39, 53, 0.18) 100%
         );
     }
@@ -176,59 +159,59 @@
       position: relative;
       z-index: 2;
       width: 100%;
-      padding: 65px 0 82px;
+      padding: 34px 0 47px;
     }
 
     .hero-text {
       width: min(650px, 100%);
-      margin-left: 205px;
+      margin-left: 155px;
     }
 
     .city-label {
       display: inline-block;
-      padding: 7px 11px;
+      padding: 6px 10px;
       color: #fff4e9;
       border: 1px solid rgba(255, 255, 255, 0.35);
-      background: rgba(18, 33, 44, 0.25);
-      font-size: 0.75rem;
+      background: rgba(18, 33, 44, 0.28);
+      font-size: 0.7rem;
       font-weight: bold;
       letter-spacing: 1px;
       text-transform: uppercase;
     }
 
     .hero h1 {
-      margin: 15px 0 13px;
+      margin: 11px 0 9px;
       color: white;
       font-family: var(--serif);
-      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-size: clamp(2.35rem, 4.8vw, 4.2rem);
       font-weight: bold;
       line-height: 1;
-      letter-spacing: -1.5px;
+      letter-spacing: -1.3px;
     }
 
     .hero-description {
-      max-width: 620px;
+      max-width: 610px;
       margin: 0;
       color: #f1f1ee;
-      font-size: clamp(1rem, 2vw, 1.12rem);
-      line-height: 1.7;
+      font-size: clamp(0.92rem, 1.6vw, 1.04rem);
+      line-height: 1.6;
     }
 
     .hero-buttons {
       display: flex;
       flex-wrap: wrap;
-      gap: 11px;
-      margin-top: 25px;
+      gap: 10px;
+      margin-top: 17px;
     }
 
     .button {
       display: inline-flex;
-      min-height: 44px;
+      min-height: 39px;
       align-items: center;
       justify-content: center;
-      padding: 0 17px;
+      padding: 0 15px;
       border: 1px solid transparent;
-      font-size: 0.88rem;
+      font-size: 0.83rem;
       font-weight: bold;
       transition: 0.2s ease;
     }
@@ -254,23 +237,21 @@
       background: rgba(255, 255, 255, 0.18);
     }
 
-    /* =========================
-       Himmatnagar Logo
-    ========================= */
+    /* City Logo */
 
     .city-logo-wrap {
       position: absolute;
       z-index: 5;
 
       left: max(16px, calc((100% - 1120px) / 2));
-      bottom: -80px;
+      bottom: -58px;
 
       display: grid;
-      width: 160px;
-      height: 160px;
+      width: 118px;
+      height: 118px;
       place-items: center;
 
-      border: 7px solid var(--paper);
+      border: 5px solid var(--paper);
       border-radius: 50%;
       background: var(--paper);
       box-shadow: var(--shadow);
@@ -279,28 +260,20 @@
     .city-logo {
       width: 100%;
       height: 100%;
-
-      /*
-        This shows the full logo without cutting it.
-        Works with PNG, JPG, WebP, and GIF logos.
-      */
       object-fit: contain;
-
       border-radius: 50%;
       background: #ece7dc;
     }
 
-    /* =========================
-       About Section
-    ========================= */
+    /* About */
 
     .overview {
-      padding: 118px 0 55px;
+      padding: 85px 0 50px;
     }
 
     .section-heading {
       max-width: 760px;
-      margin-bottom: 26px;
+      margin-bottom: 25px;
     }
 
     .eyebrow {
@@ -383,9 +356,7 @@
       line-height: 1.65;
     }
 
-    /* =========================
-       Statistics
-    ========================= */
+    /* Statistics */
 
     .stats-section {
       padding: 12px 0 65px;
@@ -423,9 +394,7 @@
       font-weight: bold;
     }
 
-    /* =========================
-       Highlights
-    ========================= */
+    /* Highlights */
 
     .highlights {
       padding: 65px 0 80px;
@@ -495,9 +464,7 @@
       line-height: 1.6;
     }
 
-    /* =========================
-       Footer
-    ========================= */
+    /* Footer */
 
     footer {
       padding: 29px 0;
@@ -524,13 +491,15 @@
       font-size: 1rem;
     }
 
-    /* =========================
-       Tablet
-    ========================= */
+    /* Tablet */
 
     @media (max-width: 850px) {
       .hero {
-        min-height: 430px;
+        min-height: 300px;
+      }
+
+      .hero-content {
+        padding: 34px 0 50px;
       }
 
       .hero-text {
@@ -538,14 +507,14 @@
       }
 
       .city-logo-wrap {
-        bottom: -68px;
+        bottom: -54px;
         left: 24px;
-        width: 136px;
-        height: 136px;
+        width: 108px;
+        height: 108px;
       }
 
       .overview {
-        padding-top: 100px;
+        padding-top: 78px;
       }
 
       .about-card {
@@ -561,9 +530,7 @@
       }
     }
 
-    /* =========================
-       Mobile
-    ========================= */
+    /* Mobile */
 
     @media (max-width: 600px) {
       .container {
@@ -575,35 +542,48 @@
       }
 
       .hero {
-        min-height: 390px;
+        min-height: 290px;
       }
 
       .hero-content {
-        padding: 45px 0 65px;
+        padding: 32px 0 46px;
       }
 
       .hero-background {
-        /*
-          Keeps the banner image edge-to-edge on mobile.
-        */
-        background-size: 100% 100%;
-        background-position: center;
+        background-size: cover;
+        background-position: center center;
       }
 
       .hero h1 {
+        font-size: 2.45rem;
         letter-spacing: -1px;
       }
 
+      .hero-description {
+        font-size: 0.92rem;
+        line-height: 1.55;
+      }
+
+      .hero-buttons {
+        margin-top: 15px;
+      }
+
+      .button {
+        min-height: 37px;
+        padding: 0 13px;
+        font-size: 0.78rem;
+      }
+
       .city-logo-wrap {
-        bottom: -54px;
+        bottom: -48px;
         left: 15px;
-        width: 108px;
-        height: 108px;
-        border-width: 5px;
+        width: 94px;
+        height: 94px;
+        border-width: 4px;
       }
 
       .overview {
-        padding-top: 78px;
+        padding-top: 70px;
       }
 
       .about-card {
@@ -643,7 +623,7 @@
   <nav class="navbar">
     <div class="container nav-content">
       <a class="brand" href="#home">
-        <span id="navCityName">Himmatnagar</span>
+        <span id="navCityName">Himatnagar</span>
       </a>
 
       <div class="nav-links">
@@ -654,7 +634,7 @@
     </div>
   </nav>
 
-  <!-- Banner -->
+  <!-- Hero Banner -->
   <header class="hero" id="home">
     <div class="hero-background" id="heroBackground"></div>
 
@@ -662,10 +642,10 @@
       <div class="hero-text">
         <div class="city-label">Discover Our City</div>
 
-        <h1 id="cityName">Himmatnagar</h1>
+        <h1 id="cityName">Himatnagar</h1>
 
         <p class="hero-description" id="heroText">
-          Welcome to Himmatnagar — a city of heritage, community, opportunity,
+          Welcome to Himatnagar — a city of heritage, community, opportunity,
           and pride.
         </p>
 
@@ -676,25 +656,25 @@
       </div>
     </div>
 
-    <!-- Complete logo, adjusted to banner -->
+    <!-- City logo -->
     <div class="city-logo-wrap">
       <img
         id="cityLogo"
         class="city-logo"
         src="https://placehold.co/400x400/f47c20/ffffff?text=HN"
-        alt="Himmatnagar city logo"
+        alt="Himatnagar city logo"
       />
     </div>
   </header>
 
   <main>
-    <!-- About -->
+    <!-- About Section -->
     <section class="overview" id="about">
       <div class="container">
         <div class="section-heading">
           <span class="eyebrow">Our Identity</span>
 
-          <h2 id="aboutHeading">About Himmatnagar</h2>
+          <h2 id="aboutHeading">About Himatnagar</h2>
 
           <p id="aboutIntro">
             Learn about the people, character, heritage, and spirit that make
@@ -707,7 +687,7 @@
             <h3 id="infoTitle">A city with a story</h3>
 
             <p id="cityInformation">
-Himmatnagar is a place where tradition and progress come together. Use the admin panel to add your own detailed information about the city, its history, culture, food, important places, schools, businesses, and future vision.
+Himatnagar is a place where tradition and progress come together. Use the admin panel to add your own detailed information about the city, its history, culture, food, important places, schools, businesses, and future vision.
             </p>
           </div>
 
@@ -761,7 +741,7 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
 
             <p>
               Important places, services, culture, memories, and stories from
-              Himmatnagar.
+              Himatnagar.
             </p>
           </div>
         </div>
@@ -769,7 +749,7 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
         <div class="highlights-grid" id="highlightsGrid">
           <div class="empty-message">
             No highlights have been added yet. Visit the admin panel and add
-            your first Himmatnagar city highlight.
+            your first Himatnagar city highlight.
           </div>
         </div>
       </div>
@@ -781,11 +761,11 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
     <div class="container footer-content">
       <p>
         Made with pride for
-        <strong id="footerCityName">Himmatnagar</strong>.
+        <strong id="footerCityName">Himatnagar</strong>.
       </p>
 
       <p>
-        © <span id="currentYear"></span> Himmatnagar City Guide
+        © <span id="currentYear"></span> Himatnagar City Guide
       </p>
     </div>
   </footer>
@@ -799,8 +779,6 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
       ref,
       onValue
     } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
-
-    /* Firebase configuration */
 
     const firebaseConfig = {
       apiKey: "AIzaSyAlJ8KhAoWLz5snMA_QQs_t6PRd8l1Km1s",
@@ -820,7 +798,7 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
     const highlightsRef = ref(database, "highlights");
 
     const defaultData = {
-      cityName: "Himmatnagar",
+      cityName: "Himatnagar",
 
       bannerUrl:
         "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1800&q=85",
@@ -829,9 +807,9 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
         "https://placehold.co/400x400/f47c20/ffffff?text=HN",
 
       heroText:
-        "Welcome to Himmatnagar — a city of heritage, community, opportunity, and pride.",
+        "Welcome to Himatnagar — a city of heritage, community, opportunity, and pride.",
 
-      aboutHeading: "About Himmatnagar",
+      aboutHeading: "About Himatnagar",
 
       aboutIntro:
         "Learn about the people, character, heritage, and spirit that make our city special.",
@@ -839,7 +817,7 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
       infoTitle: "A city with a story",
 
       cityInformation:
-        "Himmatnagar is a place where tradition and progress come together. Add your city information using the private admin panel.",
+        "Himatnagar is a place where tradition and progress come together. Add your city information using the private admin panel.",
 
       cityQuote:
         "Every city becomes memorable because of the people who proudly tell its story.",
@@ -882,10 +860,6 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
 
       const safeBannerUrl = imageUrl || defaultData.bannerUrl;
 
-      /*
-        JavaScript sets only the image URL.
-        The CSS overlay remains separate and covers full banner.
-      */
       heroBackground.style.setProperty(
         "--banner-image",
         `url("${safeBannerUrl}")`
@@ -896,7 +870,8 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
       const cityLogo = document.getElementById("cityLogo");
 
       cityLogo.src = imageUrl || defaultData.logoUrl;
-      cityLogo.alt = `${cityName || "Himmatnagar"} city logo`;
+
+      cityLogo.alt = `${cityName || "Himatnagar"} city logo`;
 
       cityLogo.onerror = function () {
         this.src = defaultData.logoUrl;
@@ -930,7 +905,7 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
         highlightsGrid.innerHTML = `
           <div class="empty-message">
             No highlights have been added yet. Visit the admin panel and add
-            your first Himmatnagar city highlight.
+            your first Himatnagar city highlight.
           </div>
         `;
 
@@ -941,14 +916,14 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
         .map((highlight) => {
           const safeImage =
             highlight.imageUrl ||
-            "https://placehold.co/800x500/e6edf3/183751?text=Himmatnagar";
+            "https://placehold.co/800x500/e6edf3/183751?text=Himatnagar";
 
           return `
             <article class="highlight-card">
               <img
                 class="highlight-image"
                 src="${escapeHTML(safeImage)}"
-                alt="${escapeHTML(highlight.title || "Himmatnagar highlight")}"
+                alt="${escapeHTML(highlight.title || "Himatnagar highlight")}"
                 onerror="this.src='https://placehold.co/800x500/e6edf3/183751?text=Image+Not+Available';"
               />
 
@@ -968,7 +943,7 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
         ...(data || {})
       };
 
-      document.title = `${websiteData.cityName || "Himmatnagar"} | City Guide`;
+      document.title = `${websiteData.cityName || "Himatnagar"} | City Guide`;
 
       setText("cityName", websiteData.cityName);
       setText("navCityName", websiteData.cityName);
@@ -986,8 +961,6 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
       renderStats(websiteData.stats);
     }
 
-    /* Read website information live */
-
     onValue(
       websiteRef,
       (snapshot) => {
@@ -999,8 +972,6 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
         renderWebsite(defaultData);
       }
     );
-
-    /* Read city highlights live */
 
     onValue(
       highlightsRef,
