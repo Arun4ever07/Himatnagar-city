@@ -6,25 +6,26 @@
 
   <meta
     name="description"
-    content="Discover Himatnagar — history, culture, places, and city information."
+    content="Discover Himatnagar — history, culture, places, news, and city information."
   />
 
   <title>Himatnagar | City Guide</title>
 
   <style>
     :root {
-      --primary: #b45a1a;
-      --primary-dark: #823b0c;
-      --navy: #18354b;
-      --navy-light: #28516d;
-      --text: #2c363c;
-      --muted: #67747b;
+      --primary: #b65b1b;
+      --primary-dark: #873f0e;
+      --navy: #18364c;
+      --navy-light: #28536f;
+      --text: #2f393e;
+      --muted: #69767d;
       --cream: #f7f4ed;
       --paper: #fffdf8;
+      --light-bg: #eee7da;
       --border: #ddd3c4;
-      --border-dark: #bcae9b;
+      --border-dark: #baad9a;
       --white: #ffffff;
-      --shadow: 0 8px 24px rgba(45, 42, 36, 0.1);
+      --shadow: 0 8px 25px rgba(45, 42, 36, 0.1);
       --serif: Georgia, "Times New Roman", serif;
       --sans: Arial, Helvetica, sans-serif;
     }
@@ -44,6 +45,10 @@
       font-family: var(--sans);
     }
 
+    body.menu-open {
+      overflow: hidden;
+    }
+
     img {
       display: block;
       max-width: 100%;
@@ -55,8 +60,42 @@
     }
 
     .container {
-      width: min(1120px, calc(100% - 32px));
+      width: min(1140px, calc(100% - 32px));
       margin: auto;
+    }
+
+    .section {
+      padding: 72px 0;
+    }
+
+    .section-heading {
+      max-width: 770px;
+      margin-bottom: 30px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: var(--primary-dark);
+      font-size: 0.76rem;
+      font-weight: bold;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 2.85rem);
+      line-height: 1.15;
+    }
+
+    .section-heading p {
+      margin: 13px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.75;
     }
 
     /* =========================
@@ -73,7 +112,7 @@
 
     .nav-content {
       display: flex;
-      min-height: 64px;
+      min-height: 67px;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
@@ -85,19 +124,20 @@
       font-size: 1.35rem;
       font-weight: bold;
       letter-spacing: 0.2px;
+      white-space: nowrap;
     }
 
     .nav-links {
       display: flex;
-      gap: 24px;
+      gap: 18px;
       align-items: center;
-      color: #e5edf1;
-      font-size: 0.88rem;
+      color: #e8edf0;
+      font-size: 0.8rem;
       font-weight: bold;
     }
 
     .nav-links a {
-      padding: 6px 0;
+      padding: 7px 0;
       border-bottom: 1px solid transparent;
       transition: 0.2s ease;
     }
@@ -107,8 +147,18 @@
       border-bottom-color: #ffd2ad;
     }
 
+    .menu-button {
+      display: none;
+      width: 42px;
+      height: 40px;
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: transparent;
+      font-size: 1.25rem;
+    }
+
     /* =========================
-       Main Banner
+       Banner
     ========================= */
 
     .hero {
@@ -116,15 +166,6 @@
       background: var(--navy);
     }
 
-    /*
-      Banner visual holds:
-      - Actual city banner image
-      - Dark overlay
-      - City logo
-
-      On desktop, hero text appears over this image.
-      On mobile, hero text moves below this image.
-    */
     .banner-visual {
       position: relative;
       overflow: visible;
@@ -132,8 +173,9 @@
     }
 
     /*
-      Full banner always visible.
-      width: 100% + height: auto means no gap and no stretching.
+      Desktop:
+      Full original image is visible.
+      No image stretching.
     */
     .hero-image {
       width: 100%;
@@ -152,10 +194,10 @@
       background:
         linear-gradient(
           90deg,
-          rgba(18, 42, 59, 0.9) 0%,
-          rgba(18, 42, 59, 0.72) 39%,
-          rgba(18, 42, 59, 0.27) 70%,
-          rgba(18, 42, 59, 0.08) 100%
+          rgba(16, 38, 54, 0.88) 0%,
+          rgba(16, 38, 54, 0.7) 39%,
+          rgba(16, 38, 54, 0.23) 72%,
+          rgba(16, 38, 54, 0.06) 100%
         );
     }
 
@@ -163,24 +205,23 @@
       position: absolute;
       inset: 0;
       z-index: 2;
-
       display: flex;
       align-items: center;
       pointer-events: none;
     }
 
     .hero-text {
-      width: min(650px, 100%);
+      width: min(670px, 100%);
       margin-left: 150px;
-      padding: 30px 0 42px;
+      padding: 32px 0 42px;
     }
 
     .city-label {
       display: inline-block;
-      padding: 6px 10px;
+      padding: 7px 11px;
       color: #fff7ef;
       border: 1px solid rgba(255, 255, 255, 0.42);
-      background: rgba(15, 35, 49, 0.24);
+      background: rgba(15, 35, 49, 0.26);
       font-size: 0.7rem;
       font-weight: bold;
       letter-spacing: 1px;
@@ -188,37 +229,34 @@
     }
 
     .hero h1 {
-      margin: 11px 0 9px;
+      margin: 12px 0 9px;
       color: white;
       font-family: var(--serif);
-      font-size: clamp(2.35rem, 4.8vw, 4.15rem);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
       font-weight: bold;
       line-height: 1;
-      letter-spacing: -1.2px;
+      letter-spacing: -1.3px;
     }
 
     .hero-description {
-      max-width: 610px;
+      max-width: 620px;
       margin: 0;
-      color: #f4f4f0;
-      font-size: clamp(0.92rem, 1.55vw, 1.05rem);
-      line-height: 1.6;
+      color: #f4f5f4;
+      font-size: clamp(0.94rem, 1.6vw, 1.08rem);
+      line-height: 1.65;
     }
 
-    /* =========================
-       City Logo
-    ========================= */
+    /* City logo */
 
     .city-logo-wrap {
       position: absolute;
       z-index: 5;
-
-      left: max(16px, calc((100% - 1120px) / 2));
-      bottom: -57px;
+      left: max(16px, calc((100% - 1140px) / 2));
+      bottom: -61px;
 
       display: grid;
-      width: 114px;
-      height: 114px;
+      width: 122px;
+      height: 122px;
       place-items: center;
 
       border: 5px solid var(--paper);
@@ -236,7 +274,7 @@
     }
 
     /* =========================
-       Button Area
+       Buttons Under Banner
     ========================= */
 
     .action-strip {
@@ -249,7 +287,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 11px;
-      margin-left: 143px;
+      margin-left: 151px;
     }
 
     .button {
@@ -272,8 +310,8 @@
     }
 
     .button-primary:hover {
-      border-color: #d97631;
-      background: #ca6823;
+      border-color: #dc7d38;
+      background: #ce6b25;
       transform: translateY(-2px);
     }
 
@@ -290,63 +328,35 @@
     }
 
     /* =========================
-       About Section
+       About
     ========================= */
 
     .overview {
-      padding: 48px 0 50px;
+      padding: 52px 0 70px;
     }
 
-    .section-heading {
-      max-width: 760px;
-      margin-bottom: 25px;
-    }
-
-    .eyebrow {
-      display: inline-block;
-      margin-bottom: 8px;
-      color: var(--primary-dark);
-      font-size: 0.77rem;
-      font-weight: bold;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    h2 {
-      margin: 0;
-      color: var(--navy);
-      font-family: var(--serif);
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      line-height: 1.15;
-    }
-
-    .section-heading p {
-      margin: 13px 0 0;
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.75;
-    }
-
-    .about-card {
+    .about-layout {
       display: grid;
       grid-template-columns: 1.45fr 0.55fr;
-      gap: 30px;
-      padding: 31px;
+      gap: 28px;
+    }
 
+    .about-main {
+      padding: 31px;
       border: 1px solid var(--border);
       border-top: 4px solid var(--primary);
       background: var(--paper);
       box-shadow: 0 5px 14px rgba(44, 42, 37, 0.06);
     }
 
-    .about-card h3 {
+    .about-main h3 {
       margin: 0 0 13px;
       color: var(--navy);
       font-family: var(--serif);
       font-size: 1.55rem;
     }
 
-    .about-card p {
+    .about-main p {
       margin: 0;
       color: #4e575d;
       line-height: 1.85;
@@ -355,11 +365,9 @@
 
     .quote-box {
       display: flex;
-      min-height: 100%;
       flex-direction: column;
       justify-content: center;
-      padding: 25px;
-
+      padding: 26px;
       color: white;
       border-left: 5px solid #dc8b4b;
       background: var(--navy-light);
@@ -373,7 +381,7 @@
     }
 
     .quote-box p {
-      margin-top: 17px;
+      margin: 17px 0 0;
       color: #f7f5ef;
       font-family: var(--serif);
       font-size: 1.05rem;
@@ -387,7 +395,7 @@
     ========================= */
 
     .stats-section {
-      padding: 12px 0 65px;
+      padding: 0 0 72px;
     }
 
     .stats-grid {
@@ -398,7 +406,7 @@
     }
 
     .stat-card {
-      min-height: 138px;
+      min-height: 135px;
       padding: 25px 15px;
       text-align: center;
       border-right: 1px solid var(--border-dark);
@@ -423,22 +431,167 @@
     }
 
     /* =========================
-       City Highlights
+       News
     ========================= */
 
-    .highlights {
-      padding: 65px 0 80px;
+    .news-section {
       border-top: 1px solid var(--border);
-      background: #eee7da;
+      background: var(--light-bg);
     }
 
-    .highlights-top {
-      margin-bottom: 27px;
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
     }
 
-    .highlights-top .section-heading {
+    .news-card {
+      padding: 23px;
+      border: 1px solid var(--border-dark);
+      background: var(--paper);
+    }
+
+    .news-date {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: var(--primary-dark);
+      font-size: 0.75rem;
+      font-weight: bold;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+    }
+
+    .news-card h3 {
+      margin: 0 0 10px;
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: 1.3rem;
+    }
+
+    .news-card p {
       margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
     }
+
+    /* =========================
+       History
+    ========================= */
+
+    .history-grid {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .history-note {
+      padding: 27px;
+      color: #f8f4ed;
+      border-top: 4px solid #dc8b4b;
+      background: var(--navy);
+    }
+
+    .history-note h3 {
+      margin: 0 0 11px;
+      font-family: var(--serif);
+      font-size: 1.55rem;
+    }
+
+    .history-note p {
+      margin: 0;
+      color: #dce6ec;
+      line-height: 1.75;
+    }
+
+    .timeline {
+      border-left: 2px solid var(--primary);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 0 0 26px 28px;
+    }
+
+    .timeline-item::before {
+      position: absolute;
+      top: 4px;
+      left: -8px;
+      width: 14px;
+      height: 14px;
+      content: "";
+      border: 3px solid var(--cream);
+      border-radius: 50%;
+      background: var(--primary);
+    }
+
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline-item h3 {
+      margin: 0 0 7px;
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: 1.22rem;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* =========================
+       Government Services
+    ========================= */
+
+    .services-section {
+      border-top: 1px solid var(--border);
+      background: var(--light-bg);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .service-card {
+      min-height: 180px;
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--primary);
+      background: var(--paper);
+    }
+
+    .service-number {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--primary-dark);
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+
+    .service-card h3 {
+      margin: 0 0 9px;
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: 1.16rem;
+    }
+
+    .service-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.65;
+    }
+
+    /* =========================
+       Highlights
+    ========================= */
 
     .highlights-grid {
       display: grid;
@@ -495,14 +648,71 @@
     }
 
     /* =========================
-       Footer
+       Creators
     ========================= */
 
+    .creators-section {
+      border-top: 1px solid var(--border);
+      background: var(--navy);
+    }
+
+    .creators-section h2 {
+      color: white;
+    }
+
+    .creators-section .eyebrow {
+      color: #ffbd85;
+    }
+
+    .creators-section .section-heading p {
+      color: #cfdae1;
+    }
+
+    .creator-card {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      padding: 25px;
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .creator-avatar {
+      display: grid;
+      flex-shrink: 0;
+      width: 74px;
+      height: 74px;
+      place-items: center;
+      color: white;
+      border: 3px solid #f1a66c;
+      border-radius: 50%;
+      background: var(--primary);
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-weight: bold;
+    }
+
+    .creator-card h3 {
+      margin: 0 0 7px;
+      color: white;
+      font-family: var(--serif);
+      font-size: 1.4rem;
+    }
+
+    .creator-card p {
+      margin: 0;
+      color: #d4e0e7;
+      line-height: 1.7;
+    }
+
+    /* Footer */
+
     footer {
-      padding: 29px 0;
+      padding: 27px 0;
       color: #c7d1d7;
       border-top: 4px solid var(--primary);
-      background: var(--navy);
+      background: #10293a;
     }
 
     .footer-content {
@@ -527,32 +737,33 @@
        Tablet
     ========================= */
 
-    @media (max-width: 850px) {
+    @media (max-width: 980px) {
+      .nav-links {
+        gap: 13px;
+        font-size: 0.75rem;
+      }
+
       .hero-text {
         margin-left: 0;
-        padding-bottom: 42px;
       }
 
       .city-logo-wrap {
-        bottom: -52px;
         left: 24px;
-        width: 104px;
-        height: 104px;
+        width: 108px;
+        height: 108px;
+        bottom: -54px;
       }
 
       .hero-buttons {
-        margin-left: 128px;
+        margin-left: 130px;
       }
 
-      .about-card {
+      .about-layout,
+      .history-grid {
         grid-template-columns: 1fr;
       }
 
-      .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .highlights-grid {
+      .services-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
@@ -561,103 +772,145 @@
        Mobile
     ========================= */
 
-    @media (max-width: 600px) {
-      .container {
-        width: min(100% - 24px, 1120px);
+    @media (max-width: 720px) {
+      body.menu-open .mobile-menu {
+        display: block;
+      }
+
+      .nav-content {
+        min-height: 61px;
+      }
+
+      .brand {
+        font-size: 1.22rem;
       }
 
       .nav-links {
         display: none;
       }
 
-      /*
-        Mobile banner shows only the image.
-        The full image remains visible.
-      */
-      .hero-overlay {
-        display: none;
+      .menu-button {
+        display: inline-grid;
+        place-items: center;
       }
 
-      .hero-content {
-        position: relative;
-        inset: auto;
-        display: block;
+      .mobile-menu {
+        display: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.13);
         background: var(--navy);
       }
 
+      .mobile-menu a {
+        display: block;
+        padding: 14px 0;
+        color: #f2f5f6;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.9rem;
+        font-weight: bold;
+      }
+
       /*
-        Mobile text appears below banner,
-        not on top of banner.
+        Mobile banner is tall and professional.
+        cover fills the whole mobile banner.
+        The image will not become a thin strip.
       */
+      .hero-image {
+        width: 100%;
+        height: 255px;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .hero-overlay {
+        background:
+          linear-gradient(
+            0deg,
+            rgba(16, 38, 54, 0.94) 0%,
+            rgba(16, 38, 54, 0.72) 38%,
+            rgba(16, 38, 54, 0.12) 100%
+          );
+      }
+
+      .hero-content {
+        align-items: flex-end;
+      }
+
       .hero-text {
         width: 100%;
         margin-left: 0;
-        padding: 62px 0 27px;
+        padding: 24px 0 23px;
+      }
+
+      .city-label {
+        padding: 5px 8px;
+        font-size: 0.63rem;
       }
 
       .hero h1 {
-        margin-top: 10px;
+        margin: 9px 0 7px;
         font-size: 2.45rem;
         letter-spacing: -1px;
       }
 
       .hero-description {
-        font-size: 0.91rem;
-        line-height: 1.6;
+        max-width: 520px;
+        font-size: 0.9rem;
+        line-height: 1.55;
       }
 
-      .city-label {
-        font-size: 0.66rem;
-      }
-
-      /*
-        Logo stays attached to the banner image.
-      */
       .city-logo-wrap {
-        bottom: -45px;
         left: 15px;
+        bottom: -45px;
         width: 90px;
         height: 90px;
         border-width: 4px;
       }
 
       .action-strip {
-        padding: 15px 0;
+        padding: 16px 0;
       }
 
       .hero-buttons {
-        gap: 9px;
+        gap: 8px;
         margin-left: 104px;
       }
 
       .button {
         min-height: 37px;
         padding: 0 12px;
-        font-size: 0.76rem;
+        font-size: 0.75rem;
+      }
+
+      .section {
+        padding: 55px 0;
       }
 
       .overview {
-        padding-top: 37px;
+        padding-top: 38px;
       }
 
-      .about-card {
+      .section-heading {
+        margin-bottom: 23px;
+      }
+
+      .about-main,
+      .quote-box {
         padding: 22px;
       }
 
-      .quote-box {
-        padding: 21px;
-      }
-
       .stats-grid {
-        gap: 0;
+        grid-template-columns: repeat(2, 1fr);
       }
 
-      .stat-card {
-        min-height: 122px;
-      }
-
+      .news-grid,
+      .services-grid,
       .highlights-grid {
         grid-template-columns: 1fr;
+      }
+
+      .creator-card {
+        align-items: flex-start;
+        flex-direction: column;
       }
 
       .footer-content {
@@ -670,7 +923,11 @@
       }
     }
 
-    @media (max-width: 410px) {
+    @media (max-width: 390px) {
+      .hero-image {
+        height: 235px;
+      }
+
       .hero-buttons {
         margin-left: 0;
         padding-top: 42px;
@@ -697,8 +954,34 @@
 
       <div class="nav-links">
         <a href="#home">Home</a>
-        <a href="#about">About City</a>
+        <a href="#about">About</a>
+        <a href="#news">News</a>
+        <a href="#history">History</a>
+        <a href="#services">Gov. Services</a>
         <a href="#highlights">Highlights</a>
+        <a href="#creators">Creators</a>
+      </div>
+
+      <button
+        id="menuButton"
+        class="menu-button"
+        type="button"
+        aria-label="Open website menu"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+    </div>
+
+    <div id="mobileMenu" class="mobile-menu">
+      <div class="container">
+        <a href="#home">Home</a>
+        <a href="#about">About Himatnagar</a>
+        <a href="#news">City News</a>
+        <a href="#history">History</a>
+        <a href="#services">Government Services</a>
+        <a href="#highlights">City Highlights</a>
+        <a href="#creators">Creators</a>
       </div>
     </div>
   </nav>
@@ -715,6 +998,21 @@
 
       <div class="hero-overlay"></div>
 
+      <div class="hero-content">
+        <div class="container">
+          <div class="hero-text">
+            <div class="city-label">Discover Our City</div>
+
+            <h1 id="cityName">Himatnagar</h1>
+
+            <p class="hero-description" id="heroText">
+              Welcome to Himatnagar — a city of heritage, community,
+              opportunity, and pride.
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div class="city-logo-wrap">
         <img
           id="cityLogo"
@@ -724,24 +1022,9 @@
         />
       </div>
     </div>
-
-    <div class="hero-content">
-      <div class="container">
-        <div class="hero-text">
-          <div class="city-label">Discover Our City</div>
-
-          <h1 id="cityName">Himatnagar</h1>
-
-          <p class="hero-description" id="heroText">
-            Welcome to Himatnagar — a city of heritage, community, opportunity,
-            and pride.
-          </p>
-        </div>
-      </div>
-    </div>
   </header>
 
-  <!-- Buttons below banner -->
+  <!-- Banner Buttons -->
   <section class="action-strip">
     <div class="container">
       <div class="hero-buttons">
@@ -771,8 +1054,8 @@
           </p>
         </div>
 
-        <div class="about-card">
-          <div>
+        <div class="about-layout">
+          <div class="about-main">
             <h3 id="infoTitle">A city with a story</h3>
 
             <p id="cityInformation">
@@ -819,26 +1102,225 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
       </div>
     </section>
 
-    <!-- Highlights -->
-    <section class="highlights" id="highlights">
+    <!-- News -->
+    <section class="section news-section" id="news">
       <div class="container">
-        <div class="highlights-top">
-          <div class="section-heading">
-            <span class="eyebrow">Explore More</span>
+        <div class="section-heading">
+          <span class="eyebrow">Stay Updated</span>
 
-            <h2>City Highlights</h2>
+          <h2>Himatnagar News</h2>
+
+          <p>
+            Use this area for local announcements, city events, community
+            updates, celebrations, road notices, and important public messages.
+          </p>
+        </div>
+
+        <div class="news-grid">
+          <article class="news-card">
+            <span class="news-date">City Update</span>
+
+            <h3>Community announcements</h3>
 
             <p>
-              Important places, services, culture, memories, and stories from
-              Himatnagar.
+              Add notices about local activities, public meetings, cultural
+              events, and important updates for residents.
+            </p>
+          </article>
+
+          <article class="news-card">
+            <span class="news-date">Events</span>
+
+            <h3>Festivals and celebrations</h3>
+
+            <p>
+              Share information about upcoming city events, school programs,
+              exhibitions, fairs, and community celebrations.
+            </p>
+          </article>
+
+          <article class="news-card">
+            <span class="news-date">Information</span>
+
+            <h3>Public notices</h3>
+
+            <p>
+              Create a useful section for official links, public notices,
+              citizen information, and important contact details.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- History -->
+    <section class="section" id="history">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Our Heritage</span>
+
+          <h2>History of Himatnagar</h2>
+
+          <p>
+            This section can grow into a timeline of local history, heritage
+            places, important personalities, and memories of Himatnagar.
+          </p>
+        </div>
+
+        <div class="history-grid">
+          <div class="history-note">
+            <h3>Tell the city story</h3>
+
+            <p>
+              Every city has stories that deserve to be preserved. Add trusted
+              local history, photographs, landmarks, traditions, and important
+              moments through your future admin panel updates.
             </p>
           </div>
+
+          <div class="timeline">
+            <article class="timeline-item">
+              <h3>Heritage and culture</h3>
+
+              <p>
+                Add information about the traditions, communities, historic
+                structures, and cultural identity of Himatnagar.
+              </p>
+            </article>
+
+            <article class="timeline-item">
+              <h3>Growth and development</h3>
+
+              <p>
+                Share how the city has developed through education, transport,
+                businesses, public services, and local opportunities.
+              </p>
+            </article>
+
+            <article class="timeline-item">
+              <h3>Future vision</h3>
+
+              <p>
+                Build a positive future-focused section showing ideas for a
+                cleaner, more connected, and more welcoming Himatnagar.
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Government Services -->
+    <section class="section services-section" id="services">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Useful Information</span>
+
+          <h2>Government Services</h2>
+
+          <p>
+            Add verified links, directories, forms, service information, and
+            official contact details here. Do not publish unverified emergency
+            numbers or personal information.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card">
+            <span class="service-number">01</span>
+
+            <h3>Citizen Services</h3>
+
+            <p>
+              Add information for municipal services, documents, local offices,
+              certificates, and citizen support.
+            </p>
+          </article>
+
+          <article class="service-card">
+            <span class="service-number">02</span>
+
+            <h3>Education</h3>
+
+            <p>
+              Add school, college, library, scholarship, training, and youth
+              opportunity information.
+            </p>
+          </article>
+
+          <article class="service-card">
+            <span class="service-number">03</span>
+
+            <h3>Health and Support</h3>
+
+            <p>
+              Add verified health resources, hospital links, awareness programs,
+              and public support information.
+            </p>
+          </article>
+
+          <article class="service-card">
+            <span class="service-number">04</span>
+
+            <h3>Travel and Transport</h3>
+
+            <p>
+              Add travel guidance, railway, bus, road, parking, and visitor
+              information for Himatnagar.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Highlights -->
+    <section class="section" id="highlights">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Explore More</span>
+
+          <h2>City Highlights</h2>
+
+          <p>
+            Important places, services, culture, memories, and stories from
+            Himatnagar. These cards are controlled through Firebase Admin.
+          </p>
         </div>
 
         <div class="highlights-grid" id="highlightsGrid">
           <div class="empty-message">
             No highlights have been added yet. Visit the admin panel and add
             your first Himatnagar city highlight.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Creators -->
+    <section class="section creators-section" id="creators">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Built With Pride</span>
+
+          <h2>Creators</h2>
+
+          <p>
+            A city platform grows when local people share ideas, photographs,
+            history, useful information, and pride for their hometown.
+          </p>
+        </div>
+
+        <div class="creator-card">
+          <div class="creator-avatar">HN</div>
+
+          <div>
+            <h3>Himatnagar City Project</h3>
+
+            <p>
+              Created with care for Himatnagar. This website can become a place
+              to share city culture, tourism, public information, local
+              creativity, memories, and community updates.
+            </p>
           </div>
         </div>
       </div>
@@ -873,8 +1355,8 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
       apiKey: "AIzaSyAlJ8KhAoWLz5snMA_QQs_t6PRd8l1Km1s",
 
       /*
-        Do not change Firebase configuration values.
-        They are linked to your actual Firebase project.
+        Do not change Firebase IDs.
+        These values connect to your current Firebase project.
       */
       authDomain: "himmatnagar-city.firebaseapp.com",
       projectId: "himmatnagar-city",
@@ -1088,6 +1570,25 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
         renderHighlights([]);
       }
     );
+
+    const menuButton = document.getElementById("menuButton");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = document.body.classList.toggle("menu-open");
+
+      menuButton.setAttribute("aria-expanded", isOpen);
+
+      menuButton.textContent = isOpen ? "✕" : "☰";
+    });
+
+    mobileMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        document.body.classList.remove("menu-open");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.textContent = "☰";
+      });
+    });
 
     document.getElementById("currentYear").textContent =
       new Date().getFullYear();
