@@ -3,25 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <meta
     name="description"
     content="Discover Himmatnagar — history, culture, places, and city information."
   />
-  <title>Himmatnagar | Official City Guide</title>
+
+  <title>Himmatnagar | City Guide</title>
 
   <style>
     :root {
-      --primary: #f47c20;
-      --primary-dark: #c85408;
-      --dark: #102235;
-      --dark-soft: #183751;
-      --text: #243746;
-      --muted: #6b7b88;
-      --bg: #f4f7fb;
+      --primary: #b85c19;
+      --primary-dark: #843d0c;
+      --navy: #1d3548;
+      --navy-light: #2d4a5f;
+      --text: #2f3539;
+      --muted: #6b7072;
+      --cream: #f7f3ea;
+      --paper: #fffdf8;
+      --border: #d9d0c2;
+      --border-dark: #b7aa98;
       --white: #ffffff;
-      --border: #e5ebf1;
-      --shadow: 0 18px 45px rgba(16, 34, 53, 0.12);
-      --radius: 22px;
+      --shadow: 0 8px 20px rgba(44, 42, 37, 0.1);
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Arial, Helvetica, sans-serif;
     }
 
     * {
@@ -34,9 +39,9 @@
 
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
-      background: var(--bg);
+      background: var(--cream);
+      font-family: var(--sans);
     }
 
     img {
@@ -50,324 +55,347 @@
     }
 
     .container {
-      width: min(1160px, calc(100% - 32px));
+      width: min(1120px, calc(100% - 32px));
       margin: auto;
     }
 
     /* Navigation */
+
     .navbar {
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(16, 34, 53, 0.96);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 3px solid var(--primary);
+      background: var(--navy);
     }
 
     .nav-content {
-      min-height: 68px;
       display: flex;
+      min-height: 64px;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
     }
 
     .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: white;
-      font-weight: 800;
-      font-size: 1.08rem;
-    }
-
-    .brand-dot {
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      background: var(--primary);
-      box-shadow: 0 0 0 5px rgba(244, 124, 32, 0.18);
+      color: var(--white);
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-weight: bold;
+      letter-spacing: 0.2px;
     }
 
     .nav-links {
       display: flex;
+      gap: 23px;
       align-items: center;
-      gap: 20px;
-      color: #dce8f1;
-      font-size: 0.92rem;
-      font-weight: 700;
+      color: #e8edf0;
+      font-size: 0.88rem;
+      font-weight: bold;
+    }
+
+    .nav-links a {
+      padding: 6px 0;
+      border-bottom: 1px solid transparent;
     }
 
     .nav-links a:hover {
-      color: #ffffff;
+      color: #ffd2ab;
+      border-bottom-color: #ffd2ab;
     }
 
     /* Hero banner */
+
     .hero {
       position: relative;
-      min-height: 500px;
-      overflow: hidden;
-      background: #142e46;
-      color: white;
       display: flex;
+      min-height: 430px;
       align-items: end;
+
+      /*
+        Important:
+        This is visible, not hidden.
+        It lets the complete logo circle show below the banner.
+      */
+      overflow: visible;
+
+      color: white;
+      background: var(--navy);
     }
 
     .hero-background {
       position: absolute;
       inset: 0;
+      z-index: 0;
+
       background-image:
         linear-gradient(
           90deg,
-          rgba(7, 20, 34, 0.91) 0%,
-          rgba(7, 20, 34, 0.74) 36%,
-          rgba(7, 20, 34, 0.25) 100%
+          rgba(22, 39, 53, 0.92) 0%,
+          rgba(22, 39, 53, 0.8) 42%,
+          rgba(22, 39, 53, 0.38) 100%
         ),
         url("https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1800&q=85");
-      background-size: cover;
+
       background-position: center;
-      transition: background-image 0.3s ease;
+      background-size: cover;
     }
 
     .hero-content {
       position: relative;
       z-index: 1;
       width: 100%;
-      padding: 72px 0 70px;
+      padding: 65px 0 74px;
     }
 
     .hero-text {
-      width: min(670px, 100%);
-      margin-left: 220px;
+      width: min(650px, 100%);
+      margin-left: 205px;
     }
 
     .city-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 14px;
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: 50px;
-      font-size: 0.8rem;
-      font-weight: 800;
-      letter-spacing: 0.8px;
+      display: inline-block;
+      padding: 7px 11px;
+      color: #fff4e9;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: rgba(18, 33, 44, 0.25);
+      font-size: 0.75rem;
+      font-weight: bold;
+      letter-spacing: 1px;
       text-transform: uppercase;
     }
 
-    .city-label span {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #ffbf7d;
-    }
-
     .hero h1 {
-      margin: 18px 0 14px;
-      font-size: clamp(2.6rem, 6vw, 5.3rem);
-      line-height: 0.98;
-      letter-spacing: -2px;
+      margin: 15px 0 13px;
+      color: white;
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: bold;
+      line-height: 1;
+      letter-spacing: -1.5px;
     }
 
     .hero-description {
-      max-width: 650px;
+      max-width: 620px;
       margin: 0;
-      font-size: clamp(1rem, 2vw, 1.17rem);
+      color: #f1f1ee;
+      font-size: clamp(1rem, 2vw, 1.12rem);
       line-height: 1.7;
-      color: #e4edf5;
     }
 
     .hero-buttons {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 26px;
+      gap: 11px;
+      margin-top: 25px;
     }
 
     .button {
       display: inline-flex;
+      min-height: 44px;
       align-items: center;
       justify-content: center;
-      min-height: 46px;
-      padding: 0 19px;
-      border-radius: 12px;
-      font-weight: 800;
-      font-size: 0.92rem;
+      padding: 0 17px;
+      border: 1px solid transparent;
+      font-size: 0.88rem;
+      font-weight: bold;
       transition: 0.2s ease;
     }
 
     .button-primary {
-      background: var(--primary);
       color: white;
+      border-color: var(--primary);
+      background: var(--primary);
     }
 
     .button-primary:hover {
-      background: #ff913e;
-      transform: translateY(-2px);
+      border-color: #dc7b34;
+      background: #d26d25;
     }
 
     .button-light {
       color: white;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.08);
     }
 
     .button-light:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.18);
     }
 
-    /* Logo overlapping banner */
+    /* City Logo */
+
     .city-logo-wrap {
       position: absolute;
-      z-index: 3;
-      left: max(16px, calc((100% - 1160px) / 2));
-      bottom: -95px;
-      width: 190px;
-      height: 190px;
-      padding: 8px;
+      z-index: 5;
+
+      left: max(16px, calc((100% - 1120px) / 2));
+      bottom: -86px;
+
+      display: grid;
+      width: 172px;
+      height: 172px;
+      place-items: center;
+
+      border: 7px solid var(--paper);
       border-radius: 50%;
-      background: white;
+      background: var(--paper);
       box-shadow: var(--shadow);
     }
 
     .city-logo {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+
+      /*
+        This prevents the logo itself from getting cropped.
+        Full PNG, JPG, WebP, and GIF logos will show correctly.
+      */
+      object-fit: contain;
+
       border-radius: 50%;
-      background: #eaf0f5;
+      background: #ece7dc;
     }
 
-    /* Information section */
+    /* About */
+
     .overview {
-      padding: 145px 0 55px;
+      padding: 125px 0 55px;
     }
 
     .section-heading {
-      max-width: 720px;
-      margin-bottom: 30px;
+      max-width: 760px;
+      margin-bottom: 26px;
     }
 
     .eyebrow {
       display: inline-block;
-      margin-bottom: 9px;
+      margin-bottom: 8px;
       color: var(--primary-dark);
-      font-size: 0.78rem;
-      font-weight: 900;
-      letter-spacing: 1.2px;
+      font-size: 0.77rem;
+      font-weight: bold;
+      letter-spacing: 1px;
       text-transform: uppercase;
     }
 
     h2 {
       margin: 0;
-      color: var(--dark);
-      font-size: clamp(1.9rem, 4vw, 2.9rem);
-      line-height: 1.1;
-      letter-spacing: -1px;
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      line-height: 1.15;
     }
 
     .section-heading p {
-      margin: 14px 0 0;
+      margin: 13px 0 0;
       color: var(--muted);
+      font-size: 1rem;
       line-height: 1.75;
-      font-size: 1.02rem;
     }
 
     .about-card {
       display: grid;
-      grid-template-columns: 1.35fr 0.65fr;
-      gap: 28px;
-      padding: 34px;
-      background: white;
+      grid-template-columns: 1.45fr 0.55fr;
+      gap: 30px;
+      padding: 31px;
+
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: 0 12px 35px rgba(16, 34, 53, 0.06);
+      border-top: 4px solid var(--primary);
+      background: var(--paper);
+      box-shadow: 0 5px 14px rgba(44, 42, 37, 0.06);
     }
 
     .about-card h3 {
       margin: 0 0 13px;
-      color: var(--dark);
-      font-size: 1.42rem;
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: 1.55rem;
     }
 
     .about-card p {
       margin: 0;
-      line-height: 1.8;
-      color: #526371;
+      color: #4e575d;
+      line-height: 1.85;
       white-space: pre-line;
     }
 
     .quote-box {
       display: flex;
+      min-height: 100%;
       flex-direction: column;
       justify-content: center;
-      min-height: 100%;
       padding: 25px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, var(--dark-soft), #1c4f69);
+
       color: white;
+      border-left: 5px solid #dc8b4b;
+      background: var(--navy-light);
     }
 
-    .quote-box .quote-mark {
-      font-size: 3.4rem;
+    .quote-mark {
+      color: #ffbd85;
+      font-family: var(--serif);
+      font-size: 3.5rem;
       line-height: 0.7;
-      color: #ffb16b;
     }
 
     .quote-box p {
-      margin-top: 15px;
-      color: #ecf6ff;
+      margin-top: 17px;
+      color: #f7f5ef;
+      font-family: var(--serif);
       font-size: 1.05rem;
-      font-weight: 700;
-      line-height: 1.55;
+      font-style: italic;
+      font-weight: bold;
+      line-height: 1.65;
     }
 
     /* Statistics */
+
     .stats-section {
-      padding: 20px 0 70px;
+      padding: 12px 0 65px;
     }
 
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      border-top: 1px solid var(--border-dark);
+      border-left: 1px solid var(--border-dark);
     }
 
     .stat-card {
-      padding: 25px 20px;
+      min-height: 138px;
+      padding: 25px 15px;
       text-align: center;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 18px;
+      border-right: 1px solid var(--border-dark);
+      border-bottom: 1px solid var(--border-dark);
+      background: var(--paper);
     }
 
     .stat-number {
       display: block;
       color: var(--primary-dark);
-      font-size: clamp(1.5rem, 3vw, 2.1rem);
-      font-weight: 900;
+      font-family: var(--serif);
+      font-size: clamp(1.7rem, 3vw, 2.35rem);
+      font-weight: bold;
     }
 
     .stat-label {
       display: block;
-      margin-top: 8px;
+      margin-top: 9px;
       color: var(--muted);
-      font-size: 0.84rem;
-      font-weight: 700;
+      font-size: 0.82rem;
+      font-weight: bold;
     }
 
     /* Highlights */
+
     .highlights {
-      padding: 70px 0 84px;
-      background: #eaf0f6;
+      padding: 65px 0 80px;
+      border-top: 1px solid var(--border);
+      background: #eee7da;
     }
 
     .highlights-top {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 30px;
+      margin-bottom: 27px;
     }
 
     .highlights-top .section-heading {
@@ -377,80 +405,89 @@
     .highlights-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
+      gap: 20px;
     }
 
     .highlight-card {
       overflow: hidden;
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 13px 35px rgba(16, 34, 53, 0.08);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid var(--border-dark);
+      background: var(--paper);
+      transition: transform 0.2s ease;
     }
 
     .highlight-card:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 19px 45px rgba(16, 34, 53, 0.15);
+      transform: translateY(-4px);
     }
 
     .highlight-image {
       width: 100%;
       height: 210px;
       object-fit: cover;
-      background: #dce5ed;
+      background: #ded7ca;
     }
 
     .highlight-content {
-      padding: 21px;
+      padding: 20px;
+      border-top: 3px solid var(--primary);
     }
 
     .highlight-content h3 {
       margin: 0 0 9px;
-      color: var(--dark);
-      font-size: 1.2rem;
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: 1.27rem;
     }
 
     .highlight-content p {
       margin: 0;
       color: var(--muted);
-      font-size: 0.94rem;
+      font-size: 0.92rem;
       line-height: 1.65;
       white-space: pre-line;
     }
 
     .empty-message {
       grid-column: 1 / -1;
-      padding: 40px 20px;
-      text-align: center;
+      padding: 35px 20px;
       color: var(--muted);
-      background: rgba(255, 255, 255, 0.75);
-      border: 2px dashed #cdd9e2;
-      border-radius: 18px;
+      border: 1px dashed var(--border-dark);
+      background: rgba(255, 253, 248, 0.65);
+      text-align: center;
+      line-height: 1.6;
     }
 
     /* Footer */
+
     footer {
-      padding: 32px 0;
-      color: #b9c7d1;
-      background: var(--dark);
+      padding: 29px 0;
+      color: #c7d1d7;
+      border-top: 4px solid var(--primary);
+      background: var(--navy);
     }
 
     .footer-content {
       display: flex;
+      align-items: center;
       justify-content: space-between;
       gap: 15px;
-      align-items: center;
-      font-size: 0.9rem;
+      font-size: 0.87rem;
+    }
+
+    .footer-content p {
+      margin: 0;
     }
 
     .footer-content strong {
       color: white;
+      font-family: var(--serif);
+      font-size: 1rem;
     }
 
-    /* Responsive */
+    /* Mobile and tablet */
+
     @media (max-width: 850px) {
       .hero {
-        min-height: 510px;
+        min-height: 475px;
       }
 
       .hero-text {
@@ -458,14 +495,14 @@
       }
 
       .city-logo-wrap {
+        bottom: -70px;
         left: 24px;
-        bottom: -75px;
-        width: 150px;
-        height: 150px;
+        width: 140px;
+        height: 140px;
       }
 
       .overview {
-        padding-top: 110px;
+        padding-top: 104px;
       }
 
       .about-card {
@@ -482,17 +519,20 @@
     }
 
     @media (max-width: 600px) {
+      .container {
+        width: min(100% - 24px, 1120px);
+      }
+
       .nav-links {
         display: none;
       }
 
       .hero {
-        min-height: 500px;
+        min-height: 465px;
       }
 
       .hero-content {
-        padding-top: 55px;
-        padding-bottom: 65px;
+        padding: 53px 0 70px;
       }
 
       .hero-background {
@@ -504,31 +544,31 @@
       }
 
       .city-logo-wrap {
-        left: 16px;
-        bottom: -58px;
-        width: 116px;
-        height: 116px;
-        padding: 5px;
+        bottom: -57px;
+        left: 15px;
+        width: 114px;
+        height: 114px;
+        border-width: 5px;
       }
 
       .overview {
-        padding-top: 86px;
+        padding-top: 82px;
       }
 
       .about-card {
-        padding: 23px;
+        padding: 22px;
+      }
+
+      .quote-box {
+        padding: 21px;
       }
 
       .stats-grid {
-        gap: 10px;
+        gap: 0;
       }
 
       .stat-card {
-        padding: 20px 12px;
-      }
-
-      .highlights-top {
-        display: block;
+        min-height: 122px;
       }
 
       .highlights-grid {
@@ -541,7 +581,7 @@
       }
 
       .footer-content p {
-        margin: 4px 0;
+        margin: 3px 0;
       }
     }
   </style>
@@ -550,8 +590,8 @@
 <body>
   <nav class="navbar">
     <div class="container nav-content">
+      <!-- Live orange dot removed -->
       <a class="brand" href="#home">
-        <span class="brand-dot"></span>
         <span id="navCityName">Himmatnagar</span>
       </a>
 
@@ -568,15 +608,13 @@
 
     <div class="container hero-content">
       <div class="hero-text">
-        <div class="city-label">
-          <span></span>
-          Discover Our City
-        </div>
+        <div class="city-label">Discover Our City</div>
 
         <h1 id="cityName">Himmatnagar</h1>
 
         <p class="hero-description" id="heroText">
-          Welcome to Himmatnagar — a city of heritage, community, opportunity, and pride.
+          Welcome to Himmatnagar — a city of heritage, community, opportunity,
+          and pride.
         </p>
 
         <div class="hero-buttons">
@@ -586,6 +624,7 @@
       </div>
     </div>
 
+    <!-- Full logo circle: no cropping -->
     <div class="city-logo-wrap">
       <img
         id="cityLogo"
@@ -600,16 +639,20 @@
     <section class="overview" id="about">
       <div class="container">
         <div class="section-heading">
-          <span class="eyebrow">Our identity</span>
+          <span class="eyebrow">Our Identity</span>
+
           <h2 id="aboutHeading">About Himmatnagar</h2>
+
           <p id="aboutIntro">
-            Learn about the people, character, heritage, and spirit that make our city special.
+            Learn about the people, character, heritage, and spirit that make
+            our city special.
           </p>
         </div>
 
         <div class="about-card">
           <div>
             <h3 id="infoTitle">A city with a story</h3>
+
             <p id="cityInformation">
 Himmatnagar is a place where tradition and progress come together. Use the admin panel to add your own detailed information about the city, its history, culture, food, important places, schools, businesses, and future vision.
             </p>
@@ -617,8 +660,10 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
 
           <div class="quote-box">
             <span class="quote-mark">“</span>
+
             <p id="cityQuote">
-              Every city becomes memorable because of the people who proudly tell its story.
+              Every city becomes memorable because of the people who proudly
+              tell its story.
             </p>
           </div>
         </div>
@@ -632,17 +677,20 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
             <span class="stat-number">01</span>
             <span class="stat-label">City Website</span>
           </article>
+
           <article class="stat-card">
             <span class="stat-number">∞</span>
             <span class="stat-label">Possibilities</span>
           </article>
+
           <article class="stat-card">
             <span class="stat-number">100%</span>
             <span class="stat-label">Made With Pride</span>
           </article>
+
           <article class="stat-card">
             <span class="stat-number">2026</span>
-            <span class="stat-label">Your Vision</span>
+            <span class="stat-label">Our Vision</span>
           </article>
         </div>
       </div>
@@ -652,15 +700,21 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
       <div class="container">
         <div class="highlights-top">
           <div class="section-heading">
-            <span class="eyebrow">Explore more</span>
+            <span class="eyebrow">Explore More</span>
+
             <h2>City Highlights</h2>
-            <p>Important places, ideas, services, memories, and stories chosen for Himmatnagar.</p>
+
+            <p>
+              Important places, services, culture, memories, and stories from
+              Himmatnagar.
+            </p>
           </div>
         </div>
 
         <div class="highlights-grid" id="highlightsGrid">
           <div class="empty-message">
-            No highlights have been added yet. Open <strong>admin.html</strong> and add your first city highlight.
+            No highlights have been added yet. Visit the admin panel and add
+            your first Himmatnagar city highlight.
           </div>
         </div>
       </div>
@@ -669,36 +723,89 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
 
   <footer>
     <div class="container footer-content">
-      <p>Made with pride for <strong id="footerCityName">Himmatnagar</strong>.</p>
-      <p>© <span id="currentYear"></span> City Guide Project</p>
+      <p>
+        Made with pride for
+        <strong id="footerCityName">Himmatnagar</strong>.
+      </p>
+
+      <p>
+        © <span id="currentYear"></span> Himmatnagar City Guide
+      </p>
     </div>
   </footer>
 
-  <script>
-    const STORAGE_KEY = "himatnagarCityWebsiteData";
+  <!-- Firebase Realtime Database connection -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+
+    import {
+      getDatabase,
+      ref,
+      onValue
+    } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+    /* Your Firebase configuration */
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAlJ8KhAoWLz5snMA_QQs_t6PRd8l1Km1s",
+      authDomain: "himmatnagar-city.firebaseapp.com",
+      projectId: "himmatnagar-city",
+      databaseURL: "https://himmatnagar-city-default-rtdb.asia-southeast1.firebasedatabase.app",
+      storageBucket: "himmatnagar-city.firebasestorage.app",
+      messagingSenderId: "58254936229",
+      appId: "1:58254936229:web:8dc16282f5092ba0f9254c",
+      measurementId: "G-V81H2TSGVF"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    const websiteRef = ref(database, "website");
+    const highlightsRef = ref(database, "highlights");
 
     const defaultData = {
       cityName: "Himmatnagar",
+
       bannerUrl:
         "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1800&q=85",
-      logoUrl: "https://placehold.co/400x400/f47c20/ffffff?text=HN",
+
+      logoUrl:
+        "https://placehold.co/400x400/f47c20/ffffff?text=HN",
+
       heroText:
         "Welcome to Himmatnagar — a city of heritage, community, opportunity, and pride.",
+
       aboutHeading: "About Himmatnagar",
+
       aboutIntro:
         "Learn about the people, character, heritage, and spirit that make our city special.",
+
       infoTitle: "A city with a story",
+
       cityInformation:
-        "Himmatnagar is a place where tradition and progress come together. Use the admin panel to add your own detailed information about the city, its history, culture, food, important places, schools, businesses, and future vision.",
+        "Himmatnagar is a place where tradition and progress come together. Add your own city information using the private admin panel.",
+
       cityQuote:
         "Every city becomes memorable because of the people who proudly tell its story.",
+
       stats: [
-        { number: "01", label: "City Website" },
-        { number: "∞", label: "Possibilities" },
-        { number: "100%", label: "Made With Pride" },
-        { number: "2026", label: "Your Vision" }
-      ],
-      highlights: []
+        {
+          number: "01",
+          label: "City Website"
+        },
+        {
+          number: "∞",
+          label: "Possibilities"
+        },
+        {
+          number: "100%",
+          label: "Made With Pride"
+        },
+        {
+          number: "2026",
+          label: "Our Vision"
+        }
+      ]
     };
 
     function escapeHTML(value) {
@@ -710,41 +817,45 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
         .replace(/'/g, "&#039;");
     }
 
-    function getCityData() {
-      try {
-        const savedData = localStorage.getItem(STORAGE_KEY);
-
-        if (!savedData) {
-          return defaultData;
-        }
-
-        const parsedData = JSON.parse(savedData);
-
-        return {
-          ...defaultData,
-          ...parsedData,
-          stats: Array.isArray(parsedData.stats)
-            ? parsedData.stats
-            : defaultData.stats,
-          highlights: Array.isArray(parsedData.highlights)
-            ? parsedData.highlights
-            : []
-        };
-      } catch (error) {
-        console.error("Could not load saved city data:", error);
-        return defaultData;
-      }
-    }
-
     function setText(id, value) {
       document.getElementById(id).textContent = value || "";
+    }
+
+    function setHeroBanner(imageUrl) {
+      const heroBackground = document.getElementById("heroBackground");
+
+      const safeBannerUrl = imageUrl || defaultData.bannerUrl;
+
+      heroBackground.style.backgroundImage = `
+        linear-gradient(
+          90deg,
+          rgba(22, 39, 53, 0.92) 0%,
+          rgba(22, 39, 53, 0.8) 42%,
+          rgba(22, 39, 53, 0.38) 100%
+        ),
+        url("${safeBannerUrl}")
+      `;
+    }
+
+    function setCityLogo(imageUrl, cityName) {
+      const cityLogo = document.getElementById("cityLogo");
+
+      cityLogo.src = imageUrl || defaultData.logoUrl;
+      cityLogo.alt = `${cityName || "Himmatnagar"} city logo`;
+
+      cityLogo.onerror = function () {
+        this.src = defaultData.logoUrl;
+      };
     }
 
     function renderStats(stats) {
       const statsGrid = document.getElementById("statsGrid");
 
-      statsGrid.innerHTML = stats
-        .slice(0, 4)
+      const safeStats = Array.isArray(stats) && stats.length
+        ? stats.slice(0, 4)
+        : defaultData.stats;
+
+      statsGrid.innerHTML = safeStats
         .map(
           (stat) => `
             <article class="stat-card">
@@ -762,7 +873,8 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
       if (!highlights.length) {
         highlightsGrid.innerHTML = `
           <div class="empty-message">
-            No highlights have been added yet. Open <strong>admin.html</strong> and add your first city highlight.
+            No highlights have been added yet. Visit the admin panel and add
+            your first Himmatnagar city highlight.
           </div>
         `;
         return;
@@ -779,9 +891,10 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
               <img
                 class="highlight-image"
                 src="${escapeHTML(safeImage)}"
-                alt="${escapeHTML(highlight.title || "City highlight")}"
+                alt="${escapeHTML(highlight.title || "Himmatnagar highlight")}"
                 onerror="this.src='https://placehold.co/800x500/e6edf3/183751?text=Image+Not+Available';"
               />
+
               <div class="highlight-content">
                 <h3>${escapeHTML(highlight.title || "Untitled Highlight")}</h3>
                 <p>${escapeHTML(highlight.description || "")}</p>
@@ -792,50 +905,69 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
         .join("");
     }
 
-    function loadWebsite() {
-      const data = getCityData();
-
-      document.title = `${data.cityName || "Himmatnagar"} | Official City Guide`;
-
-      setText("cityName", data.cityName);
-      setText("navCityName", data.cityName);
-      setText("footerCityName", data.cityName);
-      setText("heroText", data.heroText);
-      setText("aboutHeading", data.aboutHeading);
-      setText("aboutIntro", data.aboutIntro);
-      setText("infoTitle", data.infoTitle);
-      setText("cityInformation", data.cityInformation);
-      setText("cityQuote", data.cityQuote);
-
-      const heroBackground = document.getElementById("heroBackground");
-      const bannerUrl = data.bannerUrl || defaultData.bannerUrl;
-
-      heroBackground.style.backgroundImage = `
-        linear-gradient(
-          90deg,
-          rgba(7, 20, 34, 0.91) 0%,
-          rgba(7, 20, 34, 0.74) 36%,
-          rgba(7, 20, 34, 0.25) 100%
-        ),
-        url("${bannerUrl}")
-      `;
-
-      const cityLogo = document.getElementById("cityLogo");
-      cityLogo.src = data.logoUrl || defaultData.logoUrl;
-      cityLogo.alt = `${data.cityName || "Himmatnagar"} city logo`;
-
-      cityLogo.onerror = function () {
-        this.src = defaultData.logoUrl;
+    function renderWebsite(data) {
+      const websiteData = {
+        ...defaultData,
+        ...(data || {})
       };
 
-      renderStats(data.stats);
-      renderHighlights(data.highlights);
+      document.title = `${websiteData.cityName || "Himmatnagar"} | City Guide`;
 
-      document.getElementById("currentYear").textContent =
-        new Date().getFullYear();
+      setText("cityName", websiteData.cityName);
+      setText("navCityName", websiteData.cityName);
+      setText("footerCityName", websiteData.cityName);
+
+      setText("heroText", websiteData.heroText);
+      setText("aboutHeading", websiteData.aboutHeading);
+      setText("aboutIntro", websiteData.aboutIntro);
+      setText("infoTitle", websiteData.infoTitle);
+      setText("cityInformation", websiteData.cityInformation);
+      setText("cityQuote", websiteData.cityQuote);
+
+      setHeroBanner(websiteData.bannerUrl);
+      setCityLogo(websiteData.logoUrl, websiteData.cityName);
+      renderStats(websiteData.stats);
     }
 
-    loadWebsite();
+    /* Load city information live from Firebase */
+
+    onValue(
+      websiteRef,
+      (snapshot) => {
+        const websiteData = snapshot.val();
+        renderWebsite(websiteData);
+      },
+      (error) => {
+        console.error("Could not load website data:", error);
+        renderWebsite(defaultData);
+      }
+    );
+
+    /* Load highlights live from Firebase */
+
+    onValue(
+      highlightsRef,
+      (snapshot) => {
+        const highlightsData = snapshot.val() || {};
+
+        const highlights = Object.entries(highlightsData)
+          .map(([id, value]) => ({
+            id,
+            ...value
+          }))
+          .sort((a, b) => (b.position || 0) - (a.position || 0));
+
+        renderHighlights(highlights);
+      },
+      (error) => {
+        console.error("Could not load city highlights:", error);
+
+        renderHighlights([]);
+      }
+    );
+
+    document.getElementById("currentYear").textContent =
+      new Date().getFullYear();
   </script>
 </body>
 </html>
