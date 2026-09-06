@@ -3,32 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Himmatnagar Admin Panel</title>
+  <meta
+    name="description"
+    content="Secure admin panel for Himmatnagar City website."
+  />
+  <title>Himmatnagar City | Admin Panel</title>
 
   <style>
     :root {
       --primary: #f47c20;
-      --primary-dark: #c85408;
+      --primary-dark: #cb570b;
+      --primary-light: #fff0e3;
       --dark: #102235;
-      --text: #263845;
-      --muted: #6f808c;
-      --bg: #eef3f7;
+      --dark-soft: #1b405c;
+      --text: #293d4b;
+      --muted: #6a7d89;
+      --background: #edf3f7;
       --white: #ffffff;
-      --border: #dce5eb;
-      --danger: #c83838;
-      --success: #127c4c;
+      --border: #dce6ec;
+      --success: #087443;
+      --success-bg: #dff8ea;
+      --error: #bd3030;
+      --error-bg: #ffe7e7;
+      --warning: #976000;
+      --warning-bg: #fff2cd;
       --radius: 18px;
-      --shadow: 0 12px 35px rgba(16, 34, 53, 0.08);
+      --shadow: 0 18px 45px rgba(16, 34, 53, 0.1);
     }
 
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       color: var(--text);
-      background: var(--bg);
+      background: var(--background);
       font-family: Arial, Helvetica, sans-serif;
     }
 
@@ -42,92 +56,364 @@
       cursor: pointer;
     }
 
-    .admin-header {
-      padding: 34px 0;
-      color: white;
-      background:
-        radial-gradient(circle at top right, rgba(244, 124, 32, 0.45), transparent 35%),
-        var(--dark);
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.65;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .hidden {
+      display: none !important;
     }
 
     .container {
-      width: min(1160px, calc(100% - 32px));
+      width: min(1180px, calc(100% - 32px));
       margin: auto;
     }
 
-    .header-content {
+    /* Loading */
+
+    .loading-page {
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      background: var(--dark);
+    }
+
+    .loader {
+      width: 42px;
+      height: 42px;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Login */
+
+    .login-page {
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at top right, rgba(244, 124, 32, 0.45), transparent 30%),
+        linear-gradient(135deg, #102235 0%, #193e59 100%);
+    }
+
+    .login-card {
+      width: min(460px, 100%);
+      padding: 34px;
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 24px;
+      background: rgba(10, 31, 48, 0.9);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.32);
+      backdrop-filter: blur(14px);
+    }
+
+    .login-logo {
+      display: grid;
+      width: 58px;
+      height: 58px;
+      margin-bottom: 19px;
+      place-items: center;
+      color: white;
+      border-radius: 17px;
+      background: var(--primary);
+      font-size: 1.25rem;
+      font-weight: 900;
+    }
+
+    .login-card h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .login-card > p {
+      margin: 10px 0 26px;
+      color: #c9d8e4;
+      line-height: 1.65;
+    }
+
+    .login-card label {
+      color: #edf5fb;
+    }
+
+    .login-card input {
+      color: white;
+      border-color: rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .login-card input::placeholder {
+      color: #afbfca;
+    }
+
+    .login-card input:focus {
+      border-color: #ffb478;
+      box-shadow: 0 0 0 4px rgba(244, 124, 32, 0.15);
+    }
+
+    .login-footer {
       display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      align-items: center;
+      margin-top: 18px;
+    }
+
+    .login-footer button {
+      padding: 0;
+      color: #ffd4b2;
+      border: 0;
+      background: transparent;
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    .login-footer button:hover {
+      color: white;
+      text-decoration: underline;
+    }
+
+    /* Header */
+
+    .app-header {
+      color: white;
+      background:
+        radial-gradient(circle at 92% 5%, rgba(244, 124, 32, 0.45), transparent 23%),
+        var(--dark);
+    }
+
+    .topbar {
+      display: flex;
+      min-height: 78px;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
     }
 
-    .header-content h1 {
-      margin: 0;
-      font-size: clamp(1.7rem, 4vw, 2.5rem);
-    }
-
-    .header-content p {
-      margin: 8px 0 0;
-      color: #c7d7e2;
-      line-height: 1.6;
-    }
-
-    .open-site {
-      display: inline-flex;
+    .site-brand {
+      display: flex;
       align-items: center;
-      justify-content: center;
-      min-height: 45px;
-      padding: 0 18px;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      display: grid;
+      width: 41px;
+      height: 41px;
+      place-items: center;
       color: white;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      border-radius: 11px;
-      font-weight: 800;
-      text-decoration: none;
+      border-radius: 12px;
+      background: var(--primary);
+      font-size: 0.95rem;
+      font-weight: 900;
+    }
+
+    .site-brand h1 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .site-brand p {
+      margin: 3px 0 0;
+      color: #acc0ce;
+      font-size: 0.78rem;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .admin-email {
+      max-width: 220px;
+      overflow: hidden;
+      color: #c8d8e2;
+      font-size: 0.8rem;
+      text-overflow: ellipsis;
       white-space: nowrap;
     }
 
-    .open-site:hover {
-      background: rgba(255, 255, 255, 0.11);
+    /* Buttons */
+
+    .button {
+      display: inline-flex;
+      min-height: 43px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
+      border: 0;
+      border-radius: 11px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform 0.18s ease, background 0.18s ease;
     }
 
-    main {
-      padding: 34px 0 64px;
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button-primary {
+      color: white;
+      background: var(--primary);
+    }
+
+    .button-primary:hover {
+      background: #dc6810;
+    }
+
+    .button-outline {
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      background: transparent;
+    }
+
+    .button-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .button-light {
+      color: #38515f;
+      background: #e8f0f5;
+    }
+
+    .button-light:hover {
+      background: #d7e4eb;
+    }
+
+    .button-danger {
+      color: var(--error);
+      background: var(--error-bg);
+    }
+
+    .button-danger:hover {
+      color: white;
+      background: var(--error);
+    }
+
+    .button-small {
+      min-height: 36px;
+      padding: 0 12px;
+      font-size: 0.8rem;
+    }
+
+    /* Main */
+
+    .admin-main {
+      padding: 32px 0 65px;
     }
 
     .notice {
       display: none;
-      margin-bottom: 22px;
-      padding: 14px 17px;
-      border-radius: 12px;
+      margin-bottom: 21px;
+      padding: 15px 17px;
+      border-radius: 13px;
+      font-size: 0.92rem;
       font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .notice.show {
+      display: block;
     }
 
     .notice.success {
-      display: block;
-      color: #075b35;
-      background: #dff7e9;
-      border: 1px solid #bde9cf;
+      color: var(--success);
+      border: 1px solid #bce9d0;
+      background: var(--success-bg);
     }
 
     .notice.error {
-      display: block;
-      color: #8d1717;
-      background: #ffe4e4;
-      border: 1px solid #ffc4c4;
+      color: #971d1d;
+      border: 1px solid #ffc5c5;
+      background: var(--error-bg);
+    }
+
+    .notice.warning {
+      color: var(--warning);
+      border: 1px solid #efcf7b;
+      background: var(--warning-bg);
+    }
+
+    .dashboard-intro {
+      display: flex;
+      justify-content: space-between;
+      gap: 25px;
+      align-items: end;
+      margin-bottom: 27px;
+    }
+
+    .dashboard-intro h2 {
+      margin: 0;
+      color: var(--dark);
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      letter-spacing: -1px;
+    }
+
+    .dashboard-intro p {
+      max-width: 700px;
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .database-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      white-space: nowrap;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #9babb6;
+    }
+
+    .status-dot.connected {
+      background: #1aa363;
+      box-shadow: 0 0 0 4px rgba(26, 163, 99, 0.13);
+    }
+
+    .status-dot.saving {
+      background: #f59b35;
+      box-shadow: 0 0 0 4px rgba(245, 155, 53, 0.15);
+    }
+
+    .status-dot.error {
+      background: var(--error);
+      box-shadow: 0 0 0 4px rgba(201, 53, 53, 0.12);
     }
 
     .admin-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
     }
 
     .panel {
-      padding: 27px;
-      background: var(--white);
+      padding: 26px;
       border: 1px solid var(--border);
       border-radius: var(--radius);
+      background: var(--white);
       box-shadow: var(--shadow);
     }
 
@@ -135,87 +421,149 @@
       grid-column: 1 / -1;
     }
 
-    .panel-title {
+    .panel-heading {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 0 0 6px;
-      color: var(--dark);
-      font-size: 1.3rem;
+      gap: 13px;
+      align-items: flex-start;
+      margin-bottom: 23px;
     }
 
-    .panel-title span {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 28px;
-      height: 28px;
+    .panel-number {
+      display: grid;
+      flex-shrink: 0;
+      width: 33px;
+      height: 33px;
+      place-items: center;
       color: white;
+      border-radius: 10px;
       background: var(--primary);
-      border-radius: 9px;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
+      font-weight: 900;
     }
 
-    .panel-description {
-      margin: 0 0 23px;
+    .panel-heading h3 {
+      margin: 1px 0 4px;
+      color: var(--dark);
+      font-size: 1.2rem;
+    }
+
+    .panel-heading p {
+      margin: 0;
       color: var(--muted);
-      line-height: 1.6;
-      font-size: 0.93rem;
+      font-size: 0.88rem;
+      line-height: 1.5;
     }
 
     .form-group {
-      margin-bottom: 18px;
+      margin-bottom: 17px;
     }
 
     label {
       display: block;
       margin-bottom: 8px;
-      color: #334a59;
-      font-size: 0.9rem;
+      color: #344c5c;
+      font-size: 0.87rem;
       font-weight: 800;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px 13px;
+      color: var(--text);
+      border: 1px solid #ccd9e1;
+      border-radius: 10px;
+      outline: none;
+      background: #fbfdfe;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(244, 124, 32, 0.13);
+    }
+
+    textarea {
+      min-height: 118px;
+      resize: vertical;
+      line-height: 1.55;
     }
 
     .help-text {
       display: block;
       margin-top: 6px;
       color: var(--muted);
-      font-size: 0.78rem;
+      font-size: 0.77rem;
       line-height: 1.45;
     }
 
-    input,
-    textarea {
-      width: 100%;
-      padding: 13px 14px;
-      color: var(--text);
-      background: #fbfdff;
-      border: 1px solid #cfdbe3;
-      border-radius: 11px;
-      outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    /* Image controls */
+
+    .image-control {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
     }
 
-    input:focus,
-    textarea:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(244, 124, 32, 0.12);
+    .file-label {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 13px;
+      color: var(--primary-dark);
+      border: 1px solid #ffd5b6;
+      border-radius: 10px;
+      background: var(--primary-light);
+      font-size: 0.84rem;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
     }
 
-    textarea {
-      min-height: 130px;
-      resize: vertical;
-      line-height: 1.55;
+    .file-label:hover {
+      background: #ffe2cb;
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .upload-progress {
+      display: none;
+      height: 7px;
+      margin-top: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e2eaef;
+    }
+
+    .upload-progress.show {
+      display: block;
+    }
+
+    .upload-progress-bar {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--primary);
+      transition: width 0.2s ease;
     }
 
     .image-preview {
       display: none;
       width: 100%;
       height: 180px;
-      margin-top: 13px;
+      margin-top: 12px;
       overflow: hidden;
       border: 1px solid var(--border);
       border-radius: 12px;
-      background: #edf3f6;
+      background: #e8eef2;
+    }
+
+    .image-preview.show {
+      display: block;
     }
 
     .image-preview img {
@@ -224,101 +572,119 @@
       object-fit: cover;
     }
 
-    .stats-editor {
+    .logo-preview img {
+      object-fit: contain;
+      padding: 13px;
+    }
+
+    /* Statistics */
+
+    .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 14px;
     }
 
-    .stat-edit-item {
+    .stat-editor {
       padding: 14px;
-      background: #f7fafc;
       border: 1px solid var(--border);
       border-radius: 13px;
+      background: #f8fbfd;
     }
 
-    .stat-edit-item input {
-      margin-bottom: 9px;
+    .stat-editor label {
+      font-size: 0.76rem;
+    }
+
+    .stat-editor input {
+      margin-bottom: 10px;
       padding: 10px;
+      font-size: 0.88rem;
     }
 
-    .stat-edit-item input:last-child {
+    .stat-editor input:last-child {
       margin-bottom: 0;
     }
 
+    /* Highlights */
+
     .highlight-form {
       padding: 20px;
-      background: #f7fafc;
       border: 1px solid var(--border);
       border-radius: 15px;
+      background: #f8fbfd;
     }
 
-    .highlight-form-grid {
+    .highlight-input-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 15px;
     }
 
-    .highlight-form .form-group:last-child {
-      margin-bottom: 0;
-    }
-
-    .add-highlight-button,
-    .save-button,
-    .reset-button,
-    .delete-button {
-      border: 0;
-      border-radius: 11px;
-      font-weight: 800;
-      transition: 0.2s ease;
-    }
-
-    .add-highlight-button {
+    .highlight-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
       margin-top: 17px;
-      min-height: 43px;
-      padding: 0 16px;
-      color: var(--primary-dark);
-      background: #fff1e5;
     }
 
-    .add-highlight-button:hover {
-      background: #ffe0c6;
+    .highlights-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      align-items: center;
+      margin: 27px 0 15px;
+    }
+
+    .highlights-header h4 {
+      margin: 0;
+      color: var(--dark);
+      font-size: 1.06rem;
+    }
+
+    .highlight-count {
+      padding: 6px 10px;
+      color: var(--primary-dark);
+      border-radius: 999px;
+      background: var(--primary-light);
+      font-size: 0.78rem;
+      font-weight: 800;
     }
 
     .highlights-list {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
-      margin-top: 22px;
     }
 
-    .highlight-admin-card {
+    .highlight-card {
       overflow: hidden;
       border: 1px solid var(--border);
       border-radius: 14px;
       background: white;
     }
 
-    .highlight-admin-image {
+    .highlight-card-image {
       width: 100%;
-      height: 135px;
+      height: 155px;
       object-fit: cover;
-      background: #e6edf2;
+      background: #e7eef3;
     }
 
-    .highlight-admin-content {
-      padding: 14px;
+    .highlight-card-content {
+      padding: 15px;
     }
 
-    .highlight-admin-content h4 {
+    .highlight-card-content h5 {
       margin: 0 0 7px;
       color: var(--dark);
       font-size: 1rem;
     }
 
-    .highlight-admin-content p {
+    .highlight-card-content p {
       display: -webkit-box;
-      margin: 0 0 13px;
+      min-height: 38px;
+      margin: 0 0 14px;
       overflow: hidden;
       color: var(--muted);
       font-size: 0.83rem;
@@ -327,74 +693,103 @@
       -webkit-box-orient: vertical;
     }
 
-    .delete-button {
-      width: 100%;
-      min-height: 36px;
-      color: var(--danger);
-      background: #ffeded;
-    }
-
-    .delete-button:hover {
-      color: white;
-      background: var(--danger);
-    }
-
-    .no-highlights {
-      grid-column: 1 / -1;
-      padding: 22px;
-      color: var(--muted);
-      text-align: center;
-      border: 2px dashed #d3dfe6;
-      border-radius: 13px;
-    }
-
-    .actions {
+    .card-actions {
       display: flex;
-      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .card-actions button {
+      flex: 1;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      padding: 32px 20px;
+      color: var(--muted);
+      border: 2px dashed #d2dee5;
+      border-radius: 14px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .bottom-actions {
+      display: flex;
       justify-content: space-between;
+      gap: 17px;
       align-items: center;
-      gap: 16px;
-      margin-top: 28px;
+      margin-top: 26px;
       padding-top: 25px;
       border-top: 1px solid var(--border);
     }
 
-    .actions p {
+    .bottom-actions p {
+      max-width: 650px;
       margin: 0;
       color: var(--muted);
-      font-size: 0.86rem;
-      line-height: 1.5;
+      font-size: 0.84rem;
+      line-height: 1.55;
     }
 
-    .action-buttons {
+    .bottom-action-buttons {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
     }
 
-    .save-button,
-    .reset-button {
-      min-height: 46px;
-      padding: 0 19px;
+    /* Unauthorized screen */
+
+    .denied-page {
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      padding: 24px;
+      background: var(--background);
     }
 
-    .save-button {
+    .denied-card {
+      width: min(560px, 100%);
+      padding: 34px;
+      border: 1px solid #ffd0d0;
+      border-radius: 22px;
+      text-align: center;
+      background: white;
+      box-shadow: var(--shadow);
+    }
+
+    .denied-icon {
+      display: grid;
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 16px;
+      place-items: center;
       color: white;
-      background: var(--primary);
+      border-radius: 18px;
+      background: var(--error);
+      font-size: 1.5rem;
+      font-weight: 900;
     }
 
-    .save-button:hover {
-      background: #df6810;
-      transform: translateY(-1px);
+    .denied-card h2 {
+      margin: 0;
+      color: var(--dark);
     }
 
-    .reset-button {
-      color: #495d6a;
-      background: #e5edf2;
+    .denied-card p {
+      margin: 12px 0;
+      color: var(--muted);
+      line-height: 1.65;
     }
 
-    .reset-button:hover {
-      background: #d6e1e7;
+    .uid-box {
+      margin: 18px 0;
+      padding: 12px;
+      overflow-wrap: anywhere;
+      color: #526571;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #f5f8fa;
+      font-family: monospace;
+      font-size: 0.82rem;
     }
 
     @media (max-width: 900px) {
@@ -406,311 +801,662 @@
         grid-column: auto;
       }
 
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
       .highlights-list {
         grid-template-columns: repeat(2, 1fr);
       }
     }
 
-    @media (max-width: 650px) {
-      .header-content {
-        align-items: start;
+    @media (max-width: 640px) {
+      .container {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .topbar {
+        min-height: auto;
+        padding: 16px 0;
+        align-items: flex-start;
         flex-direction: column;
       }
 
-      .stats-editor {
-        grid-template-columns: repeat(2, 1fr);
+      .topbar-actions {
+        width: 100%;
+        justify-content: space-between;
       }
 
-      .highlight-form-grid {
-        grid-template-columns: 1fr;
+      .admin-email {
+        max-width: 140px;
       }
 
-      .highlights-list {
-        grid-template-columns: 1fr;
+      .dashboard-intro {
+        display: block;
+      }
+
+      .database-status {
+        margin-top: 13px;
       }
 
       .panel {
         padding: 20px;
       }
 
-      .actions {
+      .image-control,
+      .highlight-input-grid,
+      .stats-grid,
+      .highlights-list {
+        grid-template-columns: 1fr;
+      }
+
+      .bottom-actions {
         align-items: stretch;
         flex-direction: column;
       }
 
-      .action-buttons {
+      .bottom-action-buttons {
         display: grid;
         grid-template-columns: 1fr;
+      }
+
+      .login-card {
+        padding: 26px;
       }
     }
   </style>
 </head>
 
 <body>
-  <header class="admin-header">
-    <div class="container header-content">
-      <div>
-        <h1>Himmatnagar Admin Panel</h1>
-        <p>Manage your city website content, banner, logo, statistics, and highlights.</p>
+  <!-- Loading screen -->
+  <section id="loadingScreen" class="loading-page">
+    <div class="loader"></div>
+  </section>
+
+  <!-- Login screen -->
+  <section id="loginScreen" class="login-page hidden">
+    <div class="login-card">
+      <div class="login-logo">HN</div>
+
+      <h1>Private Admin Panel</h1>
+
+      <p>
+        Log in with your Firebase Authentication admin email and password to
+        manage the Himmatnagar City website.
+      </p>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginEmail">Admin email</label>
+
+          <input
+            id="loginEmail"
+            type="email"
+            placeholder="your-email@example.com"
+            autocomplete="email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+
+          <input
+            id="loginPassword"
+            type="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <button
+          id="loginButton"
+          class="button button-primary"
+          type="submit"
+          style="width: 100%;"
+        >
+          Sign in securely
+        </button>
+      </form>
+
+      <div class="login-footer">
+        <button id="forgotPasswordButton" type="button">
+          Forgot password?
+        </button>
+
+        <span style="color: #9db2c0; font-size: 0.76rem;">
+          Himmatnagar City
+        </span>
       </div>
-
-      <a href="index.html" target="_blank" class="open-site">Open Public Website ↗</a>
     </div>
-  </header>
+  </section>
 
-  <main class="container">
-    <div id="notice" class="notice"></div>
+  <!-- Access denied screen -->
+  <section id="deniedScreen" class="denied-page hidden">
+    <div class="denied-card">
+      <div class="denied-icon">!</div>
 
-    <div class="admin-grid">
-      <section class="panel">
-        <h2 class="panel-title"><span>1</span> City identity</h2>
-        <p class="panel-description">
-          These details appear at the top of your public Himmatnagar website.
-        </p>
+      <h2>Admin access denied</h2>
 
-        <div class="form-group">
-          <label for="cityName">City name</label>
-          <input id="cityName" type="text" placeholder="Example: Himmatnagar" />
-        </div>
+      <p>
+        You are logged in, but this Firebase account is not the approved
+        Himmatnagar City administrator.
+      </p>
 
-        <div class="form-group">
-          <label for="heroText">Banner introduction</label>
-          <textarea
-            id="heroText"
-            placeholder="Write a welcoming one or two-line introduction for your city."
-          ></textarea>
-        </div>
+      <p>
+        The account UID must exactly match the Admin UID used in your code and
+        Firebase Rules.
+      </p>
 
-        <div class="form-group">
-          <label for="bannerUrl">Long banner image or GIF direct link</label>
-          <input
-            id="bannerUrl"
-            type="url"
-            placeholder="https://example.com/banner.jpg or .gif"
-          />
-          <span class="help-text">
-            Paste a direct image link. JPG, PNG, WebP, and GIF links are supported.
-          </span>
-          <div class="image-preview" id="bannerPreviewBox">
-            <img id="bannerPreview" alt="Banner preview" />
+      <div id="deniedUid" class="uid-box">Checking UID...</div>
+
+      <button id="deniedLogoutButton" class="button button-danger" type="button">
+        Sign out
+      </button>
+    </div>
+  </section>
+
+  <!-- Main admin panel -->
+  <div id="appScreen" class="hidden">
+    <header class="app-header">
+      <div class="container topbar">
+        <div class="site-brand">
+          <div class="brand-icon">HN</div>
+
+          <div>
+            <h1>Himmatnagar City Admin</h1>
+            <p>Secure Firebase Realtime Database management panel</p>
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="logoUrl">City logo/profile image direct link</label>
-          <input
-            id="logoUrl"
-            type="url"
-            placeholder="https://example.com/himmatnagar-logo.png"
-          />
-          <span class="help-text">
-            This image appears in the large circle overlapping the left side of the banner.
-          </span>
-          <div class="image-preview" id="logoPreviewBox">
-            <img id="logoPreview" alt="Logo preview" />
-          </div>
+        <div class="topbar-actions">
+          <span id="adminEmail" class="admin-email"></span>
+
+          <a class="button button-outline button-small" href="index.html" target="_blank">
+            View website ↗
+          </a>
+
+          <button id="logoutButton" class="button button-outline button-small" type="button">
+            Logout
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container admin-main">
+      <div id="notice" class="notice"></div>
+
+      <section class="dashboard-intro">
+        <div>
+          <h2>Manage your city website</h2>
+
+          <p>
+            Update Himmatnagar’s banner, logo, city information, images, GIFs,
+            statistics, and city highlights from one private dashboard.
+          </p>
+        </div>
+
+        <div class="database-status">
+          <span id="statusDot" class="status-dot"></span>
+          <span id="statusText">Connecting to Firebase...</span>
         </div>
       </section>
 
-      <section class="panel">
-        <h2 class="panel-title"><span>2</span> City information</h2>
-        <p class="panel-description">
-          Add the main written content visitors will read about Himmatnagar.
-        </p>
+      <div class="admin-grid">
+        <!-- City identity -->
+        <section class="panel">
+          <div class="panel-heading">
+            <div class="panel-number">1</div>
 
-        <div class="form-group">
-          <label for="aboutHeading">About section heading</label>
-          <input
-            id="aboutHeading"
-            type="text"
-            placeholder="Example: About Himmatnagar"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="aboutIntro">Short about introduction</label>
-          <textarea
-            id="aboutIntro"
-            placeholder="A short summary under the About heading."
-          ></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="infoTitle">Information card title</label>
-          <input
-            id="infoTitle"
-            type="text"
-            placeholder="Example: A city with a story"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="cityInformation">Detailed city information</label>
-          <textarea
-            id="cityInformation"
-            placeholder="Write about history, culture, famous places, food, people, schools, development, and more."
-          ></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="cityQuote">City quote or message</label>
-          <textarea
-            id="cityQuote"
-            placeholder="Write a proud message about your city."
-          ></textarea>
-        </div>
-      </section>
-
-      <section class="panel full-width">
-        <h2 class="panel-title"><span>3</span> Website statistics</h2>
-        <p class="panel-description">
-          Add four short facts or proud messages. You can use population, area, year, famous places, or any information you want.
-        </p>
-
-        <div class="stats-editor">
-          <div class="stat-edit-item">
-            <label for="statNumber1">Stat 1 number</label>
-            <input id="statNumber1" type="text" placeholder="Example: 01" />
-            <label for="statLabel1">Stat 1 label</label>
-            <input id="statLabel1" type="text" placeholder="Example: City Website" />
-          </div>
-
-          <div class="stat-edit-item">
-            <label for="statNumber2">Stat 2 number</label>
-            <input id="statNumber2" type="text" placeholder="Example: 100+" />
-            <label for="statLabel2">Stat 2 label</label>
-            <input id="statLabel2" type="text" placeholder="Example: Years of Heritage" />
-          </div>
-
-          <div class="stat-edit-item">
-            <label for="statNumber3">Stat 3 number</label>
-            <input id="statNumber3" type="text" placeholder="Example: ∞" />
-            <label for="statLabel3">Stat 3 label</label>
-            <input id="statLabel3" type="text" placeholder="Example: Stories to Tell" />
-          </div>
-
-          <div class="stat-edit-item">
-            <label for="statNumber4">Stat 4 number</label>
-            <input id="statNumber4" type="text" placeholder="Example: 2026" />
-            <label for="statLabel4">Stat 4 label</label>
-            <input id="statLabel4" type="text" placeholder="Example: Our Vision" />
-          </div>
-        </div>
-      </section>
-
-      <section class="panel full-width">
-        <h2 class="panel-title"><span>4</span> Add city highlights</h2>
-        <p class="panel-description">
-          Add cards for famous places, temples, food, events, tourism spots, history, services, or any useful city content. GIF image links also work here.
-        </p>
-
-        <div class="highlight-form">
-          <div class="highlight-form-grid">
-            <div class="form-group">
-              <label for="highlightTitle">Highlight title</label>
-              <input
-                id="highlightTitle"
-                type="text"
-                placeholder="Example: Famous Places of Himmatnagar"
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="highlightImageUrl">Image or GIF direct link</label>
-              <input
-                id="highlightImageUrl"
-                type="url"
-                placeholder="https://example.com/place-image.jpg"
-              />
+            <div>
+              <h3>City identity</h3>
+              <p>Manage the public city name, logo, long banner, and welcome text.</p>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="highlightDescription">Highlight description</label>
+            <label for="cityName">City name</label>
+
+            <input
+              id="cityName"
+              type="text"
+              placeholder="Example: Himmatnagar"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="heroText">Banner introduction</label>
+
             <textarea
-              id="highlightDescription"
-              placeholder="Write a short, clear description for this city highlight."
+              id="heroText"
+              placeholder="Write a welcoming message about Himmatnagar."
             ></textarea>
           </div>
 
-          <button type="button" class="add-highlight-button" id="addHighlightButton">
-            + Add city highlight
+          <div class="form-group">
+            <label for="bannerUrl">Banner image or GIF direct link</label>
+
+            <div class="image-control">
+              <input
+                id="bannerUrl"
+                type="url"
+                placeholder="https://example.com/banner.jpg or banner.gif"
+              />
+
+              <label class="file-label" for="bannerFile">
+                Upload banner
+              </label>
+
+              <input
+                id="bannerFile"
+                class="file-input"
+                type="file"
+                accept="image/png,image/jpeg,image/webp,image/gif"
+              />
+            </div>
+
+            <span class="help-text">
+              You can paste a direct image/GIF URL or upload JPG, PNG, WebP, and GIF files.
+            </span>
+
+            <div id="bannerProgress" class="upload-progress">
+              <div id="bannerProgressBar" class="upload-progress-bar"></div>
+            </div>
+
+            <div id="bannerPreviewBox" class="image-preview">
+              <img id="bannerPreview" alt="Banner preview" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="logoUrl">Himmatnagar logo image or GIF direct link</label>
+
+            <div class="image-control">
+              <input
+                id="logoUrl"
+                type="url"
+                placeholder="https://example.com/himmatnagar-logo.png"
+              />
+
+              <label class="file-label" for="logoFile">
+                Upload logo
+              </label>
+
+              <input
+                id="logoFile"
+                class="file-input"
+                type="file"
+                accept="image/png,image/jpeg,image/webp,image/gif"
+              />
+            </div>
+
+            <span class="help-text">
+              This is the circular profile/logo image displayed over the banner.
+            </span>
+
+            <div id="logoProgress" class="upload-progress">
+              <div id="logoProgressBar" class="upload-progress-bar"></div>
+            </div>
+
+            <div id="logoPreviewBox" class="image-preview logo-preview">
+              <img id="logoPreview" alt="Logo preview" />
+            </div>
+          </div>
+        </section>
+
+        <!-- City information -->
+        <section class="panel">
+          <div class="panel-heading">
+            <div class="panel-number">2</div>
+
+            <div>
+              <h3>City information</h3>
+              <p>Write the story, culture, history, pride, and vision of Himmatnagar.</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="aboutHeading">About section heading</label>
+
+            <input
+              id="aboutHeading"
+              type="text"
+              placeholder="Example: About Himmatnagar"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="aboutIntro">Short about introduction</label>
+
+            <textarea
+              id="aboutIntro"
+              placeholder="Write a short introduction below the About heading."
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="infoTitle">Main city information title</label>
+
+            <input
+              id="infoTitle"
+              type="text"
+              placeholder="Example: A city with a story"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="cityInformation">Detailed city information</label>
+
+            <textarea
+              id="cityInformation"
+              placeholder="Write about history, culture, famous places, food, people, education, markets, growth, and future vision."
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="cityQuote">City quote or message</label>
+
+            <textarea
+              id="cityQuote"
+              placeholder="Write a proud message for Himmatnagar."
+            ></textarea>
+          </div>
+        </section>
+
+        <!-- Statistics -->
+        <section class="panel full-width">
+          <div class="panel-heading">
+            <div class="panel-number">3</div>
+
+            <div>
+              <h3>City statistics and quick facts</h3>
+              <p>Add four useful city facts, achievements, numbers, or pride messages.</p>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-editor">
+              <label for="statNumber1">Stat 1 number</label>
+              <input id="statNumber1" type="text" placeholder="Example: 100+" />
+
+              <label for="statLabel1">Stat 1 label</label>
+              <input id="statLabel1" type="text" placeholder="Example: Years of heritage" />
+            </div>
+
+            <div class="stat-editor">
+              <label for="statNumber2">Stat 2 number</label>
+              <input id="statNumber2" type="text" placeholder="Example: 01" />
+
+              <label for="statLabel2">Stat 2 label</label>
+              <input id="statLabel2" type="text" placeholder="Example: City website" />
+            </div>
+
+            <div class="stat-editor">
+              <label for="statNumber3">Stat 3 number</label>
+              <input id="statNumber3" type="text" placeholder="Example: ∞" />
+
+              <label for="statLabel3">Stat 3 label</label>
+              <input id="statLabel3" type="text" placeholder="Example: Stories to tell" />
+            </div>
+
+            <div class="stat-editor">
+              <label for="statNumber4">Stat 4 number</label>
+              <input id="statNumber4" type="text" placeholder="Example: 2026" />
+
+              <label for="statLabel4">Stat 4 label</label>
+              <input id="statLabel4" type="text" placeholder="Example: Our vision" />
+            </div>
+          </div>
+        </section>
+
+        <!-- Highlights -->
+        <section class="panel full-width">
+          <div class="panel-heading">
+            <div class="panel-number">4</div>
+
+            <div>
+              <h3>City highlights</h3>
+              <p>
+                Add city cards for landmarks, temples, food, tourism, events,
+                services, markets, businesses, history, and culture.
+              </p>
+            </div>
+          </div>
+
+          <div class="highlight-form">
+            <input id="editingHighlightId" type="hidden" />
+
+            <div class="highlight-input-grid">
+              <div class="form-group">
+                <label for="highlightTitle">Highlight title</label>
+
+                <input
+                  id="highlightTitle"
+                  type="text"
+                  placeholder="Example: Famous places in Himmatnagar"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="highlightImageUrl">Image or GIF direct link</label>
+
+                <div class="image-control">
+                  <input
+                    id="highlightImageUrl"
+                    type="url"
+                    placeholder="https://example.com/place.jpg"
+                  />
+
+                  <label class="file-label" for="highlightImageFile">
+                    Upload image
+                  </label>
+
+                  <input
+                    id="highlightImageFile"
+                    class="file-input"
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp,image/gif"
+                  />
+                </div>
+
+                <div id="highlightProgress" class="upload-progress">
+                  <div id="highlightProgressBar" class="upload-progress-bar"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="highlightDescription">Highlight description</label>
+
+              <textarea
+                id="highlightDescription"
+                placeholder="Write a clear and useful description for visitors."
+              ></textarea>
+            </div>
+
+            <div class="highlight-buttons">
+              <button id="saveHighlightButton" class="button button-primary" type="button">
+                Add city highlight
+              </button>
+
+              <button id="cancelEditButton" class="button button-light hidden" type="button">
+                Cancel editing
+              </button>
+            </div>
+          </div>
+
+          <div class="highlights-header">
+            <h4>Your published highlights</h4>
+            <span id="highlightCount" class="highlight-count">0 highlights</span>
+          </div>
+
+          <div id="highlightsList" class="highlights-list">
+            <div class="empty-state">Loading highlights from Firebase...</div>
+          </div>
+        </section>
+      </div>
+
+      <div class="bottom-actions">
+        <p>
+          Save the main website form after changing city information, banner,
+          logo, and statistics. Add or edit city cards using the highlight form.
+        </p>
+
+        <div class="bottom-action-buttons">
+          <button id="resetFormButton" class="button button-danger" type="button">
+            Reset form text
+          </button>
+
+          <button id="saveWebsiteButton" class="button button-primary" type="button">
+            Save all website content
           </button>
         </div>
-
-        <div class="highlights-list" id="highlightsList"></div>
-      </section>
-    </div>
-
-    <div class="actions">
-      <p>
-        Your changes are stored in this browser when you press Save. Open the public website to check your design.
-      </p>
-
-      <div class="action-buttons">
-        <button type="button" class="reset-button" id="resetButton">
-          Reset all content
-        </button>
-        <button type="button" class="save-button" id="saveButton">
-          Save website changes
-        </button>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
 
-  <script>
-    const STORAGE_KEY = "himatnagarCityWebsiteData";
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 
-    const defaultData = {
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signInWithEmailAndPassword,
+      signOut,
+      sendPasswordResetEmail
+    } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+    import {
+      getDatabase,
+      ref,
+      set,
+      update,
+      push,
+      remove,
+      onValue
+    } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+    import {
+      getStorage,
+      ref as storageRef,
+      uploadBytesResumable,
+      getDownloadURL
+    } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
+
+    /* Firebase project configuration */
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAlJ8KhAoWLz5snMA_QQs_t6PRd8l1Km1s",
+      authDomain: "himmatnagar-city.firebaseapp.com",
+      projectId: "himmatnagar-city",
+      databaseURL: "https://himmatnagar-city-default-rtdb.asia-southeast1.firebasedatabase.app",
+      storageBucket: "himmatnagar-city.firebasestorage.app",
+      messagingSenderId: "58254936229",
+      appId: "1:58254936229:web:8dc16282f5092ba0f9254c",
+      measurementId: "G-V81H2TSGVF"
+    };
+
+    /* Your private Firebase Authentication Admin UID */
+
+    const ADMIN_UID = "etw6ueQBOCfzsJulYD5ShRNTodA2";
+
+    /* Firebase initialization */
+
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
+    const database = getDatabase(app);
+    const storage = getStorage(app);
+
+    const websiteRef = ref(database, "website");
+    const highlightsRef = ref(database, "highlights");
+
+    let currentUser = null;
+    let highlightsCache = [];
+    let listenersStarted = false;
+
+    const defaultWebsiteData = {
       cityName: "Himmatnagar",
-      bannerUrl:
-        "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1800&q=85",
-      logoUrl: "https://placehold.co/400x400/f47c20/ffffff?text=HN",
       heroText:
         "Welcome to Himmatnagar — a city of heritage, community, opportunity, and pride.",
+      bannerUrl:
+        "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1800&q=85",
+      logoUrl:
+        "https://placehold.co/400x400/f47c20/ffffff?text=HN",
       aboutHeading: "About Himmatnagar",
       aboutIntro:
         "Learn about the people, character, heritage, and spirit that make our city special.",
       infoTitle: "A city with a story",
       cityInformation:
-        "Himmatnagar is a place where tradition and progress come together. Use the admin panel to add your own detailed information about the city, its history, culture, food, important places, schools, businesses, and future vision.",
+        "Himmatnagar is a place where tradition and progress come together. Add its history, culture, food, important places, education, and future vision here.",
       cityQuote:
         "Every city becomes memorable because of the people who proudly tell its story.",
       stats: [
-        { number: "01", label: "City Website" },
-        { number: "∞", label: "Possibilities" },
-        { number: "100%", label: "Made With Pride" },
-        { number: "2026", label: "Your Vision" }
-      ],
-      highlights: []
+        {
+          number: "01",
+          label: "City Website"
+        },
+        {
+          number: "∞",
+          label: "Possibilities"
+        },
+        {
+          number: "100%",
+          label: "Made With Pride"
+        },
+        {
+          number: "2026",
+          label: "Our Vision"
+        }
+      ]
     };
 
-    let highlights = [];
+    /* Screen elements */
 
-    function getCityData() {
-      try {
-        const savedData = localStorage.getItem(STORAGE_KEY);
+    const loadingScreen = document.getElementById("loadingScreen");
+    const loginScreen = document.getElementById("loginScreen");
+    const deniedScreen = document.getElementById("deniedScreen");
+    const appScreen = document.getElementById("appScreen");
 
-        if (!savedData) {
-          return { ...defaultData };
-        }
+    const notice = document.getElementById("notice");
+    const statusDot = document.getElementById("statusDot");
+    const statusText = document.getElementById("statusText");
 
-        const parsedData = JSON.parse(savedData);
+    /* General helper functions */
 
-        return {
-          ...defaultData,
-          ...parsedData,
-          stats: Array.isArray(parsedData.stats)
-            ? parsedData.stats
-            : defaultData.stats,
-          highlights: Array.isArray(parsedData.highlights)
-            ? parsedData.highlights
-            : []
-        };
-      } catch (error) {
-        console.error("Could not load data:", error);
-        return { ...defaultData };
-      }
+    function showScreen(screen) {
+      loadingScreen.classList.add("hidden");
+      loginScreen.classList.add("hidden");
+      deniedScreen.classList.add("hidden");
+      appScreen.classList.add("hidden");
+
+      screen.classList.remove("hidden");
+    }
+
+    function setDatabaseStatus(text, type = "connected") {
+      statusText.textContent = text;
+      statusDot.className = `status-dot ${type}`;
+    }
+
+    function showNotice(message, type = "success") {
+      notice.textContent = message;
+      notice.className = `notice show ${type}`;
+
+      clearTimeout(window.noticeTimer);
+
+      window.noticeTimer = setTimeout(() => {
+        notice.className = "notice";
+        notice.textContent = "";
+      }, 5000);
+    }
+
+    function setInputValue(id, value) {
+      document.getElementById(id).value = value || "";
+    }
+
+    function getInputValue(id) {
+      return document.getElementById(id).value.trim();
     }
 
     function escapeHTML(value) {
@@ -722,221 +1468,681 @@
         .replace(/'/g, "&#039;");
     }
 
-    function showNotice(message, type = "success") {
-      const notice = document.getElementById("notice");
-
-      notice.textContent = message;
-      notice.className = `notice ${type}`;
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-
-      setTimeout(() => {
-        notice.className = "notice";
-        notice.textContent = "";
-      }, 4000);
+    function isAdmin(user) {
+      return user && user.uid === ADMIN_UID;
     }
 
-    function setInputValue(id, value) {
-      document.getElementById(id).value = value || "";
+    function cleanFileName(fileName) {
+      return fileName.replace(/[^a-zA-Z0-9._-]/g, "-").toLowerCase();
     }
 
-    function fillForm() {
-      const data = getCityData();
+    function friendlyFirebaseError(error) {
+      const code = error?.code || "";
 
-      setInputValue("cityName", data.cityName);
-      setInputValue("bannerUrl", data.bannerUrl);
-      setInputValue("logoUrl", data.logoUrl);
-      setInputValue("heroText", data.heroText);
-      setInputValue("aboutHeading", data.aboutHeading);
-      setInputValue("aboutIntro", data.aboutIntro);
-      setInputValue("infoTitle", data.infoTitle);
-      setInputValue("cityInformation", data.cityInformation);
-      setInputValue("cityQuote", data.cityQuote);
+      const messages = {
+        "auth/invalid-credential": "Incorrect email or password.",
+        "auth/invalid-email": "Please enter a valid email address.",
+        "auth/user-not-found": "No Firebase user exists with this email.",
+        "auth/wrong-password": "Incorrect password.",
+        "auth/too-many-requests":
+          "Too many login attempts. Please wait before trying again.",
+        "auth/network-request-failed":
+          "Network error. Check your internet connection.",
+        "PERMISSION_DENIED":
+          "Permission denied. Check Realtime Database Rules and your Admin UID.",
+        "storage/unauthorized":
+          "Image upload denied. Check Firebase Storage Rules and your Admin UID.",
+        "storage/canceled":
+          "The upload was cancelled.",
+        "storage/unknown":
+          "Image upload failed. Please try again."
+      };
+
+      return messages[code] || error?.message || "Something went wrong. Please try again.";
+    }
+
+    function updatePreview(inputId, previewBoxId, previewImageId) {
+      const imageUrl = getInputValue(inputId);
+      const previewBox = document.getElementById(previewBoxId);
+      const previewImage = document.getElementById(previewImageId);
+
+      if (!imageUrl) {
+        previewBox.classList.remove("show");
+        previewImage.removeAttribute("src");
+        return;
+      }
+
+      previewImage.src = imageUrl;
+      previewBox.classList.add("show");
+
+      previewImage.onerror = () => {
+        previewBox.classList.remove("show");
+      };
+    }
+
+    /* Login system */
+
+    document.getElementById("loginForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const email = getInputValue("loginEmail");
+      const password = document.getElementById("loginPassword").value;
+      const loginButton = document.getElementById("loginButton");
+
+      if (!email || !password) {
+        alert("Please enter your admin email and password.");
+        return;
+      }
+
+      try {
+        loginButton.disabled = true;
+        loginButton.textContent = "Signing in...";
+
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (error) {
+        alert(friendlyFirebaseError(error));
+      } finally {
+        loginButton.disabled = false;
+        loginButton.textContent = "Sign in securely";
+      }
+    });
+
+    document.getElementById("forgotPasswordButton").addEventListener("click", async () => {
+      const email = getInputValue("loginEmail");
+
+      if (!email) {
+        alert("Enter your admin email first, then click Forgot password.");
+        document.getElementById("loginEmail").focus();
+        return;
+      }
+
+      try {
+        await sendPasswordResetEmail(auth, email);
+        alert("Password reset email sent. Check inbox and spam folder.");
+      } catch (error) {
+        alert(friendlyFirebaseError(error));
+      }
+    });
+
+    document.getElementById("logoutButton").addEventListener("click", async () => {
+      await signOut(auth);
+    });
+
+    document.getElementById("deniedLogoutButton").addEventListener("click", async () => {
+      await signOut(auth);
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      currentUser = user;
+
+      if (!user) {
+        showScreen(loginScreen);
+        return;
+      }
+
+      if (!isAdmin(user)) {
+        document.getElementById("deniedUid").textContent = user.uid;
+        showScreen(deniedScreen);
+        return;
+      }
+
+      document.getElementById("adminEmail").textContent =
+        user.email || "Authorized Admin";
+
+      showScreen(appScreen);
+      setDatabaseStatus("Connected to Firebase", "connected");
+
+      startRealtimeListeners();
+    });
+
+    /* Website data */
+
+    function fillWebsiteForm(data) {
+      const websiteData = {
+        ...defaultWebsiteData,
+        ...(data || {})
+      };
+
+      setInputValue("cityName", websiteData.cityName);
+      setInputValue("heroText", websiteData.heroText);
+      setInputValue("bannerUrl", websiteData.bannerUrl);
+      setInputValue("logoUrl", websiteData.logoUrl);
+      setInputValue("aboutHeading", websiteData.aboutHeading);
+      setInputValue("aboutIntro", websiteData.aboutIntro);
+      setInputValue("infoTitle", websiteData.infoTitle);
+      setInputValue("cityInformation", websiteData.cityInformation);
+      setInputValue("cityQuote", websiteData.cityQuote);
+
+      const stats = Array.isArray(websiteData.stats)
+        ? websiteData.stats
+        : defaultWebsiteData.stats;
 
       for (let i = 0; i < 4; i++) {
-        const stat = data.stats[i] || { number: "", label: "" };
+        const stat = stats[i] || {
+          number: "",
+          label: ""
+        };
+
         setInputValue(`statNumber${i + 1}`, stat.number);
         setInputValue(`statLabel${i + 1}`, stat.label);
       }
 
-      highlights = data.highlights;
-      renderHighlightsList();
-      updateImagePreview("bannerUrl", "bannerPreviewBox", "bannerPreview");
-      updateImagePreview("logoUrl", "logoPreviewBox", "logoPreview");
+      updatePreview("bannerUrl", "bannerPreviewBox", "bannerPreview");
+      updatePreview("logoUrl", "logoPreviewBox", "logoPreview");
     }
 
-    function updateImagePreview(inputId, previewBoxId, previewId) {
-      const imageUrl = document.getElementById(inputId).value.trim();
-      const previewBox = document.getElementById(previewBoxId);
-      const preview = document.getElementById(previewId);
+    function collectWebsiteData() {
+      const stats = [];
 
-      if (!imageUrl) {
-        previewBox.style.display = "none";
-        preview.removeAttribute("src");
-        return;
+      for (let i = 1; i <= 4; i++) {
+        stats.push({
+          number: getInputValue(`statNumber${i}`),
+          label: getInputValue(`statLabel${i}`)
+        });
       }
 
-      preview.src = imageUrl;
-      previewBox.style.display = "block";
-
-      preview.onerror = function () {
-        previewBox.style.display = "none";
+      return {
+        cityName: getInputValue("cityName") || "Himmatnagar",
+        heroText: getInputValue("heroText"),
+        bannerUrl: getInputValue("bannerUrl"),
+        logoUrl: getInputValue("logoUrl"),
+        aboutHeading: getInputValue("aboutHeading"),
+        aboutIntro: getInputValue("aboutIntro"),
+        infoTitle: getInputValue("infoTitle"),
+        cityInformation: getInputValue("cityInformation"),
+        cityQuote: getInputValue("cityQuote"),
+        stats: stats,
+        updatedAt: Date.now(),
+        updatedBy: currentUser.uid
       };
     }
 
-    function renderHighlightsList() {
-      const highlightsList = document.getElementById("highlightsList");
+    document.getElementById("saveWebsiteButton").addEventListener("click", async () => {
+      const button = document.getElementById("saveWebsiteButton");
 
-      if (!highlights.length) {
-        highlightsList.innerHTML = `
-          <div class="no-highlights">
-            No highlights added yet. Add your first city card above.
-          </div>
-        `;
+      try {
+        button.disabled = true;
+        button.textContent = "Saving...";
+        setDatabaseStatus("Saving website content...", "saving");
+
+        await set(websiteRef, collectWebsiteData());
+
+        setDatabaseStatus("Website content saved", "connected");
+
+        showNotice(
+          "Website content saved successfully in Firebase Realtime Database.",
+          "success"
+        );
+      } catch (error) {
+        setDatabaseStatus("Save failed", "error");
+        showNotice(friendlyFirebaseError(error), "error");
+      } finally {
+        button.disabled = false;
+        button.textContent = "Save all website content";
+      }
+    });
+
+    document.getElementById("resetFormButton").addEventListener("click", () => {
+      const accepted = confirm(
+        "Reset this form to demo content? Firebase will not change until you click Save all website content."
+      );
+
+      if (!accepted) {
         return;
       }
 
-      highlightsList.innerHTML = highlights
-        .map((highlight, index) => {
+      fillWebsiteForm(defaultWebsiteData);
+
+      showNotice(
+        "The form has been reset. Press Save all website content if you want to replace your online data.",
+        "warning"
+      );
+    });
+
+    /* Firebase Storage upload function */
+
+    async function uploadImage(file, folder, progressBoxId, progressBarId) {
+      if (!file) {
+        return null;
+      }
+
+      if (!file.type.startsWith("image/")) {
+        throw new Error("Please choose a JPG, PNG, WebP, or GIF image.");
+      }
+
+      if (file.size > 10 * 1024 * 1024) {
+        throw new Error("Image size must be less than 10 MB.");
+      }
+
+      const progressBox = document.getElementById(progressBoxId);
+      const progressBar = document.getElementById(progressBarId);
+
+      progressBox.classList.add("show");
+      progressBar.style.width = "0%";
+
+      const filePath =
+        `city-assets/${currentUser.uid}/${folder}/` +
+        `${Date.now()}-${cleanFileName(file.name)}`;
+
+      const fileReference = storageRef(storage, filePath);
+
+      const uploadTask = uploadBytesResumable(fileReference, file, {
+        contentType: file.type
+      });
+
+      return new Promise((resolve, reject) => {
+        uploadTask.on(
+          "state_changed",
+
+          (snapshot) => {
+            const percentage =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+            progressBar.style.width = `${percentage}%`;
+          },
+
+          (error) => {
+            progressBox.classList.remove("show");
+            reject(error);
+          },
+
+          async () => {
+            try {
+              const imageUrl = await getDownloadURL(uploadTask.snapshot.ref);
+
+              setTimeout(() => {
+                progressBox.classList.remove("show");
+                progressBar.style.width = "0%";
+              }, 700);
+
+              resolve(imageUrl);
+            } catch (error) {
+              progressBox.classList.remove("show");
+              reject(error);
+            }
+          }
+        );
+      });
+    }
+
+    /* Banner image upload */
+
+    document.getElementById("bannerFile").addEventListener("change", async (event) => {
+      const file = event.target.files[0];
+
+      if (!file) {
+        return;
+      }
+
+      try {
+        setDatabaseStatus("Uploading banner...", "saving");
+
+        const imageUrl = await uploadImage(
+          file,
+          "banners",
+          "bannerProgress",
+          "bannerProgressBar"
+        );
+
+        setInputValue("bannerUrl", imageUrl);
+        updatePreview("bannerUrl", "bannerPreviewBox", "bannerPreview");
+
+        setDatabaseStatus("Banner uploaded", "connected");
+
+        showNotice(
+          "Banner uploaded. Click Save all website content to publish the banner.",
+          "success"
+        );
+      } catch (error) {
+        setDatabaseStatus("Banner upload failed", "error");
+        showNotice(friendlyFirebaseError(error), "error");
+      } finally {
+        event.target.value = "";
+      }
+    });
+
+    /* Logo image upload */
+
+    document.getElementById("logoFile").addEventListener("change", async (event) => {
+      const file = event.target.files[0];
+
+      if (!file) {
+        return;
+      }
+
+      try {
+        setDatabaseStatus("Uploading logo...", "saving");
+
+        const imageUrl = await uploadImage(
+          file,
+          "logos",
+          "logoProgress",
+          "logoProgressBar"
+        );
+
+        setInputValue("logoUrl", imageUrl);
+        updatePreview("logoUrl", "logoPreviewBox", "logoPreview");
+
+        setDatabaseStatus("Logo uploaded", "connected");
+
+        showNotice(
+          "Logo uploaded. Click Save all website content to publish the logo.",
+          "success"
+        );
+      } catch (error) {
+        setDatabaseStatus("Logo upload failed", "error");
+        showNotice(friendlyFirebaseError(error), "error");
+      } finally {
+        event.target.value = "";
+      }
+    });
+
+    /* Highlight image upload */
+
+    document.getElementById("highlightImageFile").addEventListener("change", async (event) => {
+      const file = event.target.files[0];
+
+      if (!file) {
+        return;
+      }
+
+      try {
+        setDatabaseStatus("Uploading highlight image...", "saving");
+
+        const imageUrl = await uploadImage(
+          file,
+          "highlights",
+          "highlightProgress",
+          "highlightProgressBar"
+        );
+
+        setInputValue("highlightImageUrl", imageUrl);
+
+        setDatabaseStatus("Highlight image uploaded", "connected");
+
+        showNotice(
+          "Highlight image uploaded. Now click Add city highlight or Update city highlight.",
+          "success"
+        );
+      } catch (error) {
+        setDatabaseStatus("Image upload failed", "error");
+        showNotice(friendlyFirebaseError(error), "error");
+      } finally {
+        event.target.value = "";
+      }
+    });
+
+    document.getElementById("bannerUrl").addEventListener("input", () => {
+      updatePreview("bannerUrl", "bannerPreviewBox", "bannerPreview");
+    });
+
+    document.getElementById("logoUrl").addEventListener("input", () => {
+      updatePreview("logoUrl", "logoPreviewBox", "logoPreview");
+    });
+
+    /* City highlights */
+
+    function renderHighlights() {
+      const highlightsList = document.getElementById("highlightsList");
+      const highlightCount = document.getElementById("highlightCount");
+
+      highlightCount.textContent = `${highlightsCache.length} ${
+        highlightsCache.length === 1 ? "highlight" : "highlights"
+      }`;
+
+      if (!highlightsCache.length) {
+        highlightsList.innerHTML = `
+          <div class="empty-state">
+            No city highlights have been added yet.<br />
+            Add landmarks, tourism places, food, events, services, or local stories above.
+          </div>
+        `;
+
+        return;
+      }
+
+      highlightsList.innerHTML = highlightsCache
+        .map((highlight) => {
           const imageUrl =
             highlight.imageUrl ||
             "https://placehold.co/800x500/e6edf3/183751?text=Himmatnagar";
 
           return `
-            <article class="highlight-admin-card">
+            <article class="highlight-card">
               <img
-                class="highlight-admin-image"
+                class="highlight-card-image"
                 src="${escapeHTML(imageUrl)}"
-                alt="${escapeHTML(highlight.title || "City highlight")}"
+                alt="${escapeHTML(highlight.title || "Himmatnagar highlight")}"
                 onerror="this.src='https://placehold.co/800x500/e6edf3/183751?text=Image+Not+Available';"
               />
-              <div class="highlight-admin-content">
-                <h4>${escapeHTML(highlight.title || "Untitled Highlight")}</h4>
+
+              <div class="highlight-card-content">
+                <h5>${escapeHTML(highlight.title || "Untitled highlight")}</h5>
+
                 <p>${escapeHTML(highlight.description || "No description added.")}</p>
-                <button
-                  type="button"
-                  class="delete-button"
-                  data-delete-index="${index}"
-                >
-                  Delete highlight
-                </button>
+
+                <div class="card-actions">
+                  <button
+                    type="button"
+                    class="button button-light button-small"
+                    data-edit-id="${highlight.id}"
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    type="button"
+                    class="button button-danger button-small"
+                    data-delete-id="${highlight.id}"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </article>
           `;
         })
         .join("");
 
-      document.querySelectorAll("[data-delete-index]").forEach((button) => {
+      document.querySelectorAll("[data-edit-id]").forEach((button) => {
         button.addEventListener("click", () => {
-          const index = Number(button.dataset.deleteIndex);
-          highlights.splice(index, 1);
-          renderHighlightsList();
-          showNotice("Highlight removed. Press Save website changes to publish it.", "success");
+          startEditingHighlight(button.dataset.editId);
+        });
+      });
+
+      document.querySelectorAll("[data-delete-id]").forEach((button) => {
+        button.addEventListener("click", () => {
+          deleteHighlight(button.dataset.deleteId);
         });
       });
     }
 
-    function addHighlight() {
-      const title = document.getElementById("highlightTitle").value.trim();
-      const imageUrl = document.getElementById("highlightImageUrl").value.trim();
-      const description = document
-        .getElementById("highlightDescription")
-        .value.trim();
+    function startEditingHighlight(highlightId) {
+      const highlight = highlightsCache.find((item) => item.id === highlightId);
+
+      if (!highlight) {
+        return;
+      }
+
+      setInputValue("editingHighlightId", highlight.id);
+      setInputValue("highlightTitle", highlight.title);
+      setInputValue("highlightImageUrl", highlight.imageUrl);
+      setInputValue("highlightDescription", highlight.description);
+
+      document.getElementById("saveHighlightButton").textContent =
+        "Update city highlight";
+
+      document.getElementById("cancelEditButton").classList.remove("hidden");
+
+      document.querySelector(".highlight-form").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+
+      showNotice(
+        `Editing "${highlight.title}". Update the text or image, then click Update city highlight.`,
+        "warning"
+      );
+    }
+
+    function clearHighlightForm() {
+      setInputValue("editingHighlightId", "");
+      setInputValue("highlightTitle", "");
+      setInputValue("highlightImageUrl", "");
+      setInputValue("highlightDescription", "");
+
+      document.getElementById("highlightImageFile").value = "";
+
+      document.getElementById("saveHighlightButton").textContent =
+        "Add city highlight";
+
+      document.getElementById("cancelEditButton").classList.add("hidden");
+    }
+
+    async function saveHighlight() {
+      const title = getInputValue("highlightTitle");
+      const imageUrl = getInputValue("highlightImageUrl");
+      const description = getInputValue("highlightDescription");
+      const editingId = getInputValue("editingHighlightId");
+
+      const saveButton = document.getElementById("saveHighlightButton");
 
       if (!title) {
-        showNotice("Please enter a title for your city highlight.", "error");
+        showNotice("Please enter a title for this city highlight.", "error");
         document.getElementById("highlightTitle").focus();
         return;
       }
 
-      highlights.push({
-        title,
-        imageUrl,
-        description
-      });
-
-      document.getElementById("highlightTitle").value = "";
-      document.getElementById("highlightImageUrl").value = "";
-      document.getElementById("highlightDescription").value = "";
-
-      renderHighlightsList();
-      showNotice("Highlight added. Press Save website changes when you are finished.", "success");
-    }
-
-    function collectFormData() {
-      const stats = [];
-
-      for (let i = 1; i <= 4; i++) {
-        stats.push({
-          number: document.getElementById(`statNumber${i}`).value.trim(),
-          label: document.getElementById(`statLabel${i}`).value.trim()
-        });
-      }
-
-      return {
-        cityName: document.getElementById("cityName").value.trim() || "Himmatnagar",
-        bannerUrl: document.getElementById("bannerUrl").value.trim(),
-        logoUrl: document.getElementById("logoUrl").value.trim(),
-        heroText: document.getElementById("heroText").value.trim(),
-        aboutHeading: document.getElementById("aboutHeading").value.trim(),
-        aboutIntro: document.getElementById("aboutIntro").value.trim(),
-        infoTitle: document.getElementById("infoTitle").value.trim(),
-        cityInformation: document.getElementById("cityInformation").value.trim(),
-        cityQuote: document.getElementById("cityQuote").value.trim(),
-        stats,
-        highlights
+      const highlightData = {
+        title: title,
+        imageUrl: imageUrl,
+        description: description,
+        updatedAt: Date.now(),
+        updatedBy: currentUser.uid
       };
-    }
 
-    function saveChanges() {
       try {
-        const data = collectFormData();
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-        showNotice(
-          "Your Himmatnagar website content has been saved successfully. Open the public website to see it.",
-          "success"
-        );
+        saveButton.disabled = true;
+
+        if (editingId) {
+          saveButton.textContent = "Updating highlight...";
+
+          await update(
+            ref(database, `highlights/${editingId}`),
+            highlightData
+          );
+
+          showNotice("City highlight updated successfully.", "success");
+        } else {
+          saveButton.textContent = "Adding highlight...";
+
+          const newHighlightRef = push(highlightsRef);
+
+          await set(newHighlightRef, {
+            ...highlightData,
+            createdAt: Date.now(),
+            createdBy: currentUser.uid,
+            position: Date.now()
+          });
+
+          showNotice("New city highlight added successfully.", "success");
+        }
+
+        clearHighlightForm();
       } catch (error) {
-        console.error("Could not save data:", error);
-        showNotice("Something went wrong while saving. Please try again.", "error");
+        showNotice(friendlyFirebaseError(error), "error");
+      } finally {
+        saveButton.disabled = false;
+
+        if (getInputValue("editingHighlightId")) {
+          saveButton.textContent = "Update city highlight";
+        } else {
+          saveButton.textContent = "Add city highlight";
+        }
       }
     }
 
-    function resetWebsite() {
-      const confirmed = confirm(
-        "Are you sure? This will remove all of your saved city content and highlights from this browser."
+    async function deleteHighlight(highlightId) {
+      const highlight = highlightsCache.find((item) => item.id === highlightId);
+
+      const title = highlight?.title || "this highlight";
+
+      const accepted = confirm(
+        `Delete "${title}" from your Himmatnagar City website? This cannot be undone.`
       );
 
-      if (!confirmed) {
+      if (!accepted) {
         return;
       }
 
-      localStorage.removeItem(STORAGE_KEY);
-      highlights = [];
-      fillForm();
-      showNotice("Website content has been reset to the original demo version.", "success");
+      try {
+        await remove(ref(database, `highlights/${highlightId}`));
+
+        if (getInputValue("editingHighlightId") === highlightId) {
+          clearHighlightForm();
+        }
+
+        showNotice("City highlight deleted successfully.", "success");
+      } catch (error) {
+        showNotice(friendlyFirebaseError(error), "error");
+      }
     }
 
-    document.getElementById("bannerUrl").addEventListener("input", () => {
-      updateImagePreview("bannerUrl", "bannerPreviewBox", "bannerPreview");
-    });
-
-    document.getElementById("logoUrl").addEventListener("input", () => {
-      updateImagePreview("logoUrl", "logoPreviewBox", "logoPreview");
-    });
+    document
+      .getElementById("saveHighlightButton")
+      .addEventListener("click", saveHighlight);
 
     document
-      .getElementById("addHighlightButton")
-      .addEventListener("click", addHighlight);
+      .getElementById("cancelEditButton")
+      .addEventListener("click", clearHighlightForm);
 
-    document.getElementById("saveButton").addEventListener("click", saveChanges);
+    /* Realtime Database listeners */
 
-    document.getElementById("resetButton").addEventListener("click", resetWebsite);
+    function startRealtimeListeners() {
+      if (listenersStarted) {
+        return;
+      }
 
-    fillForm();
+      listenersStarted = true;
+
+      onValue(
+        websiteRef,
+        (snapshot) => {
+          const websiteData = snapshot.val();
+
+          if (websiteData) {
+            fillWebsiteForm(websiteData);
+          } else {
+            fillWebsiteForm(defaultWebsiteData);
+          }
+
+          setDatabaseStatus("Realtime Database connected", "connected");
+        },
+        (error) => {
+          setDatabaseStatus("Database connection failed", "error");
+          showNotice(friendlyFirebaseError(error), "error");
+        }
+      );
+
+      onValue(
+        highlightsRef,
+        (snapshot) => {
+          const highlightsData = snapshot.val() || {};
+
+          highlightsCache = Object.entries(highlightsData)
+            .map(([id, value]) => ({
+              id: id,
+              ...value
+            }))
+            .sort((a, b) => (b.position || 0) - (a.position || 0));
+
+          renderHighlights();
+        },
+        (error) => {
+          showNotice(friendlyFirebaseError(error), "error");
+        }
+      );
+    }
   </script>
 </body>
 </html>
