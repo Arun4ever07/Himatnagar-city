@@ -14,11 +14,11 @@
   <style>
     :root {
       --primary: #b45a1a;
-      --primary-dark: #833b0b;
+      --primary-dark: #823b0c;
       --navy: #18354b;
       --navy-light: #28516d;
-      --text: #2b353b;
-      --muted: #69757c;
+      --text: #2c363c;
+      --muted: #67747b;
       --cream: #f7f4ed;
       --paper: #fffdf8;
       --border: #ddd3c4;
@@ -59,9 +59,7 @@
       margin: auto;
     }
 
-    /* =========================
-       Navigation
-    ========================= */
+    /* Navigation */
 
     .navbar {
       position: sticky;
@@ -107,9 +105,7 @@
       border-bottom-color: #ffd2ad;
     }
 
-    /* =========================
-       Main Banner
-    ========================= */
+    /* Banner */
 
     .hero {
       position: relative;
@@ -118,12 +114,8 @@
     }
 
     /*
-      Important banner fix:
-
-      width: 100% fills complete website width.
-      height: auto keeps original image proportions.
-      No max-height means there will be no side gaps.
-      No image stretching will happen.
+      Full image, no stretching, no side gap.
+      height: auto preserves the original banner image ratio.
     */
     .hero-image {
       width: 100%;
@@ -133,10 +125,6 @@
       object-position: center;
     }
 
-    /*
-      This overlay is separate from the image.
-      It helps text remain readable.
-    */
     .hero-overlay {
       position: absolute;
       inset: 0;
@@ -163,14 +151,10 @@
       pointer-events: none;
     }
 
-    .hero-content a {
-      pointer-events: auto;
-    }
-
     .hero-text {
       width: min(650px, 100%);
       margin-left: 150px;
-      padding: 30px 0 45px;
+      padding: 30px 0 42px;
     }
 
     .city-label {
@@ -203,49 +187,7 @@
       line-height: 1.6;
     }
 
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 17px;
-    }
-
-    .button {
-      display: inline-flex;
-      min-height: 39px;
-      align-items: center;
-      justify-content: center;
-      padding: 0 15px;
-      border: 1px solid transparent;
-      font-size: 0.83rem;
-      font-weight: bold;
-      transition: 0.2s ease;
-    }
-
-    .button-primary {
-      color: white;
-      border-color: var(--primary);
-      background: var(--primary);
-    }
-
-    .button-primary:hover {
-      border-color: #e0823c;
-      background: #ce6c25;
-    }
-
-    .button-light {
-      color: white;
-      border-color: rgba(255, 255, 255, 0.52);
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .button-light:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    /* =========================
-       City Logo
-    ========================= */
+    /* City Logo */
 
     .city-logo-wrap {
       position: absolute;
@@ -265,10 +207,6 @@
       box-shadow: var(--shadow);
     }
 
-    /*
-      contain prevents logo crop.
-      Works for PNG, JPG, WebP, and GIF logo files.
-    */
     .city-logo {
       width: 100%;
       height: 100%;
@@ -277,12 +215,62 @@
       background: #ece7dc;
     }
 
-    /* =========================
-       About Section
-    ========================= */
+    /* Buttons Below Banner */
+
+    .action-strip {
+      padding: 19px 0 18px;
+      border-bottom: 1px solid var(--border);
+      background: var(--paper);
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+      margin-left: 143px;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      border: 1px solid transparent;
+      font-size: 0.86rem;
+      font-weight: bold;
+      transition: 0.2s ease;
+    }
+
+    .button-primary {
+      color: white;
+      border-color: var(--primary);
+      background: var(--primary);
+      box-shadow: 0 4px 9px rgba(180, 90, 26, 0.18);
+    }
+
+    .button-primary:hover {
+      border-color: #d97631;
+      background: #ca6823;
+      transform: translateY(-2px);
+    }
+
+    .button-secondary {
+      color: var(--navy);
+      border-color: var(--navy);
+      background: white;
+    }
+
+    .button-secondary:hover {
+      color: white;
+      background: var(--navy);
+      transform: translateY(-2px);
+    }
+
+    /* About */
 
     .overview {
-      padding: 85px 0 50px;
+      padding: 48px 0 50px;
     }
 
     .section-heading {
@@ -370,9 +358,7 @@
       line-height: 1.65;
     }
 
-    /* =========================
-       Statistics
-    ========================= */
+    /* Statistics */
 
     .stats-section {
       padding: 12px 0 65px;
@@ -410,9 +396,7 @@
       font-weight: bold;
     }
 
-    /* =========================
-       Highlights
-    ========================= */
+    /* Highlights */
 
     .highlights {
       padding: 65px 0 80px;
@@ -482,9 +466,7 @@
       line-height: 1.6;
     }
 
-    /* =========================
-       Footer
-    ========================= */
+    /* Footer */
 
     footer {
       padding: 29px 0;
@@ -511,9 +493,7 @@
       font-size: 1rem;
     }
 
-    /* =========================
-       Tablet
-    ========================= */
+    /* Tablet */
 
     @media (max-width: 850px) {
       .hero-text {
@@ -528,8 +508,8 @@
         height: 104px;
       }
 
-      .overview {
-        padding-top: 76px;
+      .hero-buttons {
+        margin-left: 128px;
       }
 
       .about-card {
@@ -545,9 +525,7 @@
       }
     }
 
-    /* =========================
-       Mobile
-    ========================= */
+    /* Mobile */
 
     @media (max-width: 600px) {
       .container {
@@ -556,11 +534,6 @@
 
       .nav-links {
         display: none;
-      }
-
-      .hero-image {
-        width: 100%;
-        height: auto;
       }
 
       .hero-overlay {
@@ -578,7 +551,7 @@
       }
 
       .hero-text {
-        padding-bottom: 38px;
+        padding-bottom: 36px;
       }
 
       .hero h1 {
@@ -587,18 +560,8 @@
       }
 
       .hero-description {
-        font-size: 0.91rem;
+        font-size: 0.9rem;
         line-height: 1.55;
-      }
-
-      .hero-buttons {
-        margin-top: 14px;
-      }
-
-      .button {
-        min-height: 37px;
-        padding: 0 13px;
-        font-size: 0.78rem;
       }
 
       .city-logo-wrap {
@@ -609,8 +572,24 @@
         border-width: 4px;
       }
 
+      .action-strip {
+        padding-top: 15px;
+        padding-bottom: 15px;
+      }
+
+      .hero-buttons {
+        gap: 8px;
+        margin-left: 108px;
+      }
+
+      .button {
+        min-height: 37px;
+        padding: 0 12px;
+        font-size: 0.76rem;
+      }
+
       .overview {
-        padding-top: 68px;
+        padding-top: 36px;
       }
 
       .about-card {
@@ -642,6 +621,17 @@
         margin: 3px 0;
       }
     }
+
+    @media (max-width: 410px) {
+      .hero-buttons {
+        margin-left: 0;
+        padding-top: 43px;
+      }
+
+      .action-strip {
+        padding-top: 0;
+      }
+    }
   </style>
 </head>
 
@@ -661,7 +651,7 @@
     </div>
   </nav>
 
-  <!-- Hero Banner -->
+  <!-- Banner -->
   <header class="hero" id="home">
     <img
       id="heroImage"
@@ -683,11 +673,6 @@
             Welcome to Himatnagar — a city of heritage, community, opportunity,
             and pride.
           </p>
-
-          <div class="hero-buttons">
-            <a href="#about" class="button button-primary">Explore the city</a>
-            <a href="#highlights" class="button button-light">City highlights</a>
-          </div>
         </div>
       </div>
     </div>
@@ -701,6 +686,21 @@
       />
     </div>
   </header>
+
+  <!-- Buttons are now below the banner -->
+  <section class="action-strip">
+    <div class="container">
+      <div class="hero-buttons">
+        <a href="#about" class="button button-primary">
+          Explore the city
+        </a>
+
+        <a href="#highlights" class="button button-secondary">
+          City highlights
+        </a>
+      </div>
+    </div>
+  </section>
 
   <main>
     <!-- About -->
@@ -765,7 +765,7 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
       </div>
     </section>
 
-    <!-- City Highlights -->
+    <!-- Highlights -->
     <section class="highlights" id="highlights">
       <div class="container">
         <div class="highlights-top">
@@ -819,21 +819,18 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
       apiKey: "AIzaSyAlJ8KhAoWLz5snMA_QQs_t6PRd8l1Km1s",
 
       /*
-        Do not change this.
-        It is your real Firebase project configuration.
+        These Firebase values must remain unchanged.
+        They are your existing Firebase project details.
       */
       authDomain: "himmatnagar-city.firebaseapp.com",
-
       projectId: "himmatnagar-city",
 
-      databaseURL: "https://himmatnagar-city-default-rtdb.asia-southeast1.firebasedatabase.app",
+      databaseURL:
+        "https://himmatnagar-city-default-rtdb.asia-southeast1.firebasedatabase.app",
 
       storageBucket: "himmatnagar-city.firebasestorage.app",
-
       messagingSenderId: "58254936229",
-
       appId: "1:58254936229:web:8dc16282f5092ba0f9254c",
-
       measurementId: "G-V81H2TSGVF"
     };
 
