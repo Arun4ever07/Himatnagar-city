@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Himmatnagar Admin Panel</title>
+
+  <style>
+    :root {
+      --primary: #f47c20;
+      --primary-dark: #c85408;
+      --dark: #102235;
+      --text: #263845;
+      --muted: #6f808c;
+      --bg: #eef3f7;
+      --white: #ffffff;
+      --border: #dce5eb;
+      --danger: #c83838;
+      --success: #127c4c;
+      --radius: 18px;
+      --shadow: 0 12px 35px rgba(16, 34, 53, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--bg);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .admin-header {
+      padding: 34px 0;
+      color: white;
+      background:
+        radial-gradient(circle at top right, rgba(244, 124, 32, 0.45), transparent 35%),
+        var(--dark);
+    }
+
+    .container {
+      width: min(1160px, calc(100% - 32px));
+      margin: auto;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .header-content h1 {
+      margin: 0;
+      font-size: clamp(1.7rem, 4vw, 2.5rem);
+    }
+
+    .header-content p {
+      margin: 8px 0 0;
+      color: #c7d7e2;
+      line-height: 1.6;
+    }
+
+    .open-site {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 45px;
+      padding: 0 18px;
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 11px;
+      font-weight: 800;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .open-site:hover {
+      background: rgba(255, 255, 255, 0.11);
+    }
+
+    main {
+      padding: 34px 0 64px;
+    }
+
+    .notice {
+      display: none;
+      margin-bottom: 22px;
+      padding: 14px 17px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    .notice.success {
+      display: block;
+      color: #075b35;
+      background: #dff7e9;
+      border: 1px solid #bde9cf;
+    }
+
+    .notice.error {
+      display: block;
+      color: #8d1717;
+      background: #ffe4e4;
+      border: 1px solid #ffc4c4;
+    }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .panel {
+      padding: 27px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .panel.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .panel-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 6px;
+      color: var(--dark);
+      font-size: 1.3rem;
+    }
+
+    .panel-title span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      color: white;
+      background: var(--primary);
+      border-radius: 9px;
+      font-size: 0.85rem;
+    }
+
+    .panel-description {
+      margin: 0 0 23px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.93rem;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #334a59;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .help-text {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 13px 14px;
+      color: var(--text);
+      background: #fbfdff;
+      border: 1px solid #cfdbe3;
+      border-radius: 11px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(244, 124, 32, 0.12);
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+      line-height: 1.55;
+    }
+
+    .image-preview {
+      display: none;
+      width: 100%;
+      height: 180px;
+      margin-top: 13px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #edf3f6;
+    }
+
+    .image-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .stats-editor {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .stat-edit-item {
+      padding: 14px;
+      background: #f7fafc;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+    }
+
+    .stat-edit-item input {
+      margin-bottom: 9px;
+      padding: 10px;
+    }
+
+    .stat-edit-item input:last-child {
+      margin-bottom: 0;
+    }
+
+    .highlight-form {
+      padding: 20px;
+      background: #f7fafc;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+    }
+
+    .highlight-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .highlight-form .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .add-highlight-button,
+    .save-button,
+    .reset-button,
+    .delete-button {
+      border: 0;
+      border-radius: 11px;
+      font-weight: 800;
+      transition: 0.2s ease;
+    }
+
+    .add-highlight-button {
+      margin-top: 17px;
+      min-height: 43px;
+      padding: 0 16px;
+      color: var(--primary-dark);
+      background: #fff1e5;
+    }
+
+    .add-highlight-button:hover {
+      background: #ffe0c6;
+    }
+
+    .highlights-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .highlight-admin-card {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: white;
+    }
+
+    .highlight-admin-image {
+      width: 100%;
+      height: 135px;
+      object-fit: cover;
+      background: #e6edf2;
+    }
+
+    .highlight-admin-content {
+      padding: 14px;
+    }
+
+    .highlight-admin-content h4 {
+      margin: 0 0 7px;
+      color: var(--dark);
+      font-size: 1rem;
+    }
+
+    .highlight-admin-content p {
+      display: -webkit-box;
+      margin: 0 0 13px;
+      overflow: hidden;
+      color: var(--muted);
+      font-size: 0.83rem;
+      line-height: 1.5;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+
+    .delete-button {
+      width: 100%;
+      min-height: 36px;
+      color: var(--danger);
+      background: #ffeded;
+    }
+
+    .delete-button:hover {
+      color: white;
+      background: var(--danger);
+    }
+
+    .no-highlights {
+      grid-column: 1 / -1;
+      padding: 22px;
+      color: var(--muted);
+      text-align: center;
+      border: 2px dashed #d3dfe6;
+      border-radius: 13px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-top: 28px;
+      padding-top: 25px;
+      border-top: 1px solid var(--border);
+    }
+
+    .actions p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .save-button,
+    .reset-button {
+      min-height: 46px;
+      padding: 0 19px;
+    }
+
+    .save-button {
+      color: white;
+      background: var(--primary);
+    }
+
+    .save-button:hover {
+      background: #df6810;
+      transform: translateY(-1px);
+    }
+
+    .reset-button {
+      color: #495d6a;
+      background: #e5edf2;
+    }
+
+    .reset-button:hover {
+      background: #d6e1e7;
+    }
+
+    @media (max-width: 900px) {
+      .admin-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .panel.full-width {
+        grid-column: auto;
+      }
+
+      .highlights-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .header-content {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .stats-editor {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .highlight-form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .highlights-list {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        padding: 20px;
+      }
+
+      .actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .action-buttons {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="admin-header">
+    <div class="container header-content">
+      <div>
+        <h1>Himmatnagar Admin Panel</h1>
+        <p>Manage your city website content, banner, logo, statistics, and highlights.</p>
+      </div>
+
+      <a href="index.html" target="_blank" class="open-site">Open Public Website ↗</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="notice" class="notice"></div>
+
+    <div class="admin-grid">
+      <section class="panel">
+        <h2 class="panel-title"><span>1</span> City identity</h2>
+        <p class="panel-description">
+          These details appear at the top of your public Himmatnagar website.
+        </p>
+
+        <div class="form-group">
+          <label for="cityName">City name</label>
+          <input id="cityName" type="text" placeholder="Example: Himmatnagar" />
+        </div>
+
+        <div class="form-group">
+          <label for="heroText">Banner introduction</label>
+          <textarea
+            id="heroText"
+            placeholder="Write a welcoming one or two-line introduction for your city."
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="bannerUrl">Long banner image or GIF direct link</label>
+          <input
+            id="bannerUrl"
+            type="url"
+            placeholder="https://example.com/banner.jpg or .gif"
+          />
+          <span class="help-text">
+            Paste a direct image link. JPG, PNG, WebP, and GIF links are supported.
+          </span>
+          <div class="image-preview" id="bannerPreviewBox">
+            <img id="bannerPreview" alt="Banner preview" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="logoUrl">City logo/profile image direct link</label>
+          <input
+            id="logoUrl"
+            type="url"
+            placeholder="https://example.com/himmatnagar-logo.png"
+          />
+          <span class="help-text">
+            This image appears in the large circle overlapping the left side of the banner.
+          </span>
+          <div class="image-preview" id="logoPreviewBox">
+            <img id="logoPreview" alt="Logo preview" />
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2 class="panel-title"><span>2</span> City information</h2>
+        <p class="panel-description">
+          Add the main written content visitors will read about Himmatnagar.
+        </p>
+
+        <div class="form-group">
+          <label for="aboutHeading">About section heading</label>
+          <input
+            id="aboutHeading"
+            type="text"
+            placeholder="Example: About Himmatnagar"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="aboutIntro">Short about introduction</label>
+          <textarea
+            id="aboutIntro"
+            placeholder="A short summary under the About heading."
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="infoTitle">Information card title</label>
+          <input
+            id="infoTitle"
+            type="text"
+            placeholder="Example: A city with a story"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="cityInformation">Detailed city information</label>
+          <textarea
+            id="cityInformation"
+            placeholder="Write about history, culture, famous places, food, people, schools, development, and more."
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="cityQuote">City quote or message</label>
+          <textarea
+            id="cityQuote"
+            placeholder="Write a proud message about your city."
+          ></textarea>
+        </div>
+      </section>
+
+      <section class="panel full-width">
+        <h2 class="panel-title"><span>3</span> Website statistics</h2>
+        <p class="panel-description">
+          Add four short facts or proud messages. You can use population, area, year, famous places, or any information you want.
+        </p>
+
+        <div class="stats-editor">
+          <div class="stat-edit-item">
+            <label for="statNumber1">Stat 1 number</label>
+            <input id="statNumber1" type="text" placeholder="Example: 01" />
+            <label for="statLabel1">Stat 1 label</label>
+            <input id="statLabel1" type="text" placeholder="Example: City Website" />
+          </div>
+
+          <div class="stat-edit-item">
+            <label for="statNumber2">Stat 2 number</label>
+            <input id="statNumber2" type="text" placeholder="Example: 100+" />
+            <label for="statLabel2">Stat 2 label</label>
+            <input id="statLabel2" type="text" placeholder="Example: Years of Heritage" />
+          </div>
+
+          <div class="stat-edit-item">
+            <label for="statNumber3">Stat 3 number</label>
+            <input id="statNumber3" type="text" placeholder="Example: ∞" />
+            <label for="statLabel3">Stat 3 label</label>
+            <input id="statLabel3" type="text" placeholder="Example: Stories to Tell" />
+          </div>
+
+          <div class="stat-edit-item">
+            <label for="statNumber4">Stat 4 number</label>
+            <input id="statNumber4" type="text" placeholder="Example: 2026" />
+            <label for="statLabel4">Stat 4 label</label>
+            <input id="statLabel4" type="text" placeholder="Example: Our Vision" />
+          </div>
+        </div>
+      </section>
+
+      <section class="panel full-width">
+        <h2 class="panel-title"><span>4</span> Add city highlights</h2>
+        <p class="panel-description">
+          Add cards for famous places, temples, food, events, tourism spots, history, services, or any useful city content. GIF image links also work here.
+        </p>
+
+        <div class="highlight-form">
+          <div class="highlight-form-grid">
+            <div class="form-group">
+              <label for="highlightTitle">Highlight title</label>
+              <input
+                id="highlightTitle"
+                type="text"
+                placeholder="Example: Famous Places of Himmatnagar"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="highlightImageUrl">Image or GIF direct link</label>
+              <input
+                id="highlightImageUrl"
+                type="url"
+                placeholder="https://example.com/place-image.jpg"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="highlightDescription">Highlight description</label>
+            <textarea
+              id="highlightDescription"
+              placeholder="Write a short, clear description for this city highlight."
+            ></textarea>
+          </div>
+
+          <button type="button" class="add-highlight-button" id="addHighlightButton">
+            + Add city highlight
+          </button>
+        </div>
+
+        <div class="highlights-list" id="highlightsList"></div>
+      </section>
+    </div>
+
+    <div class="actions">
+      <p>
+        Your changes are stored in this browser when you press Save. Open the public website to check your design.
+      </p>
+
+      <div class="action-buttons">
+        <button type="button" class="reset-button" id="resetButton">
+          Reset all content
+        </button>
+        <button type="button" class="save-button" id="saveButton">
+          Save website changes
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const STORAGE_KEY = "himatnagarCityWebsiteData";
+
+    const defaultData = {
+      cityName: "Himmatnagar",
+      bannerUrl:
+        "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1800&q=85",
+      logoUrl: "https://placehold.co/400x400/f47c20/ffffff?text=HN",
+      heroText:
+        "Welcome to Himmatnagar — a city of heritage, community, opportunity, and pride.",
+      aboutHeading: "About Himmatnagar",
+      aboutIntro:
+        "Learn about the people, character, heritage, and spirit that make our city special.",
+      infoTitle: "A city with a story",
+      cityInformation:
+        "Himmatnagar is a place where tradition and progress come together. Use the admin panel to add your own detailed information about the city, its history, culture, food, important places, schools, businesses, and future vision.",
+      cityQuote:
+        "Every city becomes memorable because of the people who proudly tell its story.",
+      stats: [
+        { number: "01", label: "City Website" },
+        { number: "∞", label: "Possibilities" },
+        { number: "100%", label: "Made With Pride" },
+        { number: "2026", label: "Your Vision" }
+      ],
+      highlights: []
+    };
+
+    let highlights = [];
+
+    function getCityData() {
+      try {
+        const savedData = localStorage.getItem(STORAGE_KEY);
+
+        if (!savedData) {
+          return { ...defaultData };
+        }
+
+        const parsedData = JSON.parse(savedData);
+
+        return {
+          ...defaultData,
+          ...parsedData,
+          stats: Array.isArray(parsedData.stats)
+            ? parsedData.stats
+            : defaultData.stats,
+          highlights: Array.isArray(parsedData.highlights)
+            ? parsedData.highlights
+            : []
+        };
+      } catch (error) {
+        console.error("Could not load data:", error);
+        return { ...defaultData };
+      }
+    }
+
+    function escapeHTML(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function showNotice(message, type = "success") {
+      const notice = document.getElementById("notice");
+
+      notice.textContent = message;
+      notice.className = `notice ${type}`;
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+      setTimeout(() => {
+        notice.className = "notice";
+        notice.textContent = "";
+      }, 4000);
+    }
+
+    function setInputValue(id, value) {
+      document.getElementById(id).value = value || "";
+    }
+
+    function fillForm() {
+      const data = getCityData();
+
+      setInputValue("cityName", data.cityName);
+      setInputValue("bannerUrl", data.bannerUrl);
+      setInputValue("logoUrl", data.logoUrl);
+      setInputValue("heroText", data.heroText);
+      setInputValue("aboutHeading", data.aboutHeading);
+      setInputValue("aboutIntro", data.aboutIntro);
+      setInputValue("infoTitle", data.infoTitle);
+      setInputValue("cityInformation", data.cityInformation);
+      setInputValue("cityQuote", data.cityQuote);
+
+      for (let i = 0; i < 4; i++) {
+        const stat = data.stats[i] || { number: "", label: "" };
+        setInputValue(`statNumber${i + 1}`, stat.number);
+        setInputValue(`statLabel${i + 1}`, stat.label);
+      }
+
+      highlights = data.highlights;
+      renderHighlightsList();
+      updateImagePreview("bannerUrl", "bannerPreviewBox", "bannerPreview");
+      updateImagePreview("logoUrl", "logoPreviewBox", "logoPreview");
+    }
+
+    function updateImagePreview(inputId, previewBoxId, previewId) {
+      const imageUrl = document.getElementById(inputId).value.trim();
+      const previewBox = document.getElementById(previewBoxId);
+      const preview = document.getElementById(previewId);
+
+      if (!imageUrl) {
+        previewBox.style.display = "none";
+        preview.removeAttribute("src");
+        return;
+      }
+
+      preview.src = imageUrl;
+      previewBox.style.display = "block";
+
+      preview.onerror = function () {
+        previewBox.style.display = "none";
+      };
+    }
+
+    function renderHighlightsList() {
+      const highlightsList = document.getElementById("highlightsList");
+
+      if (!highlights.length) {
+        highlightsList.innerHTML = `
+          <div class="no-highlights">
+            No highlights added yet. Add your first city card above.
+          </div>
+        `;
+        return;
+      }
+
+      highlightsList.innerHTML = highlights
+        .map((highlight, index) => {
+          const imageUrl =
+            highlight.imageUrl ||
+            "https://placehold.co/800x500/e6edf3/183751?text=Himmatnagar";
+
+          return `
+            <article class="highlight-admin-card">
+              <img
+                class="highlight-admin-image"
+                src="${escapeHTML(imageUrl)}"
+                alt="${escapeHTML(highlight.title || "City highlight")}"
+                onerror="this.src='https://placehold.co/800x500/e6edf3/183751?text=Image+Not+Available';"
+              />
+              <div class="highlight-admin-content">
+                <h4>${escapeHTML(highlight.title || "Untitled Highlight")}</h4>
+                <p>${escapeHTML(highlight.description || "No description added.")}</p>
+                <button
+                  type="button"
+                  class="delete-button"
+                  data-delete-index="${index}"
+                >
+                  Delete highlight
+                </button>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+
+      document.querySelectorAll("[data-delete-index]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const index = Number(button.dataset.deleteIndex);
+          highlights.splice(index, 1);
+          renderHighlightsList();
+          showNotice("Highlight removed. Press Save website changes to publish it.", "success");
+        });
+      });
+    }
+
+    function addHighlight() {
+      const title = document.getElementById("highlightTitle").value.trim();
+      const imageUrl = document.getElementById("highlightImageUrl").value.trim();
+      const description = document
+        .getElementById("highlightDescription")
+        .value.trim();
+
+      if (!title) {
+        showNotice("Please enter a title for your city highlight.", "error");
+        document.getElementById("highlightTitle").focus();
+        return;
+      }
+
+      highlights.push({
+        title,
+        imageUrl,
+        description
+      });
+
+      document.getElementById("highlightTitle").value = "";
+      document.getElementById("highlightImageUrl").value = "";
+      document.getElementById("highlightDescription").value = "";
+
+      renderHighlightsList();
+      showNotice("Highlight added. Press Save website changes when you are finished.", "success");
+    }
+
+    function collectFormData() {
+      const stats = [];
+
+      for (let i = 1; i <= 4; i++) {
+        stats.push({
+          number: document.getElementById(`statNumber${i}`).value.trim(),
+          label: document.getElementById(`statLabel${i}`).value.trim()
+        });
+      }
+
+      return {
+        cityName: document.getElementById("cityName").value.trim() || "Himmatnagar",
+        bannerUrl: document.getElementById("bannerUrl").value.trim(),
+        logoUrl: document.getElementById("logoUrl").value.trim(),
+        heroText: document.getElementById("heroText").value.trim(),
+        aboutHeading: document.getElementById("aboutHeading").value.trim(),
+        aboutIntro: document.getElementById("aboutIntro").value.trim(),
+        infoTitle: document.getElementById("infoTitle").value.trim(),
+        cityInformation: document.getElementById("cityInformation").value.trim(),
+        cityQuote: document.getElementById("cityQuote").value.trim(),
+        stats,
+        highlights
+      };
+    }
+
+    function saveChanges() {
+      try {
+        const data = collectFormData();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        showNotice(
+          "Your Himmatnagar website content has been saved successfully. Open the public website to see it.",
+          "success"
+        );
+      } catch (error) {
+        console.error("Could not save data:", error);
+        showNotice("Something went wrong while saving. Please try again.", "error");
+      }
+    }
+
+    function resetWebsite() {
+      const confirmed = confirm(
+        "Are you sure? This will remove all of your saved city content and highlights from this browser."
+      );
+
+      if (!confirmed) {
+        return;
+      }
+
+      localStorage.removeItem(STORAGE_KEY);
+      highlights = [];
+      fillForm();
+      showNotice("Website content has been reset to the original demo version.", "success");
+    }
+
+    document.getElementById("bannerUrl").addEventListener("input", () => {
+      updateImagePreview("bannerUrl", "bannerPreviewBox", "bannerPreview");
+    });
+
+    document.getElementById("logoUrl").addEventListener("input", () => {
+      updateImagePreview("logoUrl", "logoPreviewBox", "logoPreview");
+    });
+
+    document
+      .getElementById("addHighlightButton")
+      .addEventListener("click", addHighlight);
+
+    document.getElementById("saveButton").addEventListener("click", saveChanges);
+
+    document.getElementById("resetButton").addEventListener("click", resetWebsite);
+
+    fillForm();
+  </script>
+</body>
+</html>
