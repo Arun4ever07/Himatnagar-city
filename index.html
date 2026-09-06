@@ -107,7 +107,7 @@
     }
 
     /* =========================
-       Main Banner
+       Hero Banner
     ========================= */
 
     .hero {
@@ -115,22 +115,21 @@
       display: flex;
 
       /*
-        Responsive banner height.
-        It will not become too large on wide screens.
+        Banner height is responsive.
+        It prevents the banner from becoming too large.
       */
-      min-height: clamp(340px, 29vw, 440px);
+      min-height: clamp(350px, 30vw, 470px);
 
       align-items: end;
 
       /*
         Important:
-        Allows the complete profile/logo circle to show.
-        The old overflow: hidden caused the logo to look half cut.
+        visible allows the complete logo circle to appear below the banner.
       */
       overflow: visible;
 
-      color: white;
       background: #142c3d;
+      color: white;
     }
 
     .hero-background {
@@ -139,35 +138,45 @@
       z-index: 0;
 
       /*
-        This color appears only if the image does not fill
-        the full width/height because of contain mode.
+        Banner image is saved dynamically by JavaScript.
       */
-      background-color: #142c3d;
+      --banner-image: url("https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1800&q=85");
 
-      background-image:
+      background-image: var(--banner-image);
+
+      /*
+        This removes the empty dark border around your banner.
+        Image fills the complete banner width and height.
+      */
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    /*
+      Separate dark overlay layer.
+      This is separate from the image, so the overlay covers
+      the full banner perfectly without making extra borders.
+    */
+    .hero-background::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+
+      background:
         linear-gradient(
           90deg,
           rgba(22, 39, 53, 0.86) 0%,
           rgba(22, 39, 53, 0.67) 43%,
-          rgba(22, 39, 53, 0.22) 100%
-        ),
-        url("https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1800&q=85");
-
-      /*
-        Main banner scaling fix:
-        contain displays the complete uploaded image/collage.
-        cover would zoom and crop it.
-      */
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center center;
+          rgba(22, 39, 53, 0.18) 100%
+        );
     }
 
     .hero-content {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       width: 100%;
-      padding: 63px 0 70px;
+      padding: 65px 0 82px;
     }
 
     .hero-text {
@@ -246,7 +255,7 @@
     }
 
     /* =========================
-       Logo / Profile Image
+       Himmatnagar Logo
     ========================= */
 
     .city-logo-wrap {
@@ -254,11 +263,11 @@
       z-index: 5;
 
       left: max(16px, calc((100% - 1120px) / 2));
-      bottom: -86px;
+      bottom: -80px;
 
       display: grid;
-      width: 172px;
-      height: 172px;
+      width: 160px;
+      height: 160px;
       place-items: center;
 
       border: 7px solid var(--paper);
@@ -272,8 +281,8 @@
       height: 100%;
 
       /*
-        contain = full logo appears.
-        cover = logo may be cropped.
+        This shows the full logo without cutting it.
+        Works with PNG, JPG, WebP, and GIF logos.
       */
       object-fit: contain;
 
@@ -286,7 +295,7 @@
     ========================= */
 
     .overview {
-      padding: 125px 0 55px;
+      padding: 118px 0 55px;
     }
 
     .section-heading {
@@ -521,7 +530,7 @@
 
     @media (max-width: 850px) {
       .hero {
-        min-height: 450px;
+        min-height: 430px;
       }
 
       .hero-text {
@@ -529,14 +538,14 @@
       }
 
       .city-logo-wrap {
-        bottom: -70px;
+        bottom: -68px;
         left: 24px;
-        width: 140px;
-        height: 140px;
+        width: 136px;
+        height: 136px;
       }
 
       .overview {
-        padding-top: 104px;
+        padding-top: 100px;
       }
 
       .about-card {
@@ -566,15 +575,18 @@
       }
 
       .hero {
-        min-height: 420px;
+        min-height: 390px;
       }
 
       .hero-content {
-        padding: 50px 0 68px;
+        padding: 45px 0 65px;
       }
 
       .hero-background {
-        background-size: contain;
+        /*
+          Keeps the banner image edge-to-edge on mobile.
+        */
+        background-size: 100% 100%;
         background-position: center;
       }
 
@@ -583,15 +595,15 @@
       }
 
       .city-logo-wrap {
-        bottom: -57px;
+        bottom: -54px;
         left: 15px;
-        width: 114px;
-        height: 114px;
+        width: 108px;
+        height: 108px;
         border-width: 5px;
       }
 
       .overview {
-        padding-top: 82px;
+        padding-top: 78px;
       }
 
       .about-card {
@@ -664,7 +676,7 @@
       </div>
     </div>
 
-    <!-- Full logo circle -->
+    <!-- Complete logo, adjusted to banner -->
     <div class="city-logo-wrap">
       <img
         id="cityLogo"
@@ -807,8 +819,6 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
     const websiteRef = ref(database, "website");
     const highlightsRef = ref(database, "highlights");
 
-    /* Default data shown before Firebase data exists */
-
     const defaultData = {
       cityName: "Himmatnagar",
 
@@ -829,7 +839,7 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
       infoTitle: "A city with a story",
 
       cityInformation:
-        "Himmatnagar is a place where tradition and progress come together. Add your own city information using the private admin panel.",
+        "Himmatnagar is a place where tradition and progress come together. Add your city information using the private admin panel.",
 
       cityQuote:
         "Every city becomes memorable because of the people who proudly tell its story.",
@@ -872,30 +882,20 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
 
       const safeBannerUrl = imageUrl || defaultData.bannerUrl;
 
-      heroBackground.style.backgroundImage = `
-        linear-gradient(
-          90deg,
-          rgba(22, 39, 53, 0.86) 0%,
-          rgba(22, 39, 53, 0.67) 43%,
-          rgba(22, 39, 53, 0.22) 100%
-        ),
-        url("${safeBannerUrl}")
-      `;
-
       /*
-        Banner scaling fix:
-        Full uploaded image is visible without cropping.
+        JavaScript sets only the image URL.
+        The CSS overlay remains separate and covers full banner.
       */
-      heroBackground.style.backgroundSize = "contain";
-      heroBackground.style.backgroundRepeat = "no-repeat";
-      heroBackground.style.backgroundPosition = "center center";
+      heroBackground.style.setProperty(
+        "--banner-image",
+        `url("${safeBannerUrl}")`
+      );
     }
 
     function setCityLogo(imageUrl, cityName) {
       const cityLogo = document.getElementById("cityLogo");
 
       cityLogo.src = imageUrl || defaultData.logoUrl;
-
       cityLogo.alt = `${cityName || "Himmatnagar"} city logo`;
 
       cityLogo.onerror = function () {
@@ -986,7 +986,7 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
       renderStats(websiteData.stats);
     }
 
-    /* Load main website content from Firebase */
+    /* Read website information live */
 
     onValue(
       websiteRef,
@@ -1000,7 +1000,7 @@ Himmatnagar is a place where tradition and progress come together. Use the admin
       }
     );
 
-    /* Load city highlights from Firebase */
+    /* Read city highlights live */
 
     onValue(
       highlightsRef,
