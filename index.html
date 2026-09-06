@@ -59,7 +59,9 @@
       margin: auto;
     }
 
-    /* Navigation */
+    /* =========================
+       Navigation
+    ========================= */
 
     .navbar {
       position: sticky;
@@ -105,17 +107,33 @@
       border-bottom-color: #ffd2ad;
     }
 
-    /* Banner */
+    /* =========================
+       Main Banner
+    ========================= */
 
     .hero {
+      position: relative;
+      background: var(--navy);
+    }
+
+    /*
+      Banner visual holds:
+      - Actual city banner image
+      - Dark overlay
+      - City logo
+
+      On desktop, hero text appears over this image.
+      On mobile, hero text moves below this image.
+    */
+    .banner-visual {
       position: relative;
       overflow: visible;
       background: var(--navy);
     }
 
     /*
-      Full image, no stretching, no side gap.
-      height: auto preserves the original banner image ratio.
+      Full banner always visible.
+      width: 100% + height: auto means no gap and no stretching.
     */
     .hero-image {
       width: 100%;
@@ -187,7 +205,9 @@
       line-height: 1.6;
     }
 
-    /* City Logo */
+    /* =========================
+       City Logo
+    ========================= */
 
     .city-logo-wrap {
       position: absolute;
@@ -215,7 +235,9 @@
       background: #ece7dc;
     }
 
-    /* Buttons Below Banner */
+    /* =========================
+       Button Area
+    ========================= */
 
     .action-strip {
       padding: 19px 0 18px;
@@ -267,7 +289,9 @@
       transform: translateY(-2px);
     }
 
-    /* About */
+    /* =========================
+       About Section
+    ========================= */
 
     .overview {
       padding: 48px 0 50px;
@@ -358,7 +382,9 @@
       line-height: 1.65;
     }
 
-    /* Statistics */
+    /* =========================
+       Statistics
+    ========================= */
 
     .stats-section {
       padding: 12px 0 65px;
@@ -396,7 +422,9 @@
       font-weight: bold;
     }
 
-    /* Highlights */
+    /* =========================
+       City Highlights
+    ========================= */
 
     .highlights {
       padding: 65px 0 80px;
@@ -466,7 +494,9 @@
       line-height: 1.6;
     }
 
-    /* Footer */
+    /* =========================
+       Footer
+    ========================= */
 
     footer {
       padding: 29px 0;
@@ -493,7 +523,9 @@
       font-size: 1rem;
     }
 
-    /* Tablet */
+    /* =========================
+       Tablet
+    ========================= */
 
     @media (max-width: 850px) {
       .hero-text {
@@ -525,7 +557,9 @@
       }
     }
 
-    /* Mobile */
+    /* =========================
+       Mobile
+    ========================= */
 
     @media (max-width: 600px) {
       .container {
@@ -536,50 +570,64 @@
         display: none;
       }
 
+      /*
+        Mobile banner shows only the image.
+        The full image remains visible.
+      */
       .hero-overlay {
-        background:
-          linear-gradient(
-            90deg,
-            rgba(18, 42, 59, 0.9) 0%,
-            rgba(18, 42, 59, 0.67) 68%,
-            rgba(18, 42, 59, 0.32) 100%
-          );
+        display: none;
       }
 
       .hero-content {
-        align-items: flex-end;
+        position: relative;
+        inset: auto;
+        display: block;
+        background: var(--navy);
       }
 
+      /*
+        Mobile text appears below banner,
+        not on top of banner.
+      */
       .hero-text {
-        padding-bottom: 36px;
+        width: 100%;
+        margin-left: 0;
+        padding: 62px 0 27px;
       }
 
       .hero h1 {
+        margin-top: 10px;
         font-size: 2.45rem;
         letter-spacing: -1px;
       }
 
       .hero-description {
-        font-size: 0.9rem;
-        line-height: 1.55;
+        font-size: 0.91rem;
+        line-height: 1.6;
       }
 
+      .city-label {
+        font-size: 0.66rem;
+      }
+
+      /*
+        Logo stays attached to the banner image.
+      */
       .city-logo-wrap {
-        bottom: -46px;
+        bottom: -45px;
         left: 15px;
-        width: 92px;
-        height: 92px;
+        width: 90px;
+        height: 90px;
         border-width: 4px;
       }
 
       .action-strip {
-        padding-top: 15px;
-        padding-bottom: 15px;
+        padding: 15px 0;
       }
 
       .hero-buttons {
-        gap: 8px;
-        margin-left: 108px;
+        gap: 9px;
+        margin-left: 104px;
       }
 
       .button {
@@ -589,7 +637,7 @@
       }
 
       .overview {
-        padding-top: 36px;
+        padding-top: 37px;
       }
 
       .about-card {
@@ -625,11 +673,15 @@
     @media (max-width: 410px) {
       .hero-buttons {
         margin-left: 0;
-        padding-top: 43px;
+        padding-top: 42px;
       }
 
       .action-strip {
         padding-top: 0;
+      }
+
+      .button {
+        flex: 1;
       }
     }
   </style>
@@ -651,16 +703,27 @@
     </div>
   </nav>
 
-  <!-- Banner -->
+  <!-- Hero Banner -->
   <header class="hero" id="home">
-    <img
-      id="heroImage"
-      class="hero-image"
-      src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1800&q=85"
-      alt="Himatnagar city banner"
-    />
+    <div class="banner-visual">
+      <img
+        id="heroImage"
+        class="hero-image"
+        src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1800&q=85"
+        alt="Himatnagar city banner"
+      />
 
-    <div class="hero-overlay"></div>
+      <div class="hero-overlay"></div>
+
+      <div class="city-logo-wrap">
+        <img
+          id="cityLogo"
+          class="city-logo"
+          src="https://placehold.co/400x400/b45a1a/ffffff?text=HN"
+          alt="Himatnagar city logo"
+        />
+      </div>
+    </div>
 
     <div class="hero-content">
       <div class="container">
@@ -676,18 +739,9 @@
         </div>
       </div>
     </div>
-
-    <div class="city-logo-wrap">
-      <img
-        id="cityLogo"
-        class="city-logo"
-        src="https://placehold.co/400x400/b45a1a/ffffff?text=HN"
-        alt="Himatnagar city logo"
-      />
-    </div>
   </header>
 
-  <!-- Buttons are now below the banner -->
+  <!-- Buttons below banner -->
   <section class="action-strip">
     <div class="container">
       <div class="hero-buttons">
@@ -722,7 +776,7 @@
             <h3 id="infoTitle">A city with a story</h3>
 
             <p id="cityInformation">
-Himatnagar is a place where tradition and progress come together. Use the admin panel to add your own detailed information about the city, its history, culture, food, important places, schools, businesses, and future vision.
+Himatnagar is a place where tradition and progress come together. Use the admin panel to add city history, culture, food, important places, schools, businesses, and future vision.
             </p>
           </div>
 
@@ -819,8 +873,8 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
       apiKey: "AIzaSyAlJ8KhAoWLz5snMA_QQs_t6PRd8l1Km1s",
 
       /*
-        These Firebase values must remain unchanged.
-        They are your existing Firebase project details.
+        Do not change Firebase configuration values.
+        They are linked to your actual Firebase project.
       */
       authDomain: "himmatnagar-city.firebaseapp.com",
       projectId: "himmatnagar-city",
