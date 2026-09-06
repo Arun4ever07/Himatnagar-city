@@ -108,7 +108,7 @@
     }
 
     /* =========================
-       Banner
+       Main Banner
     ========================= */
 
     .hero {
@@ -118,39 +118,37 @@
     }
 
     /*
-      This is a real image, not a background image.
+      Important banner fix:
 
-      width: 100% means the complete banner reaches from
-      left side to right side.
-
-      height: auto means the original image ratio is kept.
-      Image will not stretch or crop.
+      width: 100% fills complete website width.
+      height: auto keeps original image proportions.
+      No max-height means there will be no side gaps.
+      No image stretching will happen.
     */
     .hero-image {
       width: 100%;
       height: auto;
-      min-height: 245px;
-      max-height: 335px;
+      max-width: 100%;
       object-fit: contain;
       object-position: center;
-      background: var(--navy);
     }
 
     /*
-      Dark overlay is separate from banner image.
-      This makes text readable without changing image scaling.
+      This overlay is separate from the image.
+      It helps text remain readable.
     */
     .hero-overlay {
       position: absolute;
       inset: 0;
       z-index: 1;
+      pointer-events: none;
 
       background:
         linear-gradient(
           90deg,
           rgba(18, 42, 59, 0.9) 0%,
           rgba(18, 42, 59, 0.72) 39%,
-          rgba(18, 42, 59, 0.24) 72%,
+          rgba(18, 42, 59, 0.27) 70%,
           rgba(18, 42, 59, 0.08) 100%
         );
     }
@@ -162,12 +160,17 @@
 
       display: flex;
       align-items: center;
+      pointer-events: none;
+    }
+
+    .hero-content a {
+      pointer-events: auto;
     }
 
     .hero-text {
       width: min(650px, 100%);
       margin-left: 150px;
-      padding: 30px 0 38px;
+      padding: 30px 0 45px;
     }
 
     .city-label {
@@ -263,8 +266,8 @@
     }
 
     /*
-      contain ensures full logo visibility.
-      No logo image or GIF will be cropped.
+      contain prevents logo crop.
+      Works for PNG, JPG, WebP, and GIF logo files.
     */
     .city-logo {
       width: 100%;
@@ -275,7 +278,7 @@
     }
 
     /* =========================
-       About
+       About Section
     ========================= */
 
     .overview {
@@ -513,18 +516,9 @@
     ========================= */
 
     @media (max-width: 850px) {
-      .hero-image {
-        min-height: 295px;
-        max-height: 320px;
-      }
-
-      .hero-content {
-        align-items: flex-end;
-      }
-
       .hero-text {
         margin-left: 0;
-        padding-bottom: 45px;
+        padding-bottom: 42px;
       }
 
       .city-logo-wrap {
@@ -565,19 +559,17 @@
       }
 
       .hero-image {
-        min-height: 280px;
-        max-height: 300px;
-        object-fit: cover;
-        object-position: center;
+        width: 100%;
+        height: auto;
       }
 
       .hero-overlay {
         background:
           linear-gradient(
             90deg,
-            rgba(18, 42, 59, 0.88) 0%,
+            rgba(18, 42, 59, 0.9) 0%,
             rgba(18, 42, 59, 0.67) 68%,
-            rgba(18, 42, 59, 0.35) 100%
+            rgba(18, 42, 59, 0.32) 100%
           );
       }
 
@@ -586,7 +578,7 @@
       }
 
       .hero-text {
-        padding-bottom: 43px;
+        padding-bottom: 38px;
       }
 
       .hero h1 {
@@ -595,12 +587,12 @@
       }
 
       .hero-description {
-        font-size: 0.92rem;
+        font-size: 0.91rem;
         line-height: 1.55;
       }
 
       .hero-buttons {
-        margin-top: 15px;
+        margin-top: 14px;
       }
 
       .button {
@@ -704,7 +696,7 @@
       <img
         id="cityLogo"
         class="city-logo"
-        src="https://placehold.co/400x400/f47c20/ffffff?text=HN"
+        src="https://placehold.co/400x400/b45a1a/ffffff?text=HN"
         alt="Himatnagar city logo"
       />
     </div>
@@ -825,12 +817,23 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
 
     const firebaseConfig = {
       apiKey: "AIzaSyAlJ8KhAoWLz5snMA_QQs_t6PRd8l1Km1s",
+
+      /*
+        Do not change this.
+        It is your real Firebase project configuration.
+      */
       authDomain: "himmatnagar-city.firebaseapp.com",
+
       projectId: "himmatnagar-city",
+
       databaseURL: "https://himmatnagar-city-default-rtdb.asia-southeast1.firebasedatabase.app",
+
       storageBucket: "himmatnagar-city.firebasestorage.app",
+
       messagingSenderId: "58254936229",
+
       appId: "1:58254936229:web:8dc16282f5092ba0f9254c",
+
       measurementId: "G-V81H2TSGVF"
     };
 
@@ -847,7 +850,7 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
         "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1800&q=85",
 
       logoUrl:
-        "https://placehold.co/400x400/f47c20/ffffff?text=HN",
+        "https://placehold.co/400x400/b45a1a/ffffff?text=HN",
 
       heroText:
         "Welcome to Himatnagar — a city of heritage, community, opportunity, and pride.",
@@ -902,7 +905,6 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
       const heroImage = document.getElementById("heroImage");
 
       heroImage.src = imageUrl || defaultData.bannerUrl;
-
       heroImage.alt = `${cityName || "Himatnagar"} city banner`;
 
       heroImage.onerror = function () {
@@ -914,7 +916,6 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
       const cityLogo = document.getElementById("cityLogo");
 
       cityLogo.src = imageUrl || defaultData.logoUrl;
-
       cityLogo.alt = `${cityName || "Himatnagar"} city logo`;
 
       cityLogo.onerror = function () {
@@ -1002,6 +1003,7 @@ Himatnagar is a place where tradition and progress come together. Use the admin 
 
       setHeroBanner(websiteData.bannerUrl, websiteData.cityName);
       setCityLogo(websiteData.logoUrl, websiteData.cityName);
+
       renderStats(websiteData.stats);
     }
 
