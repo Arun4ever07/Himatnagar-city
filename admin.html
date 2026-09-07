@@ -1,1 +1,2067 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Himatnagar Admin</title><style>:root{--n:#17374d;--o:#b65b1b;--bg:#f2f4f5;--p:#fff;--b:#d9e0e4;--t:#293940;--m:#68757c}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--t);font-family:Arial,sans-serif}.hide{display:none!important}.wrap{width:min(1160px,calc(100% - 28px));margin:auto}.login{min-height:100vh;display:grid;place-items:center;background:linear-gradient(135deg,var(--n),#28536f)}.login form{width:min(430px,100%);padding:30px;background:#102938;color:#fff;border-radius:16px}h1,h2,h3{font-family:Georgia,serif}input,textarea,select{width:100%;padding:11px;border:1px solid var(--b);border-radius:8px;font:inherit}textarea{min-height:105px;resize:vertical}label{display:block;margin:14px 0 6px;font-size:.85rem;font-weight:bold}.top{background:var(--n);color:#fff;border-bottom:3px solid var(--o)}.topin{min-height:72px;display:flex;justify-content:space-between;align-items:center;gap:15px}.top h1{font-size:1.2rem;margin:0}.top p{margin:4px 0 0;color:#c9d8e1;font-size:.78rem}.main{padding:28px 0 65px}.intro{display:flex;justify-content:space-between;gap:15px;align-items:end;margin-bottom:22px}.intro h2{margin:0;color:var(--n)}.intro p{color:var(--m);margin:8px 0 0}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:19px}.panel{background:var(--p);border:1px solid var(--b);padding:23px;border-radius:13px;box-shadow:0 7px 20px #17374d12}.full{grid-column:1/-1}.panel h3{color:var(--n);margin:0 0 5px}.panel>p{color:var(--m);font-size:.85rem;margin:0 0 14px}.two{display:grid;grid-template-columns:1fr 1fr;gap:13px}.four{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.stat{background:#f8fafb;border:1px solid var(--b);padding:10px}.btn{border:1px solid transparent;border-radius:8px;min-height:40px;padding:0 14px;font-weight:bold;cursor:pointer}.primary{background:var(--o);color:#fff}.dark{background:var(--n);color:#fff}.light{background:#eaf0f3;color:var(--n)}.danger{background:#ffe8e8;color:#b92f2f}.upload{display:flex;gap:8px;align-items:center}.upload input[type=file]{display:none}.file{padding:11px;background:#fff0e3;color:#873f0e;border:1px solid #ffd2af;border-radius:8px;font-size:.8rem;font-weight:bold;white-space:nowrap;cursor:pointer}.progress{height:6px;background:#e4ecef;margin-top:8px}.bar{height:100%;width:0;background:var(--o)}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:18px}.item{border:1px solid var(--b);overflow:hidden}.item img,.item video{width:100%;height:130px;object-fit:cover;background:#e9eef0}.item div{padding:11px}.item h4{margin:0 0 6px;font-family:Georgia;color:var(--n)}.item p{color:var(--m);font-size:.8rem;line-height:1.5}.actions{display:flex;gap:7px}.notice{padding:13px;margin-bottom:18px;background:#def8e9;color:#087543;display:none}.notice.show{display:block}@media(max-width:800px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.cards{grid-template-columns:repeat(2,1fr)}.four{grid-template-columns:repeat(2,1fr)}}@media(max-width:550px){.topin,.intro{align-items:flex-start;flex-direction:column}.two,.four,.cards{grid-template-columns:1fr}.upload{flex-direction:column;align-items:stretch}}</style></head><body><section id="login" class="login"><form id="loginForm" action="javascript:void(0);"><h1>Himatnagar Admin</h1><p>Private Firebase content manager</p><label>Email</label><input id="email" type="email" required><label>Password</label><input id="password" type="password" required><button id="loginButton" class="btn primary" type="submit" style="width:100%;margin-top:18px">Sign in securely</button><button id="reset" type="button" class="btn light" style="width:100%;margin-top:9px">Forgot password?</button></form></section><div id="app" class="hide"><header class="top"><div class="wrap topin"><div><h1>Himatnagar City Admin</h1><p id="admin"></p></div><div><a href="index.html" target="_blank"><button class="btn light">View website</button></a><button id="logout" class="btn dark">Logout</button></div></div></header><main class="wrap main"><div id="notice" class="notice"></div><div class="intro"><div><h2>Manage Himatnagar</h2><p>Desktop/mobile banners, city information, highlights, creators, photos, GIFs, and video.</p></div></div><div class="grid"><section class="panel"><h3>City identity</h3><p>Use a wide image for desktop and a separate tall image for mobile.</p><label>City name</label><input id="cityName"><label>Welcome text</label><textarea id="heroText"></textarea><label>Desktop banner direct URL</label><div class="upload"><input id="bannerUrl"><label class="file" for="bannerFile">Upload desktop banner</label><input id="bannerFile" type="file" accept="image/*"></div><div class="progress"><div id="bannerBar" class="bar"></div></div><label>Mobile banner direct URL</label><div class="upload"><input id="mobileBannerUrl"><label class="file" for="mobileFile">Upload mobile banner</label><input id="mobileFile" type="file" accept="image/*"></div><div class="progress"><div id="mobileBar" class="bar"></div></div><label>Logo direct URL</label><div class="upload"><input id="logoUrl"><label class="file" for="logoFile">Upload logo</label><input id="logoFile" type="file" accept="image/*"></div><div class="progress"><div id="logoBar" class="bar"></div></div></section><section class="panel"><h3>About Himatnagar</h3><p>Manage headline, introduction, main information, and city quote.</p><label>About heading</label><input id="aboutHeading"><label>About introduction</label><textarea id="aboutIntro"></textarea><label>Information title</label><input id="infoTitle"><label>City information</label><textarea id="cityInformation"></textarea><label>City quote</label><textarea id="cityQuote"></textarea></section><section class="panel full"><h3>Quick facts</h3><div class="four" id="stats"></div><button id="saveSite" class="btn primary" style="margin-top:18px">Save all website content</button></section><section class="panel full"><h3>City highlights</h3><input id="highlightId" type="hidden"><div class="two"><div><label>Title</label><input id="highlightTitle"></div><div><label>Image/GIF direct URL</label><div class="upload"><input id="highlightUrl"><label class="file" for="highlightFile">Upload</label><input id="highlightFile" type="file" accept="image/*"></div></div></div><label>Description</label><textarea id="highlightDescription"></textarea><button id="saveHighlight" class="btn primary">Add city highlight</button><button id="cancelHighlight" class="btn light">Cancel</button><div id="highlightList" class="cards"></div></section><section class="panel full"><h3>Creators and Influencers</h3><p>Add high-quality photo, GIF, or direct MP4 video URL with creator source/profile link.</p><input id="creatorId" type="hidden"><div class="two"><div><label>Creator name</label><input id="creatorName"></div><div><label>Creator title/category</label><input id="creatorTitle" placeholder="Photographer, Influencer, Artist"></div></div><div class="two"><div><label>Media type</label><select id="creatorType"><option value="photo">Photo</option><option value="gif">GIF</option><option value="video">MP4 Video</option></select></div><div><label>Source/profile URL</label><input id="creatorSource" placeholder="Instagram, YouTube, website"></div></div><label>Direct photo/GIF/MP4 URL</label><div class="upload"><input id="creatorUrl"><label class="file" for="creatorFile">Upload media</label><input id="creatorFile" type="file" accept="image/*,video/mp4,video/webm,video/quicktime"></div><div class="progress"><div id="creatorBar" class="bar"></div></div><label>About creator/media</label><textarea id="creatorDescription"></textarea><button id="saveCreator" class="btn primary">Add creator profile</button><button id="cancelCreator" class="btn light">Cancel</button><div id="creatorList" class="cards"></div></section></div></main></div><script type="module">import{initializeApp}from'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';import{getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut,sendPasswordResetEmail}from'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';import{getDatabase,ref,set,update,push,remove,onValue}from'https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js';import{getStorage,ref as sref,uploadBytesResumable,getDownloadURL}from'https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js';const cfg={apiKey:'AIzaSyAlJ8KhAoWLz5snMA_QQs_t6PRd8l1Km1s',authDomain:'himmatnagar-city.firebaseapp.com',projectId:'himmatnagar-city',databaseURL:'https://himmatnagar-city-default-rtdb.asia-southeast1.firebasedatabase.app',storageBucket:'himmatnagar-city.firebasestorage.app',messagingSenderId:'58254936229',appId:'1:58254936229:web:8dc16282f5092ba0f9254c'};const ADMIN='etw6ueQBOCfzsJulYD5ShRNTodA2',appx=initializeApp(cfg),auth=getAuth(appx),db=getDatabase(appx),store=getStorage(appx);let user,high=[],cre=[];const $=id=>document.getElementById(id),val=id=>$(id).value.trim(),put=(id,v)=>$(id).value=v||'',say=(m,e=false)=>{$('notice').textContent=m;$('notice').className='notice show';if(e)$('notice').style='background:#ffe8e8;color:#b92f2f';else $('notice').style=''};const def={cityName:'Himatnagar',bannerUrl:'',mobileBannerUrl:'',logoUrl:'',heroText:'Welcome to Himatnagar — a city of heritage, community, opportunity, and pride.',aboutHeading:'About Himatnagar',aboutIntro:'',infoTitle:'A city with a story',cityInformation:'',cityQuote:'',stats:[{number:'01',label:'City Website'},{number:'∞',label:'Possibilities'},{number:'100%',label:'Made With Pride'},{number:'2026',label:'Our Vision'}]};function fill(x){x={...def,...(x||{})};Object.keys(def).filter(k=>k!=='stats').forEach(k=>put(k,x[k]));stats.innerHTML=(x.stats||def.stats).slice(0,4).map((s,i)=>`<div class="stat"><label>Number</label><input id="sn${i}" value="${s.number||''}"><label>Label</label><input id="sl${i}" value="${s.label||''}"></div>`).join('')}function esc(x){return String(x||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}async function upload(f,folder,bar){if(!f)return;if(f.size>100*1024*1024)throw Error('Maximum file size is 100 MB');let r=sref(store,`city-assets/${user.uid}/${folder}/${Date.now()}-${f.name.replace(/[^\w.-]/g,'-')}`),t=uploadBytesResumable(r,f,{contentType:f.type});return new Promise((ok,no)=>t.on('state_changed',s=>$(bar).style.width=s.bytesTransferred/s.totalBytes*100+'%',no,async()=>ok(await getDownloadURL(t.snapshot.ref))))}function bindFile(id,folder,target,bar){$(id).onchange=async e=>{try{let u=await upload(e.target.files[0],folder,bar);put(target,u);say('Media uploaded. Save the related item.')}catch(x){say(x.message,true)}e.target.value=''}}function list(kind,arr,box){$(box).innerHTML=arr.length?arr.map(x=>`<article class="item">${x.mediaType==='video'?`<video controls src="${esc(x.mediaUrl)}"></video>`:`<img src="${esc(x.mediaUrl||x.imageUrl)}">`}<div><h4>${esc(x.title)}</h4><p>${esc(x.creatorName||x.description)}</p><div class="actions"><button class="btn light" onclick="edit${kind}('${x.id}')">Edit</button><button class="btn danger" onclick="del${kind}('${x.id}')">Delete</button></div></div></article>`).join(''):'<div class="empty">No items added yet.</div>'}window.editHighlight=id=>{let x=high.find(x=>x.id===id);put('highlightId',id);put('highlightTitle',x.title);put('highlightUrl',x.imageUrl);put('highlightDescription',x.description);$('saveHighlight').textContent='Update city highlight'};window.delHighlight=async id=>{if(confirm('Delete highlight?'))await remove(ref(db,'highlights/'+id))};window.editCreator=id=>{let x=cre.find(x=>x.id===id);put('creatorId',id);put('creatorName',x.creatorName);put('creatorTitle',x.title);put('creatorType',x.mediaType);put('creatorUrl',x.mediaUrl);put('creatorSource',x.sourceUrl);put('creatorDescription',x.description);$('saveCreator').textContent='Update creator profile'};window.delCreator=async id=>{if(confirm('Delete creator?'))await remove(ref(db,'creators/'+id))};document.getElementById('loginForm').addEventListener('submit',async e=>{e.preventDefault();const email=document.getElementById('email').value.trim(),password=document.getElementById('password').value,button=document.getElementById('loginButton');if(!email||!password){alert('Enter your admin email and password.');return}try{button.disabled=true;button.textContent='Signing in...';await signInWithEmailAndPassword(auth,email,password)}catch(x){console.error(x);alert(x.code==='auth/invalid-credential'?'Incorrect email or password.':x.message);document.getElementById('password').value=''}finally{button.disabled=false;button.textContent='Sign in securely'}});$('reset').onclick=()=>sendPasswordResetEmail(auth,val('email')).then(()=>alert('Reset email sent')).catch(x=>alert(x.message));$('logout').onclick=()=>signOut(auth);onAuthStateChanged(auth,u=>{if(!u){document.getElementById('login').classList.remove('hide');document.getElementById('app').classList.add('hide');return}if(u.uid!==ADMIN){alert('Admin access denied');signOut(auth);return}user=u;document.getElementById('admin').textContent=u.email||'Authorized admin';document.getElementById('login').classList.add('hide');document.getElementById('app').classList.remove('hide');onValue(ref(db,'website'),s=>fill(s.val()));onValue(ref(db,'highlights'),s=>{high=Object.entries(s.val()||{}).map(([id,x])=>({id,...x})).sort((a,b)=>(b.position||0)-(a.position||0));list('Highlight',high,'highlightList')});onValue(ref(db,'creators'),s=>{cre=Object.entries(s.val()||{}).map(([id,x])=>({id,...x})).sort((a,b)=>(b.position||0)-(a.position||0));list('Creator',cre,'creatorList')})});$('saveSite').onclick=async()=>{let stats=[0,1,2,3].map(i=>({number:val('sn'+i),label:val('sl'+i)}));let x={};Object.keys(def).filter(k=>k!=='stats').forEach(k=>x[k]=val(k));x.stats=stats;x.updatedAt=Date.now();x.updatedBy=user.uid;await set(ref(db,'website'),x);say('Website content saved.')};$('saveHighlight').onclick=async()=>{if(!val('highlightTitle'))return say('Enter a highlight title.',true);let id=val('highlightId'),x={title:val('highlightTitle'),imageUrl:val('highlightUrl'),description:val('highlightDescription'),updatedAt:Date.now(),updatedBy:user.uid};if(id)await update(ref(db,'highlights/'+id),x);else await set(push(ref(db,'highlights')),{...x,position:Date.now(),createdAt:Date.now()});};$('cancelHighlight').onclick=()=>{['highlightId','highlightTitle','highlightUrl','highlightDescription'].forEach(i=>put(i,''));$('saveHighlight').textContent='Add city highlight'};$('saveCreator').onclick=async()=>{if(!val('creatorName')||!val('creatorTitle'))return say('Enter creator name and title.',true);let id=val('creatorId'),x={creatorName:val('creatorName'),title:val('creatorTitle'),mediaType:val('creatorType'),mediaUrl:val('creatorUrl'),sourceUrl:val('creatorSource'),description:val('creatorDescription'),updatedAt:Date.now(),updatedBy:user.uid};if(id)await update(ref(db,'creators/'+id),x);else await set(push(ref(db,'creators')),{...x,position:Date.now(),createdAt:Date.now()});};$('cancelCreator').onclick=()=>{['creatorId','creatorName','creatorTitle','creatorUrl','creatorSource','creatorDescription'].forEach(i=>put(i,''));put('creatorType','photo');$('saveCreator').textContent='Add creator profile'};bindFile('bannerFile','banners','bannerUrl','bannerBar');bindFile('mobileFile','mobile-banners','mobileBannerUrl','mobileBar');bindFile('logoFile','logos','logoUrl','logoBar');bindFile('highlightFile','highlights','highlightUrl','highlightBar');bindFile('creatorFile','creators','creatorUrl','creatorBar');</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Himatnagar | Main Admin Panel</title>
+
+  <style>
+    :root {
+      --navy: #17374d;
+      --navy-dark: #102938;
+      --orange: #b65b1b;
+      --orange-dark: #873f0e;
+      --bg: #f3f5f6;
+      --paper: #ffffff;
+      --soft: #f8fafb;
+      --text: #293940;
+      --muted: #68757c;
+      --border: #d8e0e4;
+      --danger: #b72f2f;
+      --danger-bg: #ffe8e8;
+      --success: #087542;
+      --success-bg: #def8e9;
+      --shadow: 0 10px 26px rgba(23, 55, 77, 0.1);
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Arial, Helvetica, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--bg);
+      font-family: var(--sans);
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.65;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .container {
+      width: min(1140px, calc(100% - 32px));
+      margin: auto;
+    }
+
+    /* Login */
+
+    .login-page {
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at top right, rgba(182, 91, 27, 0.45), transparent 30%),
+        linear-gradient(135deg, var(--navy), #28536f);
+    }
+
+    .login-card {
+      width: min(440px, 100%);
+      padding: 32px;
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.17);
+      border-radius: 18px;
+      background: rgba(16, 41, 56, 0.92);
+      box-shadow: 0 25px 65px rgba(0, 0, 0, 0.28);
+    }
+
+    .login-logo {
+      display: grid;
+      width: 58px;
+      height: 58px;
+      margin-bottom: 18px;
+      place-items: center;
+      border-radius: 16px;
+      background: var(--orange);
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .login-card h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 2rem;
+    }
+
+    .login-card > p {
+      margin: 10px 0 25px;
+      color: #c9d8e1;
+      line-height: 1.65;
+    }
+
+    .login-card label {
+      color: #f0f5f7;
+    }
+
+    .login-card input {
+      color: white;
+      border-color: rgba(255, 255, 255, 0.26);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .login-card input::placeholder {
+      color: #aebec9;
+    }
+
+    .login-message {
+      min-height: 20px;
+      margin: 14px 0 0;
+      color: #ffd2ad;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    /* Header */
+
+    .admin-header {
+      color: white;
+      border-bottom: 3px solid var(--orange);
+      background: var(--navy);
+    }
+
+    .header-content {
+      display: flex;
+      min-height: 75px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .brand-logo {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border-radius: 11px;
+      background: var(--orange);
+      font-family: var(--serif);
+      font-weight: bold;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 1.2rem;
+    }
+
+    .brand p {
+      margin: 4px 0 0;
+      color: #c9d8e1;
+      font-size: 0.77rem;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .admin-email {
+      max-width: 220px;
+      overflow: hidden;
+      color: #d1dde3;
+      font-size: 0.8rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Buttons */
+
+    .button {
+      display: inline-flex;
+      min-height: 41px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: bold;
+      transition: 0.2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button-primary {
+      color: white;
+      border-color: var(--orange);
+      background: var(--orange);
+    }
+
+    .button-primary:hover {
+      background: #ce6d27;
+    }
+
+    .button-light {
+      color: var(--navy);
+      border-color: #d7e1e6;
+      background: #e9f0f3;
+    }
+
+    .button-light:hover {
+      background: #d8e5eb;
+    }
+
+    .button-outline {
+      color: white;
+      border-color: rgba(255, 255, 255, 0.35);
+      background: transparent;
+    }
+
+    .button-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .button-danger {
+      color: var(--danger);
+      border-color: #ffc9c9;
+      background: var(--danger-bg);
+    }
+
+    .button-danger:hover {
+      color: white;
+      background: var(--danger);
+    }
+
+    .button-small {
+      min-height: 35px;
+      padding: 0 11px;
+      font-size: 0.76rem;
+    }
+
+    /* Main */
+
+    .admin-main {
+      padding: 30px 0 65px;
+    }
+
+    .dashboard-intro {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+
+    .dashboard-intro h2 {
+      margin: 0;
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: clamp(1.9rem, 4vw, 2.6rem);
+    }
+
+    .dashboard-intro p {
+      margin: 9px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #a1afb7;
+    }
+
+    .status-dot.online {
+      background: #18a261;
+      box-shadow: 0 0 0 4px rgba(24, 162, 97, 0.13);
+    }
+
+    .status-dot.saving {
+      background: #e99a31;
+      box-shadow: 0 0 0 4px rgba(233, 154, 49, 0.13);
+    }
+
+    .status-dot.error {
+      background: var(--danger);
+      box-shadow: 0 0 0 4px rgba(183, 47, 47, 0.12);
+    }
+
+    .notice {
+      display: none;
+      margin-bottom: 18px;
+      padding: 14px;
+      border-radius: 9px;
+      font-size: 0.87rem;
+      font-weight: bold;
+      line-height: 1.5;
+    }
+
+    .notice.show {
+      display: block;
+    }
+
+    .notice.success {
+      color: var(--success);
+      border: 1px solid #bce9cf;
+      background: var(--success-bg);
+    }
+
+    .notice.error {
+      color: #9a2020;
+      border: 1px solid #ffc7c7;
+      background: var(--danger-bg);
+    }
+
+    .notice.warning {
+      color: #815400;
+      border: 1px solid #f2d487;
+      background: #fff3d0;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .panel {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .panel.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .panel-heading {
+      display: flex;
+      gap: 11px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .panel-number {
+      display: grid;
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      place-items: center;
+      color: white;
+      border-radius: 8px;
+      background: var(--orange);
+      font-size: 0.78rem;
+      font-weight: bold;
+    }
+
+    .panel-heading h3 {
+      margin: 1px 0 4px;
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: 1.27rem;
+    }
+
+    .panel-heading p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.83rem;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      color: #354d5d;
+      font-size: 0.84rem;
+      font-weight: bold;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 11px 12px;
+      color: var(--text);
+      border: 1px solid #ced9df;
+      border-radius: 8px;
+      outline: none;
+      background: #fbfdfe;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 4px rgba(182, 91, 27, 0.12);
+    }
+
+    textarea {
+      min-height: 105px;
+      resize: vertical;
+      line-height: 1.55;
+    }
+
+    .help-text {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.74rem;
+      line-height: 1.45;
+    }
+
+    .upload-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .file-label {
+      display: inline-flex;
+      min-height: 41px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 12px;
+      color: var(--orange-dark);
+      border: 1px solid #ffd3b0;
+      border-radius: 8px;
+      background: #fff0e3;
+      font-size: 0.8rem;
+      font-weight: bold;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .file-label:hover {
+      background: #ffe2ca;
+    }
+
+    .progress {
+      display: none;
+      height: 7px;
+      margin-top: 9px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: #e5edf1;
+    }
+
+    .progress.show {
+      display: block;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--orange);
+      transition: width 0.2s ease;
+    }
+
+    .preview {
+      display: none;
+      width: 100%;
+      height: 145px;
+      margin-top: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: #e9eef1;
+    }
+
+    .preview.show {
+      display: block;
+    }
+
+    .preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .stats-editor {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .stat-box {
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--soft);
+    }
+
+    .stat-box input {
+      margin-bottom: 9px;
+      padding: 9px;
+      font-size: 0.83rem;
+    }
+
+    .stat-box input:last-child {
+      margin-bottom: 0;
+    }
+
+    .highlight-form {
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--soft);
+    }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .list-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0 13px;
+    }
+
+    .list-heading h4 {
+      margin: 0;
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: 1.08rem;
+    }
+
+    .count-badge {
+      padding: 5px 9px;
+      color: var(--orange-dark);
+      border-radius: 99px;
+      background: #fff0e3;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+
+    .highlights-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .highlight-item {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: white;
+    }
+
+    .highlight-item img {
+      width: 100%;
+      height: 135px;
+      object-fit: cover;
+      background: #e8eef1;
+    }
+
+    .highlight-item-content {
+      padding: 13px;
+    }
+
+    .highlight-item-content h4 {
+      margin: 0 0 7px;
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: 1.08rem;
+    }
+
+    .highlight-item-content p {
+      display: -webkit-box;
+      margin: 0;
+      overflow: hidden;
+      color: var(--muted);
+      font-size: 0.81rem;
+      line-height: 1.5;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+
+    .item-actions {
+      display: flex;
+      gap: 7px;
+      margin-top: 12px;
+    }
+
+    .item-actions button {
+      flex: 1;
+    }
+
+    .empty-message {
+      grid-column: 1 / -1;
+      padding: 28px 18px;
+      color: var(--muted);
+      border: 1px dashed #b9c7cf;
+      border-radius: 9px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .panel.full-width {
+        grid-column: auto;
+      }
+
+      .stats-editor {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .highlights-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        width: min(100% - 24px, 1140px);
+      }
+
+      .header-content {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 15px 0;
+      }
+
+      .header-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .admin-email {
+        max-width: 145px;
+      }
+
+      .dashboard-intro {
+        display: block;
+      }
+
+      .status {
+        margin-top: 12px;
+      }
+
+      .panel {
+        padding: 18px;
+      }
+
+      .upload-row,
+      .two-columns,
+      .stats-editor,
+      .highlights-list {
+        grid-template-columns: 1fr;
+      }
+
+      .file-label {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Login -->
+  <section id="loginScreen" class="login-page">
+    <form id="loginForm" class="login-card" action="javascript:void(0);">
+      <div class="login-logo">HN</div>
+
+      <h1>Himatnagar Admin</h1>
+
+      <p>
+        Manage city design, city information, banners, logo, statistics,
+        and City Highlights.
+      </p>
+
+      <div class="form-group">
+        <label for="email">Admin email</label>
+
+        <input
+          id="email"
+          type="email"
+          placeholder="your-email@example.com"
+          autocomplete="email"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+
+        <input
+          id="password"
+          type="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+          required
+        />
+      </div>
+
+      <button
+        id="loginButton"
+        class="button button-primary"
+        type="submit"
+        style="width: 100%;"
+      >
+        Sign in securely
+      </button>
+
+      <button
+        id="forgotPasswordButton"
+        class="button button-outline"
+        type="button"
+        style="width: 100%; margin-top: 10px;"
+      >
+        Forgot password?
+      </button>
+
+      <p id="loginMessage" class="login-message"></p>
+    </form>
+  </section>
+
+  <!-- Main Panel -->
+  <div id="appScreen" class="hidden">
+    <header class="admin-header">
+      <div class="container header-content">
+        <div class="brand">
+          <div class="brand-logo">HN</div>
+
+          <div>
+            <h1>Himatnagar Main Admin</h1>
+            <p>Website design and City Highlights manager</p>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <span id="adminEmail" class="admin-email"></span>
+
+          <a
+            href="index.html"
+            target="_blank"
+            class="button button-outline button-small"
+          >
+            View website ↗
+          </a>
+
+          <a
+            href="content-admin.html"
+            target="_blank"
+            class="button button-outline button-small"
+          >
+            Content Admin ↗
+          </a>
+
+          <button
+            id="logoutButton"
+            class="button button-outline button-small"
+            type="button"
+          >
+            Logout
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container admin-main">
+      <div id="notice" class="notice"></div>
+
+      <section class="dashboard-intro">
+        <div>
+          <h2>Manage main website</h2>
+
+          <p>
+            Use this panel for Himatnagar branding, banner images, logo,
+            primary city information, statistics, and City Highlights.
+          </p>
+        </div>
+
+        <div class="status">
+          <span id="statusDot" class="status-dot"></span>
+          <span id="statusText">Connecting to Firebase...</span>
+        </div>
+      </section>
+
+      <div class="dashboard-grid">
+        <!-- City Identity -->
+        <section class="panel">
+          <div class="panel-heading">
+            <div class="panel-number">1</div>
+
+            <div>
+              <h3>City identity</h3>
+              <p>Manage city name, desktop banner, mobile banner, and logo.</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="cityName">City name</label>
+            <input id="cityName" type="text" value="Himatnagar" />
+          </div>
+
+          <div class="form-group">
+            <label for="heroText">Banner welcome text</label>
+            <textarea id="heroText"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="bannerUrl">Desktop banner direct image/GIF URL</label>
+
+            <div class="upload-row">
+              <input
+                id="bannerUrl"
+                type="url"
+                placeholder="https://example.com/himatnagar-desktop-banner.jpg"
+              />
+
+              <label for="bannerFile" class="file-label">
+                Upload desktop banner
+              </label>
+
+              <input
+                id="bannerFile"
+                class="file-input"
+                type="file"
+                accept="image/png,image/jpeg,image/webp,image/gif"
+              />
+            </div>
+
+            <span class="help-text">
+              Recommended desktop image: 1920 × 500 pixels.
+            </span>
+
+            <div id="bannerProgress" class="progress">
+              <div id="bannerProgressBar" class="progress-bar"></div>
+            </div>
+
+            <div id="bannerPreviewBox" class="preview">
+              <img id="bannerPreview" alt="Desktop banner preview" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="mobileBannerUrl">Mobile banner direct image/GIF URL</label>
+
+            <div class="upload-row">
+              <input
+                id="mobileBannerUrl"
+                type="url"
+                placeholder="https://example.com/himatnagar-mobile-banner.jpg"
+              />
+
+              <label for="mobileBannerFile" class="file-label">
+                Upload mobile banner
+              </label>
+
+              <input
+                id="mobileBannerFile"
+                class="file-input"
+                type="file"
+                accept="image/png,image/jpeg,image/webp,image/gif"
+              />
+            </div>
+
+            <span class="help-text">
+              Recommended mobile image: 1080 × 1350 pixels.
+            </span>
+
+            <div id="mobileBannerProgress" class="progress">
+              <div id="mobileBannerProgressBar" class="progress-bar"></div>
+            </div>
+
+            <div id="mobileBannerPreviewBox" class="preview">
+              <img id="mobileBannerPreview" alt="Mobile banner preview" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="logoUrl">City logo direct image/GIF URL</label>
+
+            <div class="upload-row">
+              <input
+                id="logoUrl"
+                type="url"
+                placeholder="https://example.com/himatnagar-logo.png"
+              />
+
+              <label for="logoFile" class="file-label">
+                Upload city logo
+              </label>
+
+              <input
+                id="logoFile"
+                class="file-input"
+                type="file"
+                accept="image/png,image/jpeg,image/webp,image/gif"
+              />
+            </div>
+
+            <div id="logoProgress" class="progress">
+              <div id="logoProgressBar" class="progress-bar"></div>
+            </div>
+
+            <div id="logoPreviewBox" class="preview">
+              <img id="logoPreview" alt="City logo preview" />
+            </div>
+          </div>
+        </section>
+
+        <!-- About -->
+        <section class="panel">
+          <div class="panel-heading">
+            <div class="panel-number">2</div>
+
+            <div>
+              <h3>About Himatnagar</h3>
+              <p>Manage public city information displayed on the home page.</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="aboutHeading">About heading</label>
+            <input id="aboutHeading" type="text" />
+          </div>
+
+          <div class="form-group">
+            <label for="aboutIntro">Short about introduction</label>
+            <textarea id="aboutIntro"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="infoTitle">Information card title</label>
+            <input id="infoTitle" type="text" />
+          </div>
+
+          <div class="form-group">
+            <label for="cityInformation">Detailed city information</label>
+            <textarea id="cityInformation"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="cityQuote">City quote</label>
+            <textarea id="cityQuote"></textarea>
+          </div>
+        </section>
+
+        <!-- Statistics -->
+        <section class="panel full-width">
+          <div class="panel-heading">
+            <div class="panel-number">3</div>
+
+            <div>
+              <h3>City quick facts</h3>
+              <p>Add four statistics, messages, milestones, or city achievements.</p>
+            </div>
+          </div>
+
+          <div class="stats-editor">
+            <div class="stat-box">
+              <label for="statNumber1">Number 1</label>
+              <input id="statNumber1" type="text" />
+
+              <label for="statLabel1">Label 1</label>
+              <input id="statLabel1" type="text" />
+            </div>
+
+            <div class="stat-box">
+              <label for="statNumber2">Number 2</label>
+              <input id="statNumber2" type="text" />
+
+              <label for="statLabel2">Label 2</label>
+              <input id="statLabel2" type="text" />
+            </div>
+
+            <div class="stat-box">
+              <label for="statNumber3">Number 3</label>
+              <input id="statNumber3" type="text" />
+
+              <label for="statLabel3">Label 3</label>
+              <input id="statLabel3" type="text" />
+            </div>
+
+            <div class="stat-box">
+              <label for="statNumber4">Number 4</label>
+              <input id="statNumber4" type="text" />
+
+              <label for="statLabel4">Label 4</label>
+              <input id="statLabel4" type="text" />
+            </div>
+          </div>
+
+          <button
+            id="saveWebsiteButton"
+            class="button button-primary"
+            type="button"
+            style="margin-top: 19px;"
+          >
+            Save main website content
+          </button>
+        </section>
+
+        <!-- Highlights -->
+        <section class="panel full-width">
+          <div class="panel-heading">
+            <div class="panel-number">4</div>
+
+            <div>
+              <h3>City Highlights</h3>
+              <p>
+                Add city places, local food, tourism, events, culture,
+                landmarks, businesses, and useful Himatnagar information.
+              </p>
+            </div>
+          </div>
+
+          <div class="highlight-form">
+            <input id="highlightEditId" type="hidden" />
+
+            <div class="two-columns">
+              <div class="form-group">
+                <label for="highlightTitle">Highlight title</label>
+
+                <input
+                  id="highlightTitle"
+                  type="text"
+                  placeholder="Example: Famous places in Himatnagar"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="highlightImageUrl">Image/GIF direct URL</label>
+
+                <div class="upload-row">
+                  <input
+                    id="highlightImageUrl"
+                    type="url"
+                    placeholder="https://example.com/himatnagar-place.jpg"
+                  />
+
+                  <label for="highlightFile" class="file-label">
+                    Upload image
+                  </label>
+
+                  <input
+                    id="highlightFile"
+                    class="file-input"
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp,image/gif"
+                  />
+                </div>
+
+                <div id="highlightProgress" class="progress">
+                  <div id="highlightProgressBar" class="progress-bar"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="highlightDescription">Highlight description</label>
+
+              <textarea
+                id="highlightDescription"
+                placeholder="Write useful information about this city highlight."
+              ></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button
+                id="saveHighlightButton"
+                class="button button-primary"
+                type="button"
+              >
+                Add City Highlight
+              </button>
+
+              <button
+                id="cancelHighlightButton"
+                class="button button-light hidden"
+                type="button"
+              >
+                Cancel editing
+              </button>
+            </div>
+          </div>
+
+          <div class="list-heading">
+            <h4>Published City Highlights</h4>
+            <span id="highlightCount" class="count-badge">0 highlights</span>
+          </div>
+
+          <div id="highlightsList" class="highlights-list">
+            <div class="empty-message">
+              Loading City Highlights...
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signInWithEmailAndPassword,
+      signOut,
+      sendPasswordResetEmail
+    } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+    import {
+      getDatabase,
+      ref,
+      set,
+      update,
+      push,
+      remove,
+      onValue
+    } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+    import {
+      getStorage,
+      ref as storageRef,
+      uploadBytesResumable,
+      getDownloadURL
+    } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAlJ8KhAoWLz5snMA_QQs_t6PRd8l1Km1s",
+      authDomain: "himmatnagar-city.firebaseapp.com",
+      projectId: "himmatnagar-city",
+      databaseURL: "https://himmatnagar-city-default-rtdb.asia-southeast1.firebasedatabase.app",
+      storageBucket: "himmatnagar-city.firebasestorage.app",
+      messagingSenderId: "58254936229",
+      appId: "1:58254936229:web:8dc16282f5092ba0f9254c",
+      measurementId: "G-V81H2TSGVF"
+    };
+
+    const ADMIN_UID = "etw6ueQBOCfzsJulYD5ShRNTodA2";
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const database = getDatabase(app);
+    const storage = getStorage(app);
+
+    const websiteRef = ref(database, "website");
+    const highlightsRef = ref(database, "highlights");
+
+    let currentUser = null;
+    let highlightsCache = [];
+    let listenersStarted = false;
+
+    const defaultData = {
+      cityName: "Himatnagar",
+
+      bannerUrl: "",
+
+      mobileBannerUrl: "",
+
+      logoUrl: "",
+
+      heroText:
+        "Welcome to Himatnagar — a city of heritage, community, opportunity, and pride.",
+
+      aboutHeading: "About Himatnagar",
+
+      aboutIntro:
+        "Learn about the people, character, heritage, and spirit that make our city special.",
+
+      infoTitle: "A city with a story",
+
+      cityInformation:
+        "Himatnagar is a place where tradition and progress come together. Add city history, culture, food, places, schools, businesses, and future vision here.",
+
+      cityQuote:
+        "Every city becomes memorable because of the people who proudly tell its story.",
+
+      stats: [
+        {
+          number: "01",
+          label: "City Website"
+        },
+        {
+          number: "∞",
+          label: "Possibilities"
+        },
+        {
+          number: "100%",
+          label: "Made With Pride"
+        },
+        {
+          number: "2026",
+          label: "Our Vision"
+        }
+      ]
+    };
+
+    function getElement(id) {
+      return document.getElementById(id);
+    }
+
+    function getValue(id) {
+      return getElement(id).value.trim();
+    }
+
+    function setValue(id, value) {
+      getElement(id).value = value || "";
+    }
+
+    function escapeHTML(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function setStatus(text, type = "online") {
+      getElement("statusText").textContent = text;
+      getElement("statusDot").className = `status-dot ${type}`;
+    }
+
+    function showNotice(message, type = "success") {
+      const notice = getElement("notice");
+
+      notice.textContent = message;
+      notice.className = `notice show ${type}`;
+
+      clearTimeout(window.noticeTimer);
+
+      window.noticeTimer = setTimeout(() => {
+        notice.className = "notice";
+        notice.textContent = "";
+      }, 5000);
+    }
+
+    function showLoginMessage(message, isError = false) {
+      const loginMessage = getElement("loginMessage");
+
+      loginMessage.textContent = message;
+      loginMessage.style.color = isError
+        ? "#ffb8b8"
+        : "#b8f3d0";
+    }
+
+    function updateImagePreview(inputId, boxId, imageId) {
+      const imageUrl = getValue(inputId);
+      const previewBox = getElement(boxId);
+      const previewImage = getElement(imageId);
+
+      if (!imageUrl) {
+        previewBox.classList.remove("show");
+        previewImage.removeAttribute("src");
+        return;
+      }
+
+      previewImage.src = imageUrl;
+      previewBox.classList.add("show");
+
+      previewImage.onerror = () => {
+        previewBox.classList.remove("show");
+      };
+    }
+
+    function cleanFileName(fileName) {
+      return fileName
+        .replace(/[^a-zA-Z0-9._-]/g, "-")
+        .toLowerCase();
+    }
+
+    async function uploadImage(file, folder, progressId, progressBarId) {
+      if (!file) {
+        return "";
+      }
+
+      if (!file.type.startsWith("image/")) {
+        throw new Error("Please select an image or GIF file.");
+      }
+
+      if (file.size > 20 * 1024 * 1024) {
+        throw new Error("Image or GIF must be smaller than 20 MB.");
+      }
+
+      const progress = getElement(progressId);
+      const progressBar = getElement(progressBarId);
+
+      progress.classList.add("show");
+      progressBar.style.width = "0%";
+
+      const filePath =
+        `city-assets/${currentUser.uid}/${folder}/` +
+        `${Date.now()}-${cleanFileName(file.name)}`;
+
+      const imageRef = storageRef(storage, filePath);
+
+      const uploadTask = uploadBytesResumable(
+        imageRef,
+        file,
+        {
+          contentType: file.type
+        }
+      );
+
+      return new Promise((resolve, reject) => {
+        uploadTask.on(
+          "state_changed",
+
+          (snapshot) => {
+            const percent =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+            progressBar.style.width = `${percent}%`;
+          },
+
+          (error) => {
+            progress.classList.remove("show");
+            reject(error);
+          },
+
+          async () => {
+            try {
+              const url = await getDownloadURL(uploadTask.snapshot.ref);
+
+              setTimeout(() => {
+                progress.classList.remove("show");
+                progressBar.style.width = "0%";
+              }, 600);
+
+              resolve(url);
+            } catch (error) {
+              progress.classList.remove("show");
+              reject(error);
+            }
+          }
+        );
+      });
+    }
+
+    /* Login */
+
+    const loginForm = getElement("loginForm");
+
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const email = getValue("email");
+      const password = getElement("password").value;
+      const loginButton = getElement("loginButton");
+
+      if (!email || !password) {
+        showLoginMessage(
+          "Enter your Firebase admin email and password.",
+          true
+        );
+
+        return;
+      }
+
+      try {
+        loginButton.disabled = true;
+        loginButton.textContent = "Signing in...";
+
+        showLoginMessage("Checking Firebase login...");
+
+        await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+      } catch (error) {
+        console.error("Login error:", error);
+
+        let message =
+          "Unable to sign in. Please check your details.";
+
+        if (error.code === "auth/invalid-credential") {
+          message = "Incorrect email or password.";
+        }
+
+        if (error.code === "auth/operation-not-allowed") {
+          message =
+            "Enable Email/Password in Firebase Authentication.";
+        }
+
+        if (error.code === "auth/network-request-failed") {
+          message =
+            "Network error. Check your internet connection.";
+        }
+
+        showLoginMessage(message, true);
+
+        getElement("password").value = "";
+      } finally {
+        loginButton.disabled = false;
+        loginButton.textContent = "Sign in securely";
+      }
+    });
+
+    getElement("forgotPasswordButton").addEventListener(
+      "click",
+      async () => {
+        const email = getValue("email");
+
+        if (!email) {
+          showLoginMessage(
+            "Enter your email first, then use Forgot password.",
+            true
+          );
+
+          return;
+        }
+
+        try {
+          await sendPasswordResetEmail(auth, email);
+
+          showLoginMessage(
+            "Password reset email sent. Check inbox and spam folder."
+          );
+        } catch (error) {
+          showLoginMessage(
+            error.message || "Could not send password reset email.",
+            true
+          );
+        }
+      }
+    );
+
+    getElement("logoutButton").addEventListener(
+      "click",
+      async () => {
+        await signOut(auth);
+      }
+    );
+
+    /* Firebase login state */
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        currentUser = null;
+
+        getElement("loginScreen").classList.remove("hidden");
+        getElement("appScreen").classList.add("hidden");
+
+        return;
+      }
+
+      if (user.uid !== ADMIN_UID) {
+        alert(
+          "Login successful, but this Firebase account is not the authorized Admin account."
+        );
+
+        signOut(auth);
+
+        return;
+      }
+
+      currentUser = user;
+
+      getElement("loginScreen").classList.add("hidden");
+      getElement("appScreen").classList.remove("hidden");
+
+      getElement("adminEmail").textContent =
+        user.email || "Authorized Admin";
+
+      setStatus("Connected to Firebase", "online");
+
+      startFirebaseListeners();
+    });
+
+    /* Website data */
+
+    function fillWebsiteForm(data) {
+      const websiteData = {
+        ...defaultData,
+        ...(data || {})
+      };
+
+      setValue("cityName", websiteData.cityName);
+      setValue("heroText", websiteData.heroText);
+      setValue("bannerUrl", websiteData.bannerUrl);
+      setValue("mobileBannerUrl", websiteData.mobileBannerUrl);
+      setValue("logoUrl", websiteData.logoUrl);
+      setValue("aboutHeading", websiteData.aboutHeading);
+      setValue("aboutIntro", websiteData.aboutIntro);
+      setValue("infoTitle", websiteData.infoTitle);
+      setValue("cityInformation", websiteData.cityInformation);
+      setValue("cityQuote", websiteData.cityQuote);
+
+      const stats = Array.isArray(websiteData.stats)
+        ? websiteData.stats
+        : defaultData.stats;
+
+      for (let index = 0; index < 4; index++) {
+        setValue(
+          `statNumber${index + 1}`,
+          stats[index]?.number || ""
+        );
+
+        setValue(
+          `statLabel${index + 1}`,
+          stats[index]?.label || ""
+        );
+      }
+
+      updateImagePreview(
+        "bannerUrl",
+        "bannerPreviewBox",
+        "bannerPreview"
+      );
+
+      updateImagePreview(
+        "mobileBannerUrl",
+        "mobileBannerPreviewBox",
+        "mobileBannerPreview"
+      );
+
+      updateImagePreview(
+        "logoUrl",
+        "logoPreviewBox",
+        "logoPreview"
+      );
+    }
+
+    function collectWebsiteData() {
+      const stats = [];
+
+      for (let index = 1; index <= 4; index++) {
+        stats.push({
+          number: getValue(`statNumber${index}`),
+          label: getValue(`statLabel${index}`)
+        });
+      }
+
+      return {
+        cityName: getValue("cityName") || "Himatnagar",
+        heroText: getValue("heroText"),
+        bannerUrl: getValue("bannerUrl"),
+        mobileBannerUrl: getValue("mobileBannerUrl"),
+        logoUrl: getValue("logoUrl"),
+        aboutHeading: getValue("aboutHeading"),
+        aboutIntro: getValue("aboutIntro"),
+        infoTitle: getValue("infoTitle"),
+        cityInformation: getValue("cityInformation"),
+        cityQuote: getValue("cityQuote"),
+        stats: stats,
+        updatedAt: Date.now(),
+        updatedBy: currentUser.uid
+      };
+    }
+
+    getElement("saveWebsiteButton").addEventListener(
+      "click",
+      async () => {
+        const button = getElement("saveWebsiteButton");
+
+        try {
+          button.disabled = true;
+          button.textContent = "Saving...";
+
+          setStatus("Saving main website...", "saving");
+
+          await set(
+            websiteRef,
+            collectWebsiteData()
+          );
+
+          setStatus("Website content saved", "online");
+
+          showNotice(
+            "Main Himatnagar website content saved successfully.",
+            "success"
+          );
+        } catch (error) {
+          console.error(error);
+
+          setStatus("Save failed", "error");
+
+          showNotice(
+            "Could not save website content. Check Firebase Rules.",
+            "error"
+          );
+        } finally {
+          button.disabled = false;
+          button.textContent = "Save main website content";
+        }
+      }
+    );
+
+    /* Image preview events */
+
+    getElement("bannerUrl").addEventListener(
+      "input",
+      () => {
+        updateImagePreview(
+          "bannerUrl",
+          "bannerPreviewBox",
+          "bannerPreview"
+        );
+      }
+    );
+
+    getElement("mobileBannerUrl").addEventListener(
+      "input",
+      () => {
+        updateImagePreview(
+          "mobileBannerUrl",
+          "mobileBannerPreviewBox",
+          "mobileBannerPreview"
+        );
+      }
+    );
+
+    getElement("logoUrl").addEventListener(
+      "input",
+      () => {
+        updateImagePreview(
+          "logoUrl",
+          "logoPreviewBox",
+          "logoPreview"
+        );
+      }
+    );
+
+    /* Upload events */
+
+    async function handleImageUpload(
+      inputId,
+      folder,
+      targetInputId,
+      progressId,
+      progressBarId,
+      previewBoxId,
+      previewImageId
+    ) {
+      const input = getElement(inputId);
+      const file = input.files[0];
+
+      if (!file) {
+        return;
+      }
+
+      try {
+        setStatus("Uploading image...", "saving");
+
+        const url = await uploadImage(
+          file,
+          folder,
+          progressId,
+          progressBarId
+        );
+
+        setValue(targetInputId, url);
+
+        updateImagePreview(
+          targetInputId,
+          previewBoxId,
+          previewImageId
+        );
+
+        setStatus("Image uploaded", "online");
+
+        showNotice(
+          "Image uploaded successfully. Save the website content to publish it.",
+          "success"
+        );
+      } catch (error) {
+        console.error(error);
+
+        setStatus("Upload failed", "error");
+
+        showNotice(
+          error.message || "Image upload failed.",
+          "error"
+        );
+      } finally {
+        input.value = "";
+      }
+    }
+
+    getElement("bannerFile").addEventListener(
+      "change",
+      () => {
+        handleImageUpload(
+          "bannerFile",
+          "desktop-banners",
+          "bannerUrl",
+          "bannerProgress",
+          "bannerProgressBar",
+          "bannerPreviewBox",
+          "bannerPreview"
+        );
+      }
+    );
+
+    getElement("mobileBannerFile").addEventListener(
+      "change",
+      () => {
+        handleImageUpload(
+          "mobileBannerFile",
+          "mobile-banners",
+          "mobileBannerUrl",
+          "mobileBannerProgress",
+          "mobileBannerProgressBar",
+          "mobileBannerPreviewBox",
+          "mobileBannerPreview"
+        );
+      }
+    );
+
+    getElement("logoFile").addEventListener(
+      "change",
+      () => {
+        handleImageUpload(
+          "logoFile",
+          "logos",
+          "logoUrl",
+          "logoProgress",
+          "logoProgressBar",
+          "logoPreviewBox",
+          "logoPreview"
+        );
+      }
+    );
+
+    /* City Highlights */
+
+    function renderHighlights() {
+      const list = getElement("highlightsList");
+      const count = getElement("highlightCount");
+
+      count.textContent =
+        `${highlightsCache.length} ${
+          highlightsCache.length === 1
+            ? "highlight"
+            : "highlights"
+        }`;
+
+      if (!highlightsCache.length) {
+        list.innerHTML = `
+          <div class="empty-message">
+            No City Highlights added yet.<br />
+            Add your first Himatnagar city highlight above.
+          </div>
+        `;
+
+        return;
+      }
+
+      list.innerHTML = highlightsCache
+        .map((item) => {
+          const imageUrl =
+            item.imageUrl ||
+            "https://placehold.co/700x450/e9eef1/17374d?text=Himatnagar";
+
+          return `
+            <article class="highlight-item">
+              <img
+                src="${escapeHTML(imageUrl)}"
+                alt="${escapeHTML(item.title || "Himatnagar Highlight")}"
+                onerror="this.src='https://placehold.co/700x450/e9eef1/17374d?text=Image+Not+Available';"
+              />
+
+              <div class="highlight-item-content">
+                <h4>${escapeHTML(item.title || "Untitled Highlight")}</h4>
+
+                <p>${escapeHTML(item.description || "")}</p>
+
+                <div class="item-actions">
+                  <button
+                    class="button button-light button-small"
+                    type="button"
+                    data-edit-highlight="${item.id}"
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    class="button button-danger button-small"
+                    type="button"
+                    data-delete-highlight="${item.id}"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+
+      document
+        .querySelectorAll("[data-edit-highlight]")
+        .forEach((button) => {
+          button.addEventListener("click", () => {
+            editHighlight(
+              button.dataset.editHighlight
+            );
+          });
+        });
+
+      document
+        .querySelectorAll("[data-delete-highlight]")
+        .forEach((button) => {
+          button.addEventListener("click", () => {
+            deleteHighlight(
+              button.dataset.deleteHighlight
+            );
+          });
+        });
+    }
+
+    function clearHighlightForm() {
+      setValue("highlightEditId", "");
+      setValue("highlightTitle", "");
+      setValue("highlightImageUrl", "");
+      setValue("highlightDescription", "");
+
+      getElement("highlightFile").value = "";
+
+      getElement("saveHighlightButton").textContent =
+        "Add City Highlight";
+
+      getElement("cancelHighlightButton")
+        .classList.add("hidden");
+    }
+
+    function editHighlight(id) {
+      const item = highlightsCache.find(
+        (highlight) => highlight.id === id
+      );
+
+      if (!item) {
+        return;
+      }
+
+      setValue("highlightEditId", item.id);
+      setValue("highlightTitle", item.title);
+      setValue("highlightImageUrl", item.imageUrl);
+      setValue("highlightDescription", item.description);
+
+      getElement("saveHighlightButton").textContent =
+        "Update City Highlight";
+
+      getElement("cancelHighlightButton")
+        .classList.remove("hidden");
+
+      getElement("highlightTitle").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    }
+
+    getElement("saveHighlightButton").addEventListener(
+      "click",
+      async () => {
+        const id = getValue("highlightEditId");
+        const title = getValue("highlightTitle");
+
+        if (!title) {
+          showNotice(
+            "Please enter a City Highlight title.",
+            "error"
+          );
+
+          return;
+        }
+
+        const highlightData = {
+          title: title,
+          imageUrl: getValue("highlightImageUrl"),
+          description: getValue("highlightDescription"),
+          updatedAt: Date.now(),
+          updatedBy: currentUser.uid
+        };
+
+        try {
+          if (id) {
+            await update(
+              ref(database, `highlights/${id}`),
+              highlightData
+            );
+
+            showNotice(
+              "City Highlight updated successfully.",
+              "success"
+            );
+          } else {
+            const newHighlightRef = push(highlightsRef);
+
+            await set(newHighlightRef, {
+              ...highlightData,
+              createdAt: Date.now(),
+              createdBy: currentUser.uid,
+              position: Date.now()
+            });
+
+            showNotice(
+              "City Highlight added successfully.",
+              "success"
+            );
+          }
+
+          clearHighlightForm();
+        } catch (error) {
+          console.error(error);
+
+          showNotice(
+            "Could not save City Highlight. Check Firebase Rules.",
+            "error"
+          );
+        }
+      }
+    );
+
+    getElement("cancelHighlightButton").addEventListener(
+      "click",
+      clearHighlightForm
+    );
+
+    getElement("highlightFile").addEventListener(
+      "change",
+      async () => {
+        const input = getElement("highlightFile");
+        const file = input.files[0];
+
+        if (!file) {
+          return;
+        }
+
+        try {
+          const url = await uploadImage(
+            file,
+            "highlights",
+            "highlightProgress",
+            "highlightProgressBar"
+          );
+
+          setValue("highlightImageUrl", url);
+
+          showNotice(
+            "Highlight image uploaded. Now click Add City Highlight.",
+            "success"
+          );
+        } catch (error) {
+          console.error(error);
+
+          showNotice(
+            error.message || "Highlight image upload failed.",
+            "error"
+          );
+        } finally {
+          input.value = "";
+        }
+      }
+    );
+
+    /* Firebase listeners */
+
+    function startFirebaseListeners() {
+      if (listenersStarted) {
+        return;
+      }
+
+      listenersStarted = true;
+
+      onValue(
+        websiteRef,
+        (snapshot) => {
+          fillWebsiteForm(snapshot.val());
+
+          setStatus("Firebase connected", "online");
+        },
+        (error) => {
+          console.error(error);
+
+          setStatus("Firebase error", "error");
+
+          showNotice(
+            "Could not load website data. Check Firebase Rules.",
+            "error"
+          );
+        }
+      );
+
+      onValue(
+        highlightsRef,
+        (snapshot) => {
+          const data = snapshot.val() || {};
+
+          highlightsCache = Object.entries(data)
+            .map(([id, value]) => ({
+              id,
+              ...value
+            }))
+            .sort(
+              (a, b) =>
+                (b.position || 0) -
+                (a.position || 0)
+            );
+
+          renderHighlights();
+        },
+        (error) => {
+          console.error(error);
+
+          showNotice(
+            "Could not load City Highlights.",
+            "error"
+          );
+        }
+      );
+    }
+  </script>
+</body>
+</html>
